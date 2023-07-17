@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardMateriController;
+use App\Http\Controllers\Dashboard\DashboardModulController;
+use App\Http\Controllers\Dashboard\DashboardUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/dashboard')->group( function (){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/modul', DashboardModulController::class);
+    Route::resource('/materi', DashboardMateriController::class);
+    Route::resource('/user', DashboardUserController::class);
 });
+
