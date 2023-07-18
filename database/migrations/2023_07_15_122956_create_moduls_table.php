@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('moduls', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('image');
             $table->text('deskripsi');
             $table->foreignId('userId')->constrained('users')->onUpdate('cascade')->onDelete('restrict');

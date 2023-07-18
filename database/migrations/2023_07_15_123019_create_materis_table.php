@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('content');
             $table->foreignId('modulId')->constrained('moduls')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();

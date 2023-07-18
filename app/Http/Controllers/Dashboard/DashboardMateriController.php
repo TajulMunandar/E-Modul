@@ -20,7 +20,7 @@ class DashboardMateriController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.page.materi.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class DashboardMateriController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('dashboard.page.materi.edit');
     }
 
     /**

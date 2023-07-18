@@ -47,89 +47,205 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Username</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Anton</td>
-                                <td>anton_21</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editModal">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button id="delete-button" class="btn btn-danger" id="delete-button"
-                                        data-bs-toggle="modal" data-bs-target="#hapusModal">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>
+                                        @if ($user->role == 0)
+                                            Mahasiswa
+                                        @elseif ($user->role == 1)
+                                            Dosen
+                                        @elseif ($user->role == 2)
+                                            Admin
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                            data-bs-target="#resetPassword{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-unlock-keyhole"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        <button id="delete-button" class="btn btn-danger" id="delete-button"
+                                            data-bs-toggle="modal" data-bs-target="#hapusModal{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                            {{--  MODAL EDIT  --}}
-                            <x-modal>
-                                @slot('id', "editModal")
-                                @slot('title', 'Edit Data User')
-                                @slot('route', route('user.update', 1))
-                                @slot('method') @method('put') @endslot
-                                @slot('btnTitle', 'Perbarui')
+                                {{--  MODAL RESET PASSWORD  --}}
+                                <div class="modal fade" id="resetPassword{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('user.reset') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <input type="hidden" name="id" value="{{ $user->id }}">
 
-                                <div class="row">
-                                  <div class="mb-3">
-                                    <input type="hidden" name="id" value="">
-                                    <label for="name" class="form-label">Nama</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" id="name" placeholder="Anton" autofocus required>
-                                    @error('name')
-                                      <div class="invalid-feedback">
-                                        {{ $message }}
-                                      </div>
-                                    @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ old('username') }}" placeholder="anto_23" required>
-                                    @error('username')
-                                      <div class="invalid-feedback">
-                                        {{ $message }}
-                                      </div>
-                                    @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div id="pwd1" class="input-group">
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="{{ old('password') }}" placeholder="*****" required>
-                                        <span class="input-group-text cursor-pointer">
-                                            <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
-                                          </span>
-                                        @error('password')
-                                          <div class="invalid-feedback">
-                                            {{ $message }}
-                                          </div>
-                                        @enderror
+                                                        <div class="mb-3">
+                                                            <label for="password" class="form-label">Password
+                                                                Baru</label>
+                                                            <div id="pwd1" class="input-group">
+                                                                <input type="password"
+                                                                    class="form-control border-end-0 @error('password') is-invalid @enderror"
+                                                                    name="password" id="password"
+                                                                    value="{{ old('password') }}" required>
+                                                                <span class="input-group-text cursor-pointer">
+                                                                    <i class="fa-regular fa-eye-slash"
+                                                                        id="togglePassword"></i>
+                                                                </span>
+                                                                @error('password')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="password2" class="form-label">Konfirmasi
+                                                                Password
+                                                                Baru</label>
+                                                            <div id="pwd2" class="input-group">
+                                                                <input type="password"
+                                                                    class="form-control border-end-0 @error('password2') is-invalid @enderror"
+                                                                    name="password2" id="password2"
+                                                                    value="{{ old('password2') }}" required>
+                                                                <span class="input-group-text cursor-pointer">
+                                                                    <i class="fa-regular fa-eye-slash"
+                                                                        id="togglePassword"></i>
+                                                                </span>
+                                                                @error('password2')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Reset</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                  </div>
                                 </div>
-                              </x-modal>
-                            {{--  MODAL EDIT  --}}
+                                {{--  MODAL RESET PASSWORD  --}}
 
-                            {{--  MODAL DELETE  --}}
-                            <x-modal>
-                                @slot('id', "hapusModal")
-                                @slot('title', 'Delete Data User')
-                                @slot('btnTitle', 'Delete')
-                                @slot('btnTitle', 'Delete')
-                                @slot('primaryBtnStyle', 'btn-danger')
-                                @slot('route', route('user.destroy', 1))
-                                @slot('method') @method('put') @endslot
+                                {{--  MODAL EDIT  --}}
+                                <div class="modal fade" id="editModal{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('user.update', $user->id) }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="mb-3">
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $user->id }}">
+                                                            <label for="name" class="form-label">Nama</label>
+                                                            <input type="text"
+                                                                class="form-control @error('name') is-invalid @enderror"
+                                                                name="name" value="{{ old('name', $user->name) }}"
+                                                                id="name" placeholder="Anton" autofocus required>
+                                                            @error('name')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="username" class="form-label">Username</label>
+                                                            <input type="text"
+                                                                class="form-control @error('username') is-invalid @enderror"
+                                                                name="username" id="username"
+                                                                value="{{ old('username', $user->username) }}"
+                                                                placeholder="anto_23" required>
+                                                            @error('username')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="role" class="form-label">Role</label>
+                                                            <select class="form-select" name="role" id="role">
+                                                                <option value="0" selected>Mahasiswa</option>
+                                                                <option value="1" selected>Dosen</option>
+                                                                <option value="2" selected>Admin</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL EDIT  --}}
 
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="id" value="">
-                                <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                <b>Anton ?</b>
-                              </x-modal>
-                            {{--  MODAL DELETE  --}}
-
+                                {{--  MODAL DELETE  --}}
+                                <div class="modal fade" id="hapusModal{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                                    <b>{{ $user->username }} ?</b>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL DELETE  --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -139,68 +255,91 @@
     {{--  CONTENT  --}}
 
     {{--  MODAL ADD  --}}
-    <x-modal>
-        @slot('id', 'createModal')
-        @slot('title', 'Tambah Data User')
-        @slot('route', route('user.store'))
-
-        <div class="row">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nama</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Anton" autofocus required>
-            @error('name')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="anto_23" required>
-            @error('username')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <div id="pwd1" class="input-group">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="*****" required>
-                <span class="input-group-text cursor-pointer">
-                    <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
-                  </span>
-                @error('password')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" id="name" placeholder="Anton" autofocus required>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    name="username" id="username" placeholder="anto_23" required>
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div id="pwd" class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        name="password" id="password" placeholder="*****" required>
+                                    <span class="input-group-text cursor-pointer">
+                                        <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
+                                    </span>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <select class="form-select" name="role" id="role">
+                                    <option value="0" selected>Mahasiswa</option>
+                                    <option value="1" selected>Dosen</option>
+                                    <option value="2" selected>Admin</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
-          </div>
         </div>
-
-      </x-modal>
+    </div>
     {{--  MODAL ADD  --}}
 
-    @section('scripts')
+@section('scripts')
     <script>
-        const input1 = document.querySelector("#pwd1 input");
-        const eye1 = document.querySelector("#pwd1 .fa-eye-slash");
+        const input = document.querySelector("#pwd input");
+        const eye = document.querySelector("#pwd .fa-eye-slash");
 
-        eye1.addEventListener("click", () => {
-          if (input1.type === "password") {
-            input1.type = "text";
+        eye.addEventListener("click", () => {
+            if (input.type === "password") {
+                input.type = "text";
 
-            eye1.classList.remove("fa-eye-slash");
-            eye1.classList.add("fa-eye");
-          } else {
-            input1.type = "password";
+                eye.classList.remove("fa-eye-slash");
+                eye.classList.add("fa-eye");
+            } else {
+                input.type = "password";
 
-            eye1.classList.remove("fa-eye");
-            eye1.classList.add("fa-eye-slash");
-          }
+                eye.classList.remove("fa-eye");
+                eye.classList.add("fa-eye-slash");
+            }
         });
-      </script>
-    @endsection
+    </script>
+@endsection
 
 @endsection

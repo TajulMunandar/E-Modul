@@ -27,14 +27,14 @@
     {{--  CONTENT  --}}
     <div class="row mt-3 mb-5">
         <div class="col">
-            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createModal">
+            <a class="btn btn-dark" href="{{ route('materi.create') }}">
                 <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                     </svg></i>
                 Tambah
-            </button>
+            </a>
 
             <div class="card mt-3 col-sm-6 col-md-12">
                 <div class="card-body">
@@ -45,29 +45,43 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>No Hp</th>
-                                <th>Alamat</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Nama Modul</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>A</td>
-                                <td>S</td>
+                                <td>Fiqih</td>
+                                <td>fiqih</td>
                                 <td>1</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editModal">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
+                                    <a class="btn btn-warning" href="{{ route('materi.edit', 1) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <button id="delete-button" class="btn btn-danger" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#hapusModal">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
+
+                            {{--  MODAL DELETE  --}}
+                            <x-modal>
+                                @slot('id', 'hapusModal')
+                                @slot('title', 'Delete Data Modul')
+                                @slot('btnTitle', 'Delete')
+                                @slot('primaryBtnStyle', 'btn-danger')
+                                @slot('route', route('modul.destroy', 1))
+                                @slot('method') @method('put') @endslot
+
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="id" value="">
+                                <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                <b>Fiqih ?</b>
+                            </x-modal>
+                            {{--  MODAL DELETE  --}}
+
                         </tbody>
                     </table>
                 </div>

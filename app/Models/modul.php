@@ -13,11 +13,20 @@ class modul extends Model
 
     use Sluggable;
 
-    public function Sluggable(): array
+    protected $guarded = [
+        'id'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'nama'
+                'source' => 'name'
             ]
         ];
     }

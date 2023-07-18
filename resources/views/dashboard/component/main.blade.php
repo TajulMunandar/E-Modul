@@ -26,12 +26,6 @@
     </div>
   </div>
 
-    <!-- Navbar -->
-        @include('dashboard.component.layout.footer')
-    <!-- / Navbar -->
-
-
-
   <!-- Scripts -->
   @include('dashboard.component.layout.scripts')
   @yield('scripts')

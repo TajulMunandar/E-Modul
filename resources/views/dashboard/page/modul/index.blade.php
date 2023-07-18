@@ -54,111 +54,171 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Agama</td>
-                                <td>agama</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#seeImage">
-                                        <i class="fa-regular fa-eye me-1"></i>
-                                        Lihat Foto
-                                    </button>
-                                </td>
-                                <td>apa ajalah</td>
-                                <td>Pak Arhami</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editModal">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button id="delete-button" class="btn btn-danger" id="delete-button"
-                                        data-bs-toggle="modal" data-bs-target="#hapusModal">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($moduls as $modul)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $modul->name }}</td>
+                                    <td>{{ $modul->slug }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                            data-bs-target="#seeImage{{ $loop->iteration }}">
+                                            <i class="fa-regular fa-eye me-1"></i>
+                                            Lihat Foto
+                                        </button>
+                                    </td>
+                                    <td>{{ mb_substr($modul->deskripsi, 0, 50) }}</td>
+                                    <td>{{ $modul->user->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        <button id="delete-button" class="btn btn-danger" id="delete-button"
+                                            data-bs-toggle="modal" data-bs-target="#hapusModal{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                            {{--  MODAL SEE IMAGE  --}}
-                            <x-modal_image>
-                                @slot('id', 'seeImage')
-                                @slot('title', 'Image')
-                                @slot('btnTitle', 'Close')
-                                @slot('primaryBtnStyle', 'btn-danger')
 
-                                <div class="modal-body text-center">
-                                    <img class="rounded-3" src="{{ asset('images/logos/logo.png') }}" alt="image Modul" height="400">
-                                </div>
-                            </x-modal>
-                            {{--  MODAL SEE IMAGE  --}}
-
-                            {{--  MODAL EDIT  --}}
-                            <x-modal_image>
-                                @slot('id', 'editModal')
-                                @slot('title', 'Edit Data User')
-                                @slot('route', route('user.update', 1))
-                                @slot('method') @method('put') @endslot
-                                @slot('btnTitle', 'Perbarui')
-
-                                <div class="row">
-                                    <div class="mb-3">
-                                        <input type="hidden" name="id" value="">
-                                        <label for="name" class="form-label">Nama</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            name="name" value="{{ old('name') }}" id="name" placeholder="Anton"
-                                            autofocus required>
-                                        @error('name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                {{--  MODAL EDIT  --}}
+                                <div class="modal fade" id="editModal{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Modul</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                            name="username" id="username" value="{{ old('username') }}"
-                                            placeholder="anto_23" required>
-                                        @error('username')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div id="pwd1" class="input-group">
-                                            <input type="password"
-                                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                                id="password" value="{{ old('password') }}" placeholder="*****" required>
-                                            <span class="input-group-text cursor-pointer">
-                                                <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
-                                            </span>
-                                            @error('password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                            <form action="{{ route('modul.update', $modul->id) }}" method="POST" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="row">
+                                                        <input type="hidden" name="oldImage" value="{{ $modul->image }}">
+                                                        <input type="hidden" name="oldName" value="{{ $modul->name }}">
+                                                        <div class="mb-3">
+                                                            <label for="name" class="form-label">Nama</label>
+                                                            <input type="text"
+                                                                class="form-control @error('name') is-invalid @enderror"
+                                                                name="name" id="name"
+                                                                value="{{ old('name', $modul->name) }}" placeholder="Anton"
+                                                                autofocus required>
+                                                            @error('name')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="image" class="form-label">Image</label>
+                                                            <img src="{{ asset('storage/' . $modul->image) }}"
+                                                                class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                                                            <img class="img-preview img-fluid mb-3 col-sm-5">
+                                                            <input class="form-control @error('image') is-invalid @enderror"
+                                                                type="file" name="image" id="image"
+                                                                onchange="previewImage()">
+                                                            <div id="imageHelp" class="form-text">Ekstensi file: JPG, PNG
+                                                                maksimal 2MB
+                                                            </div>
+                                                            @error('image')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="deskripsi" name="deskripsi" style="height: 100px">{{ old('deskripsi', $modul->deskripsi) }}</textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="userId" class="form-label">Dosen Penanggung
+                                                                Jawab</label>
+                                                            <select class="form-select" name="userId" id="userId">
+                                                                @foreach ($users as $user)
+                                                                    @if (old('userId') == $user->id)
+                                                                        <option value="{{ $user->id }}" selected>
+                                                                            {{ $user->name }}</option>
+                                                                    @else
+                                                                        <option value="{{ $user->id }}">
+                                                                            {{ $user->name }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            @enderror
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </x-modal>
-                            {{--  MODAL EDIT  --}}
 
-                            {{--  MODAL DELETE  --}}
-                            <x-modal>
-                                @slot('id', 'hapusModal')
-                                @slot('title', 'Delete Data User')
-                                @slot('btnTitle', 'Delete')
-                                @slot('primaryBtnStyle', 'btn-danger')
-                                @slot('route', route('user.destroy', 1))
-                                @slot('method') @method('put') @endslot
+                                {{--  MODAL EDIT  --}}
 
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="id" value="">
-                                <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                <b>Anton ?</b>
-                            </x-modal>
-                            {{--  MODAL DELETE  --}}
+                                {{--  MODAL DELETE  --}}
+                                <div class="modal fade" id="hapusModal{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Modul</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('modul.destroy', $modul->id ) }}" method="POST">
+                                                <div class="modal-body">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="id" value="{{ $modul->id }}">
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                                    <b>{{ $modul->name }} ?</b>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL DELETE  --}}
+
+                                {{--  MODAL SEE IMAGE  --}}
+                                <div class="modal fade" id="seeImage{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Foto</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body d">
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <img class="rounded-3" style="object-fit: cover"
+                                                            src="{{ asset('storage/' . $modul->image) }}" alt=""
+                                                            height="250" width="350">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL SEE IMAGE  --}}
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -169,65 +229,98 @@
     {{--  CONTENT  --}}
 
     {{--  MODAL ADD  --}}
-    <x-modal>
-        @slot('id', 'createModal')
-        @slot('title', 'Tambah Data User')
-        @slot('route', route('user.store'))
-
-        <div class="row">
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                    id="name" placeholder="Anton" autofocus required>
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug') is-invalid @enderror" name="slug"
-                    id="slug" placeholder="Anton" autofocus required>
-                @error('slug')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
-                    id="username" placeholder="anto_23" required>
-                @error('username')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <div id="pwd1" class="input-group">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
-                        id="password" placeholder="*****" required>
-                    <span class="input-group-text cursor-pointer">
-                        <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
-                    </span>
-                    @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Modul</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form action="{{ route('modul.store') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" id="name" placeholder="Anton" autofocus required>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <img class="img-preview img-fluid mb-3 col-sm-5">
+                                <input class="form-control @error('image') is-invalid @enderror" type="file"
+                                    name="image" id="image" onchange="previewImage()">
+                                <div id="imageHelp" class="form-text">Ekstensi file: JPG, PNG maksimal 2MB
+                                </div>
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <textarea class="form-control" placeholder="Leave a comment here" id="deskripsi" name="deskripsi"
+                                    style="height: 100px"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userId" class="form-label">Dosen Penanggung Jawab</label>
+                                <select class="form-select" name="userId" id="userId">
+                                    @foreach ($users as $user)
+                                        @if (old('userId') == $user->id)
+                                            <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                        @else
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="Submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-    </x-modal>
+    </div>
     {{--  MODAL ADD  --}}
 
+@section('scripts')
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#thumbnail');
+            const imgPreview = document.querySelector('.img-preview');
 
-    @section('scripts')
-    
-    @endsection
+            imgPreview.style.display = 'block';
 
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(OFREvent) {
+                imgPreview.src = OFREvent.target.result;
+            }
+
+            //batas
+
+            const image1 = document.querySelector('#thumbnail1');
+            const imgPreview1 = document.querySelector('.img-preview1');
+
+            imgPreview1.style.display = 'block';
+
+            const oFReader1 = new FileReader();
+            oFReader1.readAsDataURL(image1.files[0]);
+
+            oFReader1.onload = function(OFREvent) {
+                imgPreview1.src = OFREvent.target.result;
+            }
+        }
+    </script>
+@endsection
 @endsection

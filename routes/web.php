@@ -22,5 +22,6 @@ Route::prefix('/dashboard')->group( function (){
     Route::resource('/modul', DashboardModulController::class);
     Route::resource('/materi', DashboardMateriController::class);
     Route::resource('/user', DashboardUserController::class);
+    Route::post('/user/reset-password', [DashboardUserController::class, 'resetPasswordAdmin'])->name('user.reset');
 });
 

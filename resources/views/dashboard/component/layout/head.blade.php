@@ -42,3 +42,6 @@
 {{-- Sweet Alert js/css --}}
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/sweetalert.min.css') }}">
+
+{{-- Summernote CSS --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" />
