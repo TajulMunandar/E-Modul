@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @include('main.component.head')
+    <title>E-Modul</title>
+</head>
+
+<body style="background-color: #DDE6ED">
+    @include('main.component.navbar')
+    <div class="container p-0 m-5 body-content">
+        @yield('content')
+    </div>
+    @include('main.component.footer')
+    @include('main.component.script')
+
+    <script>
+        @yield('script')
+    </script>
+</body>
+
+</html>

@@ -6027,7 +6027,7 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #0FA39B;
+  color: #DDE6ED;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -6036,7 +6036,7 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #4e3ccc;
+  color: #9DB2BF;
 }
 .nav-link.disabled {
   color: #637381;
@@ -6059,13 +6059,13 @@ textarea.form-control-lg {
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {
-  color: #637381;
+  color: #9DB2BF;
   background-color: transparent;
   border-color: transparent;
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #454F5B;
+  color: #9DB2BF;
   background-color: #fff;
   border-color: #DFE3E8 #DFE3E8 #fff;
 }
@@ -6082,7 +6082,7 @@ textarea.form-control-lg {
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
+  color: #DDE6ED;
   background-color: #0FA39B;
 }
 
@@ -25978,7 +25978,7 @@ textarea.form-control-lg {
   width: 100%;
   max-width: 250px;
   padding: 0rem;
-  background-color: var(--bs-dark);
+  background-color: #27374D;
   border-right: 1px solid var(--bs-dark);
   transition: margin 0.25s ease-out;
 }
@@ -26013,7 +26013,7 @@ textarea.form-control-lg {
   padding: 0.5rem 1.5rem;
   display: flex;
   align-items: center;
-  color: #fff;
+  color: #DDE6ED;
   font-weight: 500;
   line-height: 1.8;
   -webkit-transition: all 0.5s;
@@ -26021,17 +26021,17 @@ textarea.form-control-lg {
   transition: all 0.5s;
 }
 .navbar-vertical .navbar-nav .nav-item .nav-link:hover {
-  color: var(--bs-danger);
+  color: #64CCC5;
 }
 .navbar-vertical .navbar-nav .nav-item .nav-link:hover .nav-icon {
-  color: var(--bs-danger);
+  color: #64CCC5;
   opacity: 1;
 }
 .navbar-vertical .navbar-nav .nav-item .nav-link.active {
-  color: var(--bs-danger);
+  color: #64CCC5;
 }
 .navbar-vertical .navbar-nav .nav-item .nav-link.active .nav-icon {
-  color: var(--bs-danger);
+  color: #64CCC5;
   opacity: 1;
 }
 .navbar-vertical .navbar-nav .nav-item .nav-link[data-bs-toggle=collapse] {

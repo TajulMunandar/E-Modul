@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('main.page.index');
+});
+
+Route::get('/modul', function () {
+    return view('main.page.modul');
+});
+
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/modul', DashboardModulController::class);
