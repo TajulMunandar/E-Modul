@@ -52,36 +52,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Fiqih</td>
-                                <td>fiqih</td>
-                                <td>1</td>
-                                <td>
-                                    <a class="btn btn-warning" href="{{ route('materi.edit', 1) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <button id="delete-button" class="btn btn-danger" id="delete-button"
-                                        data-bs-toggle="modal" data-bs-target="#hapusModal">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($materis as $materi)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $materi->title }}</td>
+                                    <td>{{ $materi->slug }}</td>
+                                    <td>{{ $materi->modul->name }}</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="{{ route('materi.edit', $materi->id) }}"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                        <button id="delete-button" class="btn btn-danger" id="delete-button"
+                                            data-bs-toggle="modal" data-bs-target="#hapusModal{{ $loop->iteration }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                            {{--  MODAL DELETE  --}}
-                            <x-modal>
-                                @slot('id', 'hapusModal')
-                                @slot('title', 'Delete Data Modul')
-                                @slot('btnTitle', 'Delete')
-                                @slot('primaryBtnStyle', 'btn-danger')
-                                @slot('route', route('modul.destroy', 1))
-                                @slot('method') @method('put') @endslot
-
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="id" value="">
-                                <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                <b>Fiqih ?</b>
-                            </x-modal>
-                            {{--  MODAL DELETE  --}}
-
+                                {{--  MODAL DELETE  --}}
+                                <div class="modal fade" id="hapusModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Modul</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('materi.destroy', $materi->id) }}" method="POST" enctype="multipart/form-data">
+                                                @method('PUT')
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="id" value="">
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                                    <b>{{ $materi->title }} ?</b>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL DELETE  --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -89,9 +105,5 @@
         </div>
     </div>
     {{--  CONTENT  --}}
-
-    {{--  MODAL ADD  --}}
-
-    {{--  MODAL ADD  --}}
 
 @endsection

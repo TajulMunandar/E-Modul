@@ -63,10 +63,16 @@
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
                                             data-bs-target="#seeImage{{ $loop->iteration }}">
                                             <i class="fa-regular fa-eye me-1"></i>
-                                            Lihat Foto
+                                            Lihat
                                         </button>
                                     </td>
-                                    <td>{{ mb_substr($modul->deskripsi, 0, 50) }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                            data-bs-target="#seeDescription{{ $loop->iteration }}">
+                                            <i class="fa-regular fa-eye me-1"></i>
+                                            Lihat
+                                        </button>
+                                    </td>
                                     <td>{{ $modul->user->name }}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -91,7 +97,8 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('modul.update', $modul->id) }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('modul.update', $modul->id) }}" method="POST"
+                                                enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                     @method('PUT')
                                                     @csrf
@@ -130,7 +137,8 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                                                            <textarea class="form-control" placeholder="Leave a comment here" id="deskripsi" name="deskripsi" style="height: 100px">{{ old('deskripsi', $modul->deskripsi) }}</textarea>
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="deskripsi" name="deskripsi"
+                                                                style="height: 100px">{{ old('deskripsi', $modul->deskripsi) }}</textarea>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="userId" class="form-label">Dosen Penanggung
@@ -171,7 +179,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('modul.destroy', $modul->id ) }}" method="POST">
+                                            <form action="{{ route('modul.destroy', $modul->id) }}" method="POST">
                                                 <div class="modal-body">
                                                     @method('PUT')
                                                     @csrf
@@ -218,6 +226,34 @@
                                     </div>
                                 </div>
                                 {{--  MODAL SEE IMAGE  --}}
+
+                                {{--  MODAL SEE DESCRIPTION  --}}
+                                <div class="modal fade" id="seeDescription{{ $loop->iteration }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Foto</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body d">
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <p>
+                                                            {{ $modul->deskripsi }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  MODAL SEE DESCRIPTION  --}}
                             @endforeach
 
                         </tbody>

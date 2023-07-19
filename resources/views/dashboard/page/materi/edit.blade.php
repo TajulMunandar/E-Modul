@@ -8,47 +8,51 @@
         <div class="col-sm-6 col-md-12 col-lg-8">
             <div class="card">
                 <h5 class="card-header">Buat Materi Baru</h5>
-                <form action="{{ route('materi.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('materi.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
+                    @method('PUT')
+                    @csrf
                     <div class="card-body">
                         <div class="row">
+                            <input type="hidden" name="oldName" value="{{  }}">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
-                                    id="title" value="{{ old('title') }}" placeholder="Anton" autofocus required oninput="updateSlug()">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    name="title" id="title" value="{{ old('title', $materi->title) }}" placeholder="Anton" autofocus
+                                    required oninput="updateSlug()">
                                 @error('title')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="mb-3">
-                                <label for="sluq" class="form-label">Slug</label>
-                                <input type="text" class="form-control @error('sluq') is-invalid @enderror" name="sluq"
-                                    id="sluq" value="{{ old('sluq') }}" placeholder="Anton" autofocus required oninput="updateSlug()">
-                                @error('sluq')
+                                <label for="modulId" class="form-label">Nama Modul</label>
+                                <select class="form-select" name="modulId" id="modulId">
+                                    @foreach ($moduls as $modul)
+                                        @if (old('modulId') == $modul->id)
+                                            <option value="{{ $modul->id }}" selected>
+                                                {{ $modul->name }}</option>
+                                        @else
+                                            <option value="{{ $modul->id }}">
+                                                {{ $modul->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Content</label>
+                                <textarea name="content" id="summernote" class="form-control  @error('content') is-invalid @enderror">
+                                    {{ $materi->content }}
+                                </textarea>
+                                @error('content')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_kategori" class="form-label">Nama Modul</label>
-                            <select class="form-select" name="id_kategori" id="id_kategori">
-                                <option value="" selected>Agama</option>
-                                <option value="" selected>Bisnis</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="sluq" class="form-label">Content</label>
-                            <textarea name="content" id="summernote" class="form-control  @error('content') is-invalid @enderror"></textarea>
-                            @error('content')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                              </div>
                         </div>
                     </div>
                 </form>
@@ -56,7 +60,7 @@
         </div>
     </div>
 
-    @section('scripts')
+@section('scripts')
     <script>
         $(document).ready(function() {
             $('#summernote').summernote({
@@ -64,5 +68,5 @@
             });
         });
     </script>
-    @endsection
+@endsection
 @endsection

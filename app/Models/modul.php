@@ -22,6 +22,11 @@ class modul extends Model
         return $this->belongsTo(User::class, 'userId');
     }
 
+    public function materi()
+    {
+        return $this->hasMany(materi::class);
+    }
+
     public function sluggable(): array
     {
         return [

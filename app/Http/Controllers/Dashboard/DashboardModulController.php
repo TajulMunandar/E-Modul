@@ -27,7 +27,7 @@ class DashboardModulController extends Controller
      */
     public function create()
     {
-
+        
     }
 
     /**
