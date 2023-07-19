@@ -79,6 +79,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/category') ? 'active' : '' }}" href="{{ route('category.index') }}">
+                    <i class="fa-solid fa-book me-3 nav-icon"></i>
+                    Category
+                </a>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link has-arrow {{ Request::is('dashboard/user') ? 'active' : '' }}" href="{{ route('user.index') }}">

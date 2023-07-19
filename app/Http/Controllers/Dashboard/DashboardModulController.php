@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\modul;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class DashboardModulController extends Controller
     {
         return view('dashboard.page.modul.index', [
             'users' => User::all(),
+            'categorys' => Category::all(),
             'moduls' => modul::latest()->get()
         ]);
     }
@@ -27,7 +29,7 @@ class DashboardModulController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -39,6 +41,7 @@ class DashboardModulController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'image' => 'required|image|file',
+            'categoryId' => 'required',
             'deskripsi' => 'required',
             'userId' => 'required'
         ]);
@@ -78,6 +81,7 @@ class DashboardModulController extends Controller
         $rules = [
             'name' => 'required|max:255',
             'deskripsi' => 'required',
+            'categoryId' => 'required',
             'userId' => 'required'
         ];
 

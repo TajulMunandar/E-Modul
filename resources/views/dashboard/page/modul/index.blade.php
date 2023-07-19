@@ -155,6 +155,20 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            <label for="categoryId" class="form-label">Category</label>
+                                                            <select class="form-select" name="categoryId" id="categoryId">
+                                                                @foreach ($categorys as $category)
+                                                                    @if (old('categoryId') == $category->id)
+                                                                        <option value="{{ $category->id }}" selected>
+                                                                            {{ $category->name }}</option>
+                                                                    @else
+                                                                        <option value="{{ $category->id }}">
+                                                                            {{ $category->name }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -312,6 +326,18 @@
                                             <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
                                         @else
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoryId" class="form-label">Category</label>
+                                <select class="form-select" name="categoryId" id="categoryId">
+                                    @foreach ($categorys as $category)
+                                        @if (old('categoryId') == $category->id)
+                                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                        @else
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>

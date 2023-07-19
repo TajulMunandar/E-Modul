@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardModulController;
@@ -27,6 +28,7 @@ Route::get('/modul', function () {
 
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/category', DashboardCategoryController::class);
     Route::resource('/modul', DashboardModulController::class);
     Route::resource('/materi', DashboardMateriController::class);
     Route::resource('/user', DashboardUserController::class);
