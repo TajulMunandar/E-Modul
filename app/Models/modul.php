@@ -27,6 +27,11 @@ class modul extends Model
         return $this->hasMany(materi::class);
     }
 
+    public function quizz()
+    {
+        return $this->hasMany(quiz::class);
+    }
+
     public function sluggable(): array
     {
         return [
