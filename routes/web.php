@@ -4,6 +4,10 @@ use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardModulController;
+use App\Http\Controllers\Dashboard\DashboardQuestionController;
+use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
+use App\Http\Controllers\Dashboard\DashboardQuizzController;
+use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
 use App\Http\Controllers\Dashboard\DashboardUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,5 +37,10 @@ Route::prefix('/dashboard')->group( function (){
     Route::resource('/materi', DashboardMateriController::class);
     Route::resource('/user', DashboardUserController::class);
     Route::post('/user/reset-password', [DashboardUserController::class, 'resetPasswordAdmin'])->name('user.reset');
+    Route::prefix('/quizz')->group( function (){
+        Route::resource('/choicee', DashboardQuizzController::class);
+        Route::resource('/essayy', DashboardQuizzController::class);
+        Route::resource('/question', DashboardQuestionController::class);
+    });
 });
 

@@ -30,13 +30,13 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('dashboard/quizz/choice*') ? 'active' : '' }}"
-                                href="">
+                                href="{{ route('choicee.index', ['isChoice' => 'true']) }}">
                                 Choice
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('dashboard/quizz/essay*') ? 'active' : '' }}"
-                                href="">
+                                href="{{ route('essayy.index', ['isChoice' => 'false']) }}">
                                 Essay
                             </a>
                         </li>

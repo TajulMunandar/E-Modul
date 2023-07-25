@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class question extends Model
 {
     use HasFactory;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    public function jawabans()
+    {
+        return $this->hasMany(jawaban::class, 'questionId');
+    }
+
+    public function quiz()
+    {
+        return $this->hasMany(quiz::class, 'quizId');
+    }
 }
