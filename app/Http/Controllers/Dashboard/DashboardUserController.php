@@ -35,7 +35,7 @@ class DashboardUserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'username' => ['required', 'min:6', 'max:16', 'unique:users'],
+            'username' => ['required', 'max:16', 'unique:users'],
             'password' => 'required|min:5|max:255',
             'role' => 'required'
         ]);
