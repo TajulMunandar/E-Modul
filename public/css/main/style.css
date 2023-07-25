@@ -59,6 +59,10 @@ body{
     box-shadow: 2px 4.5px 10px 0px #176B87;
 }
 
+.nav-link{
+    color: #001C30 !important;
+}
+
 .footer{
     color: #001C30;
     font-weight: 550;

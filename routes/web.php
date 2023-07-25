@@ -26,6 +26,18 @@ Route::get('/modul', function () {
     return view('main.page.modul');
 });
 
+Route::get('/pramateri', function () {
+    return view('main.page.pramateri');
+});
+
+Route::get('/materi', function () {
+    return view('main.page.materi');
+});
+
+Route::get('/quiz', function () {
+    return view('main.page.quiz');
+});
+
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/category', DashboardCategoryController::class);
