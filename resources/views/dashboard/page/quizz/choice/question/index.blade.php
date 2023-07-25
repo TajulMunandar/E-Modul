@@ -76,7 +76,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" href="{{ route('question.edit', $question->id) }}"><i
+                                        <a class="btn btn-warning" href="{{ route('question.edit', ['question' => $question->id, 'isChoice' => $isChoice, 'quizzId' => $quizzId]) }}"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
                                         <button id="delete-button" class="btn btn-danger" id="delete-button"
                                             data-bs-toggle="modal" data-bs-target="#hapusModal">

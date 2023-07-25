@@ -92,7 +92,21 @@ class DashboardQuestionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        if(request('isChoice') == "true"){
+            return view('dashboard.page.quizz.choice.question.edit',[
+                'quizzId' => request('quizzId'),
+                'isChoice' => request('isChoice'),
+                'question' => Question::where('id', $id)->first(),
+                'jawabans' => jawaban::where('questionId',$id)->get()
+
+
+            ]);
+        }else{
+            return view('dashboard.page.quizz.essay.question.edit', [
+                'quizzId' => request('quizzId'),
+                'isChoice' => request('isChoice'),
+            ]);
+        }
     }
 
     /**
@@ -100,7 +114,32 @@ class DashboardQuestionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedDataQuiz = $request->validate([
+            'title' => 'required|max:255',
+            'quizId' => 'required'
+        ]);
+
+        foreach($request->answer as $key => $value) {
+            $status = false;
+
+            if($key == $request->jawaban){
+                // dd([$request->answer, $id, $request->jawaban]);
+                $status = true;
+            }
+
+            jawaban::where('questionId', $id)->update([
+                'name' => $value,
+                'status' => $status,
+            ]);
+        }
+        question::where('id', $id)->update($validatedDataQuiz);
+
+        if($request->isChoice == "true"){
+            return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Questtion Choice baru berhasil diperbarui!');
+        }else{
+            return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Question Essay baru berhasil diperbarui!');
+        }
+
     }
 
     /**

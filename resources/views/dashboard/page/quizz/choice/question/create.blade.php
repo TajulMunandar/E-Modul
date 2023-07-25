@@ -24,18 +24,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="answer" class="form-label">Jawaban</label>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <input type="radio" class="form-control @error('jawaban') is-invalid @enderror"
-                                            name="jawaban" value="0">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                    </div>
-                                </div>
+                            <label for="answer" class="form-label">Jawaban</label>
+                            <div class="mb-3 form-check px-6">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" id="flexRadioDefault1" name="jawaban" value="0">
+                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
+                                    name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -47,18 +40,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="answer" class="form-label">Jawaban</label>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <input type="radio" class="form-control @error('jawaban') is-invalid @enderror"
-                                            name="jawaban" value="1">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                    </div>
-                                </div>
+                            <label for="answer" class="form-label">Jawaban</label>
+                            <div class="mb-3 form-check px-6">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" id="flexRadioDefault1" name="jawaban" value="1">
+                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
+                                    name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -70,18 +56,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="answer" class="form-label">Jawaban</label>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <input type="radio" class="form-control @error('jawaban') is-invalid @enderror"
-                                            name="jawaban" value="2">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                    </div>
-                                </div>
+                            <label for="answer" class="form-label">Jawaban</label>
+                            <div class="mb-3 form-check px-6">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" id="flexRadioDefault1" name="jawaban" value="2">
+                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
+                                    name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -93,18 +72,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="answer" class="form-label">Jawaban</label>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <input type="radio" class="form-control @error('jawaban') is-invalid @enderror"
-                                            name="jawaban" value="3">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                    </div>
-                                </div>
+                            <label for="answer" class="form-label">Jawaban</label>
+                            <div class="mb-3 form-check px-6">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" id="flexRadioDefault1" name="jawaban" value="3">
+                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
+                                    name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -116,6 +88,9 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                              </div>
                         </div>
                     </div>
                 </form>
