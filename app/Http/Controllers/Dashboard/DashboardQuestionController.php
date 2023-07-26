@@ -15,13 +15,13 @@ class DashboardQuestionController extends Controller
     public function index()
     {
         if(request('isChoice') == "true"){
-            return view('dashboard.page.quizz.choice.question',[
+            return view('dashboard.page.quizz.choice.question.index',[
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
                 'questions' => question::with('jawabans')->latest()->get()
             ]);
         }else{
-            return view('dashboard.page.quizz.essay.question', [
+            return view('dashboard.page.quizz.essay.question.index', [
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
                 'questions' => question::with('jawabans')->latest()->get()
@@ -34,7 +34,17 @@ class DashboardQuestionController extends Controller
      */
     public function create()
     {
-        //
+        if(request('isChoice') == "true"){
+            return view('dashboard.page.quizz.choice.question.create',[
+                'quizzId' => request('quizzId'),
+                'isChoice' => request('isChoice'),
+            ]);
+        }else{
+            return view('dashboard.page.quizz.essay.question.create', [
+                'quizzId' => request('quizzId'),
+                'isChoice' => request('isChoice'),
+            ]);
+        }
     }
 
     /**

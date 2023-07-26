@@ -27,14 +27,14 @@
     {{--  CONTENT  --}}
     <div class="row mt-3 mb-5">
         <div class="col">
-            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createModal">
+            <a class="btn btn-dark" href="{{ route('question.create', ['isChoice' => $isChoice, 'quizzId' => $quizzId]) }}">
                 <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                     </svg></i>
                 Tambah
-            </button>
+            </a>
 
             <div class="card mt-3 col-sm-6 col-md-12">
                 <div class="card-body">
@@ -76,10 +76,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $loop->iteration }}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
+                                        <a class="btn btn-warning" href="{{ route('question.edit', $question->id) }}"><i
+                                            class="fa-solid fa-pen-to-square"></i></a>
                                         <button id="delete-button" class="btn btn-danger" id="delete-button"
                                             data-bs-toggle="modal" data-bs-target="#hapusModal">
                                             <i class="fa-solid fa-trash"></i>
@@ -97,7 +95,6 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-
                                             <form action="{{ route('choicee.update', 1) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
@@ -273,105 +270,5 @@
         </div>
     </div>
     {{--  CONTENT  --}}
-
-    {{--  MODAL ADD  --}}
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Quizz Choice</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <input type="hidden" name="isChoice" id="" value="{{ $isChoice }}">
-                            <input type="hidden" name="quizId" id="" value="{{ $quizzId }}">
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    name="title" id="title" placeholder="Title" autofocus required>
-                                @error('title')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <label for="answer" class="form-label">Jawaban</label>
-                            <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="0">
-                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                @error('jawaban')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                @error('answer')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <label for="answer" class="form-label">Jawaban</label>
-                            <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="1">
-                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                @error('jawaban')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                @error('answer')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <label for="answer" class="form-label">Jawaban</label>
-                            <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="2">
-                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                @error('jawaban')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                @error('answer')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <label for="answer" class="form-label">Jawaban</label>
-                            <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="3">
-                                <input type="text" class="form-control @error('answer') is-invalid @enderror"
-                                            name="answer[]" id="answer" autofocus required>
-                                @error('jawaban')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                @error('answer')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--  MODAL ADD  --}}
 
 @endsection
