@@ -13,58 +13,53 @@
             <div class="col">
                 <nav class="navbar navbar-expand-lg">
                     <div class="navbar-collapse fs-5 fw-bold">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 slider">
-                            <li class="nav-item me-5">
-                                <a class="nav-link" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 slider w-100 justify-content-between">
+                            <li class="nav-item"><a class="nav-link" href="/modul">Semua<a></li>
+                            @foreach ($kategoris as $kategori)
+                                <li class="nav-item me-5">
+                                    <a class="nav-link" aria-current="page" href="{{ route('modul-main.index', ['kategori' => $kategori->id]) }}">{{ $kategori->name }}</a>
+                                </li>
+                            @endforeach
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Semua
+                                </button>
+                                <ul class="dropdown-menu">
+
+                                    @foreach ($kategoris2 as $kategori2)
+                                        <li><a class="dropdown-item" href="{{ route('modul-main.index', ['kategori' => $kategori2->id]) }}">{{ $kategori2->name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
                         </ul>
-                        <a href="">Semua</a>
                     </div>
                 </nav>
             </div>
         </div>
         <div class="row p-5 h-100" data-aos="fade-up" data-aos-duration="1500">
-            <div class="col mb-3">
-                <div class="card" style="width: 22rem;">
-                    <div class="card-body">
-                        <img src="{{ asset('images/avatar.png') }}" class="card-img-top" alt="..." style="height: 12rem; object-fit: cover">
-                        <a class="card-title fw-bold text-black fs-4 stretched-link" href="/pramateri" style="text-decoration: none">Card title</a>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+            @foreach ($moduls as $modul)
+                <div class="col mb-3">
+                    <div class="card" style="width: 22rem;">
+                        <div class="card-body">
+                            <img src="{{ asset('storage/' . $modul->image) }}" class="card-img-top" alt="..."
+                                style="height: 12rem; object-fit: cover">
+                            <div class="row">
+                                <div class="col">
+                                    <a class="card-title fw-bold text-black fs-4 stretched-link" href="{{ route('pramateri.show', ['modul' => $modul->slug]) }}"
+                                        style="text-decoration: none">{{ $modul->name }}</a>
+                                </div>
+                                <div class="col text-end">
+                                    <p class="badge bg-primary mt-2"><span>{{ $modul->user->name }}</span></p>
+                                </div>
+                            </div>
+                            <p class="card-text">{{ $modul->deskripsi }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
     @include('main.component.footer')

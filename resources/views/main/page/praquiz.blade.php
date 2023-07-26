@@ -26,15 +26,27 @@
             </div>
         </div>
         <div class="row p-5 h-100" data-aos="fade-up" data-aos-duration="1500">
-            @foreach ($pramateris as $pramateri)
+            @foreach ($quizzes as $quiz)
                 <div class="col mb-3">
                     <div class="card" style="width: 22rem;">
-                        <img src="{{ asset('storage/' . $pramateri->modul->image) }}" class="card-img-top" alt="..."
-                            style="height: 50%">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ $pramateri->title }}</h5>
-                            <p class="card-text">{{ strip_tags($pramateri->content) }}</p>
-                            <a href="{{ route('materi-main.show', ['materi' => $pramateri->slug]) }}"
+                            <img src="{{ asset('storage/' . $quiz->modul->image) }}" class="card-img-top" alt="..."
+                                style="height: 50%">
+                            <h5 class="card-title fw-bold">{{ $quiz->title }}</h5>
+                            <p class="card-text">{{ $date }}</p>
+                            <div class="row">
+                                <div class="col">Dari Jam:</div>
+                                <div class="col">Sampai Jam:</div>
+                            </div>
+                            <div class="row mb-3 fs-5">
+                                <div class="col">
+                                    <p class="badge bg-primary"><span>{{ $firstTime }}</span></p>
+                                </div>
+                                <div class="col">
+                                    <p class="badge bg-danger"><span>{{ $lastTime }}</span></p>
+                                </div>
+                            </div>
+                            <a href="{{ route('quiz-main.show', ['quiz' => $quiz->id]) }}"
                                 class="btn btn-primary stretched-link float-end">Mulai</a>
                         </div>
                     </div>

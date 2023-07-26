@@ -97,13 +97,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            @foreach ($question->jawabans as $key => $jawaban)
-                                                @php
-                                                    $answer = [];
-                                                    array_push($answer, $jawaban->name);
-                                                    dd($answer);
-                                                @endphp
-                                            @endforeach
+
                                             <form action="{{ route('choicee.update', 1) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
@@ -306,7 +300,7 @@
                             </div>
                             <label for="answer" class="form-label">Jawaban</label>
                             <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="0">
                                 <input type="text" class="form-control @error('answer') is-invalid @enderror"
                                             name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
@@ -322,7 +316,7 @@
                             </div>
                             <label for="answer" class="form-label">Jawaban</label>
                             <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="1">
                                 <input type="text" class="form-control @error('answer') is-invalid @enderror"
                                             name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
@@ -338,7 +332,7 @@
                             </div>
                             <label for="answer" class="form-label">Jawaban</label>
                             <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="2">
                                 <input type="text" class="form-control @error('answer') is-invalid @enderror"
                                             name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
@@ -354,7 +348,7 @@
                             </div>
                             <label for="answer" class="form-label">Jawaban</label>
                             <div class="mb-3 form-check px-6">
-                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban">
+                                <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" name="jawaban" value="3">
                                 <input type="text" class="form-control @error('answer') is-invalid @enderror"
                                             name="answer[]" id="answer" autofocus required>
                                 @error('jawaban')
