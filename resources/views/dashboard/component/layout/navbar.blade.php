@@ -21,7 +21,7 @@
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
           <div class="px-4 pb-0 pt-2">
             <div class="lh-1 ">
-              <h5 class="mb-1">jhon doe</h5>
+              <h5 class="mb-1">{{ auth()->user()->name }}</h5>
             </div>
           </div>
         </div>

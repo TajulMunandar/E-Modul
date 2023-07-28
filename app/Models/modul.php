@@ -22,14 +22,19 @@ class modul extends Model
         return $this->belongsTo(User::class, 'userId');
     }
 
+    public function categories()
+    {
+        return $this->belongsTo(Category::class, 'categoryId');
+    }
+
     public function materi()
     {
-        return $this->hasMany(materi::class);
+        return $this->hasMany(materi::class, 'modulId', 'id');
     }
 
     public function quizz()
     {
-        return $this->hasMany(quiz::class);
+        return $this->hasMany(quiz::class, 'modulId', 'id');
     }
 
     public function sluggable(): array
@@ -40,4 +45,10 @@ class modul extends Model
             ]
         ];
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

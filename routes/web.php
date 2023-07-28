@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardCategoryController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\DashboardMateriController;
-use App\Http\Controllers\Dashboard\DashboardModulController;
-use App\Http\Controllers\Dashboard\DashboardQuestionController;
-use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
-use App\Http\Controllers\Dashboard\DashboardQuizzController;
-use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
-use App\Http\Controllers\Dashboard\DashboardUserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ModulController;
+use App\Http\Controllers\PramateriController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardUserController;
+use App\Http\Controllers\Dashboard\DashboardModulController;
+use App\Http\Controllers\Dashboard\DashboardQuizzController;
+use App\Http\Controllers\Dashboard\DashboardMateriController;
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardQuestionController;
+use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
+use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,37 +25,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('main.page.index');
 });
 
-Route::get('/modul', function () {
-    return view('main.page.modul');
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login')->middleware('guest');
+    Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout');
 });
 
-Route::get('/pramateri', function () {
-    return view('main.page.pramateri');
-});
+Route::get('/modul', [ModulController::class, 'index'] )->name('modul-main.index');
 
-Route::get('/materi', function () {
-    return view('main.page.materi');
-});
+Route::get('/pramateri/{modul:slug}', [PramateriController::class, 'showPramateri'])->name('pramateri.show');
 
-Route::get('/quiz', function () {
-    return view('main.page.quiz');
-});
+Route::get('/pramateri/{modul:slug}/pramateri', [PramateriController::class, 'showPramateri'])->name('pramateri-main.show');
+
+Route::get('/pramateri/{modul:slug}/quiz', [PramateriController::class, 'showQuiz'])->name('pramateri-quiz.show');
+
+Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmateri'])->name('materi-main.show');
+
+Route::get('/quiz-main/{quiz:id}', [PramateriController::class, 'showquizez'])->name('quiz-main.show');
 
 Route::prefix('/dashboard')->group( function (){
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/category', DashboardCategoryController::class);
-    Route::resource('/modul', DashboardModulController::class);
-    Route::resource('/materi', DashboardMateriController::class);
-    Route::resource('/user', DashboardUserController::class);
-    Route::post('/user/reset-password', [DashboardUserController::class, 'resetPasswordAdmin'])->name('user.reset');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+    Route::resource('/category', DashboardCategoryController::class)->middleware('auth');
+    Route::resource('/modul', DashboardModulController::class)->middleware('auth');
+    Route::resource('/materi', DashboardMateriController::class)->middleware('auth');
+    Route::resource('/user', DashboardUserController::class)->middleware('auth');
+    Route::post('/user/reset-password', [DashboardUserController::class, 'resetPasswordAdmin'])->name('user.reset')->middleware('auth');
     Route::prefix('/quizz')->group( function (){
-        Route::resource('/choicee', DashboardQuizzController::class);
-        Route::resource('/essayy', DashboardQuizzController::class);
-        Route::resource('/question', DashboardQuestionController::class);
+        Route::resource('/choicee', DashboardQuizzController::class)->middleware('auth');
+        Route::resource('/essayy', DashboardQuizzController::class)->middleware('auth');
+        Route::resource('/question', DashboardQuestionController::class)->middleware('auth');
     });
 });
 

@@ -20,6 +20,6 @@ class quiz extends Model
 
     public function question()
     {
-        return $this->hasMany(quiz::class);
+        return $this->hasMany(quiz::class, 'quizId', 'id');
     }
 }
