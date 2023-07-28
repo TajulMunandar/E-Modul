@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('userId')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
             $table->foreignId('questionId')->constrained('questions')->onUpdate('cascade')->onDelete('restrict');
             $table->text('jawaban');
-            $table->integer('nilai');
+            $table->boolean('status')->default(false);
+            $table->integer('nilai')->default(0);
             $table->timestamps();
         });
     }

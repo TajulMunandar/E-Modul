@@ -50,6 +50,7 @@
             {{-- essay --}}
             <form action="{{ route('quiz-essay.store') }}" method="post">
                 @csrf
+                <input type="hidden" name="id" value="{{ $quiz->modulId }}">
             <div class="row">
                 @foreach ($questions as $question)
                     <div class="row">

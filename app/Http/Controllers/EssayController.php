@@ -11,14 +11,13 @@ class EssayController extends Controller
 {
     public function store(Request $request)
     {
-        dd($request);
         $modul = modul::whereId($request->id)->first();
-        foreach ($request->jawabanId as $value) {
+        foreach ($request->jawaban as $key => $value) {
             $jawaban = jawaban::whereId($value)->first();
             essayUser::create([
                 'userId' => auth()->user()->id,
-                'nilai' => $jawaban->status,
-                'jawabanId' => $value
+                'jawaban' => $value,
+                'questionId' => $request->questionId[$key],
             ]);
         }
         return redirect("/pramateri/{$modul->slug}/quiz")->with('success', 'Quizz Questtion Choice baru berhasil dibuat!');
