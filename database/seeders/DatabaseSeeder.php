@@ -43,14 +43,6 @@ class DatabaseSeeder extends Seeder
             'userId' => 1
         ]);
 
-        modul::create([
-            'name' => 'GIS',
-            'image' => 'image-modul/alvinsyahri.jpg',
-            'deskripsi' => 'aspasodnasodnisandkanskdnaksdknaksndkasda',
-            'categoryId' => 1,
-            'userId' => 1
-        ]);
-
         materi::create([
             'title' => 'apa aja',
             'content' => '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
