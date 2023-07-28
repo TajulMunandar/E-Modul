@@ -46,7 +46,7 @@
                                     <p class="badge bg-danger"><span>{{ $lastTime }}</span></p>
                                 </div>
                             </div>
-                            <a href="{{ route('quiz-main.show', ['quiz' => $quiz->id]) }}"
+                            <a href="{{ route('quiz-main.showquiz', ['id' => $quiz->id]) }}"
                                 class="btn btn-primary stretched-link float-end">Mulai</a>
                         </div>
                     </div>

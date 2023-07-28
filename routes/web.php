@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
 use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,8 @@ Route::get('/pramateri/{modul:slug}/quiz', [PramateriController::class, 'showQui
 
 Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmateri'])->name('materi-main.show');
 
-Route::get('/quiz-main/{quiz:id}', [PramateriController::class, 'showquizez'])->name('quiz-main.show');
+Route::get('/quiz-main/{id}', [QuizController::class, 'showquiz'])->name('quiz-main.showquiz');
+Route::resource('/quiz-main', QuizController::class)->middleware('auth')->except('showquiz');
 
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

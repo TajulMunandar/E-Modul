@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scores', function (Blueprint $table) {
+        Schema::create('materi_statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userId')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('quizId')->constrained('quizzes')->onUpdate('cascade')->onDelete('restrict');
             $table->boolean('status');
-            $table->integer('nilai');
+            $table->foreignId('userId')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('materiId')->constrained('materis')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scores');
+        Schema::dropIfExists('materi_statuses');
     }
 };

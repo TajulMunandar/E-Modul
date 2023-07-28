@@ -31,7 +31,6 @@
         @else
             <a class="btn btn-primary" href="/modul">Selesai</a>
         @endif
-
     </footer>
 @endsection
 

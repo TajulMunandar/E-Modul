@@ -37,12 +37,12 @@ class PramateriController extends Controller
         return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal'));
     }
 
-    public function showquizez(quiz $quiz)
+    public function showquizez(string $id)
     {
-        $quizzId = request('quiz:id'); // Ambil nilai 'quizzId' dari query string
-        $questions = question::where('quizId', $quizzId)->with('jawabans')->latest()->get();
+        $questions = question::where('quizId', $id)->with('jawabans')->latest()->get();
+        $quiz = quiz::find($id);
         $tanggal = Carbon::parse($quiz->created_at)->format('d F Y');
 
-        return view('main.page.quiz')->with(compact('quiz', 'quizzId', 'questions', 'tanggal'));
+        return view('main.page.quiz')->with(compact('questions', 'quiz', 'tanggal'));
     }
 }
