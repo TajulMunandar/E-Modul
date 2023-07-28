@@ -96,13 +96,14 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('question.destroy', ['question' => $question->id, 'isChoice' => $isChoice, 'quizzId' => $quizzId]) }}" method="POST"
+                                            <form action="{{ route('question.destroy', $question->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @method('PUT')
                                                 @csrf
                                                 <div class="modal-body">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="isChoice" id="" value="true">
+                                                    <input type="hidden" name="quizId" id="" value="{{ $quizzId }}">
                                                     <p class="fs-5">Apakah anda yakin akan menghapus data </p>
                                                     <b>{{ $question->title }} ?</b>
                                                 </div>

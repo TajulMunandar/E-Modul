@@ -21,7 +21,7 @@ class DashboardQuestionController extends Controller
                 'questions' => question::where('quizId', request('quizzId'))->with('jawabans')->latest()->get()
             ]);
         }else{
-            return view('dashboard.page.quizz.essay.question.index', [
+            return view('dashboard.page.quizz.essay.question', [
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
                 'questions' => question::where('quizId', request('quizzId'))->with('jawabans')->latest()->get()
@@ -39,11 +39,6 @@ class DashboardQuestionController extends Controller
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
             ]);
-        }else{
-            return view('dashboard.page.quizz.essay.question.create', [
-                'quizzId' => request('quizzId'),
-                'isChoice' => request('isChoice'),
-            ]);
         }
     }
 
@@ -58,18 +53,20 @@ class DashboardQuestionController extends Controller
         ]);
 
         $question = question::create($validatedDataQuiz);
-        foreach($request->answer as $key => $value) {
-            $status = false;
+        if($request->isChoice == "true"){
+            foreach($request->answer as $key => $value) {
+                $status = false;
 
-            if($key == $request->jawaban){
-                $status = true;
+                if($key == $request->jawaban){
+                    $status = true;
+                }
+
+                jawaban::create([
+                    'name' => $value,
+                    'status' => $status,
+                    'questionId' => $question->id
+                ]);
             }
-
-            jawaban::create([
-                'name' => $value,
-                'status' => $status,
-                'questionId' => $question->id
-            ]);
         }
 
         if($request->isChoice == "true"){
@@ -101,11 +98,6 @@ class DashboardQuestionController extends Controller
 
 
             ]);
-        }else{
-            return view('dashboard.page.quizz.essay.question.edit', [
-                'quizzId' => request('quizzId'),
-                'isChoice' => request('isChoice'),
-            ]);
         }
     }
 
@@ -114,23 +106,24 @@ class DashboardQuestionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request);
         $validatedDataQuiz = $request->validate([
             'title' => 'required|max:255',
             'quizId' => 'required'
         ]);
 
-        foreach($request->answer as $key => $value) {
-            $status = false;
+        if($request->isChoice == "true"){
+            foreach($request->answer as $key => $value) {
+                $status = false;
 
-            if($key == $request->jawaban){
-                $status = true;
+                if($key == $request->jawaban){
+                    $status = true;
+                }
+
+                jawaban::where('questionId', $id)->where('id', $request->idQuestion[$key])->update([
+                    'name' => $value,
+                    'status' => $status,
+                ]);
             }
-
-            jawaban::where('questionId', $id)->where('id', $request->idQuestion[$key])->update([
-                'name' => $value,
-                'status' => $status,
-            ]);
         }
         question::where('id', $id)->update($validatedDataQuiz);
 
@@ -154,9 +147,9 @@ class DashboardQuestionController extends Controller
         $question = question::whereId($id)->first();
         question::destroy($id);
         if($request->isChoice == "true"){
-            return redirect('/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}')->with('success', "Question $question->name berhasil dihapus!");
+            return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', "Question $question->name berhasil dihapus!");
         }else{
-            return redirect('/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}')->with('success', "Question $question->name berhasil dihapus!");
+            return redirect("/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}")->with('success', "Question $question->name berhasil dihapus!");
         }
     }
 }

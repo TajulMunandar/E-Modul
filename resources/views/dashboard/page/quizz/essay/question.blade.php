@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Jawaban Quizz Choice')
-@section('page-heading', 'Data Jawaban Quizz Choice')
+@section('title', 'Data Jawaban question Choice')
+@section('page-heading', 'Data Jawaban question Choice')
 
 @section('content')
 
@@ -50,64 +50,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{--  @foreach ($quizzs as $quizz)  --}}
+                            @foreach ($questions as $question)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $quizz->title }}</td>
+                                    <td>{{ $question->title }}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editModal">
+                                            data-bs-target="#editModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                         <button id="delete-button" class="btn btn-danger" id="delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#hapusModal">
+                                            data-bs-toggle="modal" data-bs-target="#hapusModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
 
                                 {{--  MODAL EDIT  --}}
-                                <div class="modal fade" id="editModal" tabindex="-1"
+                                <div class="modal fade" id="editModal{{ $loop->iteration }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Quizz Choice</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data question Choice
+                                                </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('choicee.update', $quizz->id) }}" method="POST"
+                                            <form action="{{ route('question.update', $question->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-body">
                                                     <div class="row">
-                                                        <input type="hidden" name="isChoice" id="" value="true">
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                                                name="title" id="title" value="{{ old('title') }}" autofocus required>
+                                                            <input type="hidden" name="isChoice" value="{{ $isChoice }}">
+                                                            <input type="hidden" name="quizId" value="{{ $quizzId }}">
+                                                            <input type="text"
+                                                                class="form-control @error('title') is-invalid @enderror"
+                                                                name="title" id="title" value="{{ old('title', $question->title) }}"
+                                                                autofocus required>
                                                             @error('title')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="firstTime" class="form-label">First Time</label>
-                                                            <input type="time" class="form-control @error('firstTime') is-invalid @enderror"
-                                                                name="firstTime" id="firstTime" value="{{ old('firstTime') }}" required>
-                                                            @error('firstTime')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="lastTime" class="form-label">Last Time</label>
-                                                            <input type="time" class="form-control @error('lastTime') is-invalid @enderror"
-                                                                name="lastTime" id="lastTime" value="{{ old('lastTime') }}" required>
-                                                            @error('lastTime')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
                                                                 </div>
@@ -127,25 +111,26 @@
                                 {{--  MODAL EDIT  --}}
 
                                 {{--  MODAL DELETE  --}}
-                                <div class="modal fade" id="hapusModal" tabindex="-1"
+                                <div class="modal fade" id="hapusModal{{ $loop->iteration }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Quizz Choice</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data question Choice
+                                                </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('choicee.destroy') }}" method="POST"
+                                            <form action="{{ route('question.destroy', $question->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @method('PUT')
                                                 @csrf
                                                 <div class="modal-body">
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="isChoice" id="" value="true">
-                                                    <input type="hidden" name="id" value="">
+                                                    <input type="hidden" name="isChoice" id="" value="false">
+                                                    <input type="hidden" name="quizId" id="" value="{{ $quizzId }}">
                                                     <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b> ?</b>
+                                                    <b>{{ $question->title }} ?</b>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -157,7 +142,7 @@
                                     </div>
                                 </div>
                                 {{--  MODAL DELETE  --}}
-                            {{--  @endforeach  --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -171,14 +156,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Quizz Choice</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data question Choice</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('choicee.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <input type="hidden" name="isChoice" id="" value="true">
+                            <input type="hidden" name="isChoice" id="" value="{{ $isChoice }}">
+                            <input type="hidden" name="quizId" id="" value="{{ $quizzId }}">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -188,25 +174,6 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <p>
-                                    <input type="radion" class="form-control @error('title') is-invalid @enderror"
-                                        name="jawaban" value="0">
-                                    @error('title')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                        name="title" id="title" placeholder="Anton" autofocus required>
-                                    @error('title')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </p>
                             </div>
                         </div>
                     </div>
