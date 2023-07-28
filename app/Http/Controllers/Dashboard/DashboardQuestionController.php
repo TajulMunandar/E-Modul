@@ -119,6 +119,8 @@ class DashboardQuestionController extends Controller
             'quizId' => 'required'
         ]);
 
+        // dd($request->answer, $request->jawaban);
+
         foreach($request->answer as $key => $value) {
             $status = false;
 
