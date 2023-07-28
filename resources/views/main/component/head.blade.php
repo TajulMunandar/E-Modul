@@ -11,5 +11,14 @@
 {{-- aos --}}
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('fontawesome/css/regular.min.css') }}">
+<link rel="stylesheet" href="{{ asset('fontawesome/css/brands.min.css') }}">
+<link rel="stylesheet" href="{{ asset('fontawesome/css/solid.min.css') }}">
+
+@yield('style')
+
+
 {{-- style custom --}}
 <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">

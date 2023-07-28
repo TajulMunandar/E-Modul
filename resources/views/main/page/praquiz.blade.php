@@ -31,9 +31,20 @@
                     <div class="card" style="width: 22rem;">
                         <div class="card-body">
                             <img src="{{ asset('storage/' . $quiz->modul->image) }}" class="card-img-top" alt="..."
-                                style="height: 50%">
-                            <h5 class="card-title fw-bold">{{ $quiz->title }}</h5>
-                            <p class="card-text">{{ $date }}</p>
+                                style="height: 15rem; object-fit: cover">
+                            <div class="row mb-3 d-flex  align-items-center">
+                                <div class="col">
+                                    <h5 class="card-title fw-bold">{{ $quiz->title }}</h5>
+                                    <p class="card-text">{{ $date }}</p>
+                                </div>
+                                <div class="col text-end">
+                                    @if ($quiz->isChoice == 1)
+                                       <span class="badge bg-info"> Choice </span>
+                                    @else
+                                    <span class="badge bg-success"> Essay </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col">Dari Jam:</div>
                                 <div class="col">Sampai Jam:</div>

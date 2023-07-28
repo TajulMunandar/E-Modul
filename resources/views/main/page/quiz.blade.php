@@ -48,13 +48,16 @@
             </form>
         @else
             {{-- essay --}}
+            <form action="{{ route('') }}" method="post">
+                @csrf
             <div class="row">
                 @foreach ($questions as $question)
                     <div class="row">
                         <div class="col-lg-12 p-3 mt-3">
                             <p class="fs-5">{{ $loop->iteration }} . {{ $question->title }}</p>
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                <input type="hidden" name="questionId[]" value="{{ $question->id }}">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="jawaban[]"></textarea>
                                 <label for="floatingTextarea">Jawaban</label>
                             </div>
                         </div>
@@ -65,6 +68,7 @@
             <footer class="footer px-5 py-3 text-end">
                 <button class="btn btn-primary ">Selesai</button>
             </footer>
+        </form>
         @endif
     </div>
 

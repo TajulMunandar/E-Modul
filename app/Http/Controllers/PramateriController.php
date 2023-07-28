@@ -13,9 +13,10 @@ class PramateriController extends Controller
 {
     public function showPramateri(modul $modul)
     {
+        $moduls = $modul->user;
         $pramateris = $modul->materi;
 
-        return view('main.page.pramateri')->with(compact('modul', 'pramateris'));
+        return view('main.page.pramateri')->with(compact('modul', 'pramateris', 'moduls'));
     }
 
     public function showQuiz(modul $modul)

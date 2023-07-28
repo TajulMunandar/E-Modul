@@ -20,11 +20,11 @@ return new class extends Migration
                 DECLARE total_benar INT;
                 DECLARE nilai DECIMAL(5, 2);
 
-                SELECT COUNT(*) INTO total_soal FROM questions WHERE quizId = NEW.quizId;
-                SELECT COUNT(*) INTO total_benar FROM jawabans WHERE questionId IN (SELECT id FROM questions WHERE quizId = NEW.quizId) AND status = 1 AND id IN (SELECT jawabanId FROM choice_users WHERE userId = NEW.userId);
+                SELECT COUNT(*) INTO total_soal FROM questions WHERE quizId = quizId2;
+                SELECT COUNT(*) INTO total_benar FROM jawabans WHERE questionId IN (SELECT id FROM questions WHERE quizId = quizId2) AND status = 1 AND id IN (SELECT jawabanId FROM choice_users WHERE userId = userId2);
                 SET nilai = (total_benar / total_soal) * 100;
 
-                INSERT INTO skor (userId, quizId, nilai) VALUES (NEW.userId, NEW.quizId, nilai)
+                INSERT INTO skor (userId, quizId, nilai) VALUES (userId2, quizId2, nilai)
                 ON DUPLICATE KEY UPDATE nilai = nilai;
             END;
         EOT;
