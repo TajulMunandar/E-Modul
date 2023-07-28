@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\jawaban;
 use App\Models\modul;
+use App\Models\question;
 use App\Models\quiz;
 use Illuminate\Http\Request;
 
@@ -107,6 +109,14 @@ class DashboardQuizzController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
+        $questions = question::where('quizId', $id)->get();
+        foreach($questions as $question){
+            $jawabans = jawaban::where('questionId', $question->id)->get();
+            foreach($jawabans as $jawaban){
+                jawaban::destroy($jawaban->id);
+            }
+            question::destroy($question->id);
+        }
         $quiz = quiz::whereId($id)->first();
         quiz::destroy($id);
 

@@ -27,6 +27,7 @@
                             @foreach ($jawabans as $index => $value)
                                 <label for="answer" class="form-label">Jawaban</label>
                                 <div class="mb-3 form-check px-6">
+                                    <input type="hidden" name="idQuestion[]" value="{{ $value->id }}">
                                     <input class="form-check-input @error('jawaban') is-invalid @enderror mt-2"
                                         type="radio" id="flexRadioDefault1" name="jawaban" value="{{ old('jawaban', $index) }}" {{ $value->status ? "checked" : "" }}>
                                     <input type="text"

@@ -45,8 +45,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Title</th>
-                                <th>Jawaban</th>
+                                <th>name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -55,12 +54,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $quizz->title }}</td>
-                                    <td>{{ $quizz->firstTime }}</td>
-                                    <td>{{ $quizz->lastTime }}</td>
-                                    <td>{{ $quizz->modul->name }}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="{{ route('choicee.edit', $materi->id) }}"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal">
                                             <i class="fa-solid fa-pen-to-square"></i>

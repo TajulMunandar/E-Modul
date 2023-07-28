@@ -18,13 +18,13 @@ class DashboardQuestionController extends Controller
             return view('dashboard.page.quizz.choice.question.index',[
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
-                'questions' => question::with('jawabans')->latest()->get()
+                'questions' => question::where('quizId', request('quizzId'))->with('jawabans')->latest()->get()
             ]);
         }else{
             return view('dashboard.page.quizz.essay.question.index', [
                 'quizzId' => request('quizzId'),
                 'isChoice' => request('isChoice'),
-                'questions' => question::with('jawabans')->latest()->get()
+                'questions' => question::where('quizId', request('quizzId'))->with('jawabans')->latest()->get()
             ]);
         }
     }
@@ -75,7 +75,7 @@ class DashboardQuestionController extends Controller
         if($request->isChoice == "true"){
             return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Questtion Choice baru berhasil dibuat!');
         }else{
-            return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Question Essay baru berhasil dibuat!');
+            return redirect("/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}")->with('success', 'Quizz Question Essay baru berhasil dibuat!');
         }
     }
 
@@ -114,22 +114,20 @@ class DashboardQuestionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
         $validatedDataQuiz = $request->validate([
             'title' => 'required|max:255',
             'quizId' => 'required'
         ]);
 
-        // dd($request->answer, $request->jawaban);
-
         foreach($request->answer as $key => $value) {
             $status = false;
 
             if($key == $request->jawaban){
-                // dd([$request->answer, $id, $request->jawaban]);
                 $status = true;
             }
 
-            jawaban::where('questionId', $id)->update([
+            jawaban::where('questionId', $id)->where('id', $request->idQuestion[$key])->update([
                 'name' => $value,
                 'status' => $status,
             ]);
@@ -139,7 +137,7 @@ class DashboardQuestionController extends Controller
         if($request->isChoice == "true"){
             return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Questtion Choice baru berhasil diperbarui!');
         }else{
-            return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', 'Quizz Question Essay baru berhasil diperbarui!');
+            return redirect("/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}")->with('success', 'Quizz Question Essay baru berhasil diperbarui!');
         }
 
     }
@@ -147,8 +145,18 @@ class DashboardQuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $jawabans = jawaban::where('questionId', $id)->get();
+        foreach($jawabans as $jawaban){
+            jawaban::destroy($jawaban->id);
+        }
+        $question = question::whereId($id)->first();
+        question::destroy($id);
+        if($request->isChoice == "true"){
+            return redirect('/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}')->with('success', "Question $question->name berhasil dihapus!");
+        }else{
+            return redirect('/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}')->with('success', "Question $question->name berhasil dihapus!");
+        }
     }
 }
