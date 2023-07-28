@@ -48,7 +48,7 @@
             </form>
         @else
             {{-- essay --}}
-            <form action="{{ route('') }}" method="post">
+            <form action="{{ route('quiz-essay.store') }}" method="post">
                 @csrf
             <div class="row">
                 @foreach ($questions as $question)

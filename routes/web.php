@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\EssayController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\PramateriController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
 use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
-use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmater
 
 Route::get('/quiz-main/{id}', [QuizController::class, 'showquiz'])->name('quiz-main.showquiz');
 Route::resource('/quiz-main', QuizController::class)->middleware('auth')->except('showquiz');
+
+Route::post('/quiz-main-essay', [EssayController::class, 'store'])->middleware('auth')->name('quiz-essay.store');
 
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
