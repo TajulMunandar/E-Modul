@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\DashboardModulController;
 use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardPenilaianController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
 use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
@@ -65,6 +66,11 @@ Route::prefix('/dashboard')->group( function (){
         Route::resource('/choicee', DashboardQuizzController::class)->middleware('auth');
         Route::resource('/essayy', DashboardQuizzController::class)->middleware('auth');
         Route::resource('/question', DashboardQuestionController::class)->middleware('auth');
+    });
+    Route::prefix('/penilaian')->group( function(){
+        Route::get('/choice', [DashboardPenilaianController::class, 'index'])->name('choice.index');
+        Route::get('/choice/{choice}', [DashboardPenilaianController::class, 'show'])->name('choice.show');
+        Route::get('/essay', [DashboardPenilaianController::class, 'index'])->name('essay.index');
     });
 });
 

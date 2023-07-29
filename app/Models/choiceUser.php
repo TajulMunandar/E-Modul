@@ -10,12 +10,12 @@ class choiceUser extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function User()
+    public function users()
     {
         return $this->belongsTo(User::class, 'userId');
     }
 
-    public function Jawaban()
+    public function jawabans()
     {
         return $this->belongsTo(jawaban::class, 'jawabanId');
     }

@@ -52,7 +52,7 @@
                                         style="text-decoration: none">{{ $modul->name }}</a>
                                 </div>
                                 <div class="col text-end">
-                                    <p class="badge bg-primary mt-2"><span>{{ $modul->user->name }}</span></p>
+                                    <p class="badge bg-primary mt-2"><span>{{ $modul->users->name }}</span></p>
                                 </div>
                             </div>
                             <p class="card-text">{{ $modul->deskripsi }}</p>

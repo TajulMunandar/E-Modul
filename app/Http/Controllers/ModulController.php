@@ -15,7 +15,7 @@ class ModulController extends Controller
     {
         $kategoris = Category::all()->take(7);
         $kategoris2 = Category::all();
-        $moduls = modul::with('user', 'categories');
+        $moduls = modul::with('users', 'categories');
 
         if ($request->has('kategori')) {
             $moduls->whereHas('categories', function ($query) use ($request) {

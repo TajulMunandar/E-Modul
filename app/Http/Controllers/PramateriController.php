@@ -13,15 +13,16 @@ class PramateriController extends Controller
 {
     public function showPramateri(modul $modul)
     {
-        $moduls = $modul->user;
-        $pramateris = $modul->materi;
+
+        $moduls = $modul->users;
+        $pramateris = $modul->materis;
 
         return view('main.page.pramateri')->with(compact('modul', 'pramateris', 'moduls'));
     }
 
     public function showQuiz(modul $modul)
     {
-        $quizzes = $modul->quizz;
+        $quizzes = $modul->quizzes;
         $firstQuiz = $quizzes->first();
         $firstTime =  Carbon::parse($firstQuiz->firstTime)->format('H:i');
         $lastTime =  Carbon::parse($firstQuiz->lastTime)->format('H:i');
@@ -32,7 +33,7 @@ class PramateriController extends Controller
 
     public function showmateri(materi $materi)
     {
-        $materis = $materi->modul->user;
+        $materis = $materi->moduls->users;
         $tanggal = Carbon::parse($materi->created_at)->format('d F Y');
 
         return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal'));

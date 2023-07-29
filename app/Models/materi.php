@@ -16,7 +16,7 @@ class materi extends Model
         'id'
     ];
 
-    public function modul()
+    public function moduls()
     {
         return $this->belongsTo(modul::class, 'modulId');
     }

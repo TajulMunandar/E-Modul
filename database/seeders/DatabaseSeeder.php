@@ -5,8 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\jawaban;
 use App\Models\materi;
 use App\Models\modul;
+use App\Models\question;
+use App\Models\quiz;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -50,5 +53,93 @@ class DatabaseSeeder extends Seeder
             ',
             'modulId' => 1
         ]);
+
+        quiz::create([
+            'title' => 'Apa',
+            'firstTime' => date('H:i:s', time()),
+            'lastTime' => date('H:i:s', time()),
+            'isChoice' => true,
+            'modulId' => 1
+        ]);
+
+        quiz::create([
+            'title' => 'Siapa',
+            'firstTime' => date('H:i:s', time()),
+            'lastTime' => date('H:i:s', time()),
+            'isChoice' => false,
+            'modulId' => 1
+        ]);
+
+        question::create([
+            'title' => "a1",
+            'quizId' => 1
+        ]);
+
+        question::create([
+            'title' => "1a",
+            'quizId' => 1
+        ]);
+
+        question::create([
+            'title' => "b",
+            'quizId' => 2
+        ]);
+        question::create([
+            'title' => "1",
+            'quizId' => 2
+        ]);
+        question::create([
+            'title' => "G",
+            'quizId' => 2
+        ]);
+
+        jawaban::create([
+            'name'=> '1',
+            'status' => 0,
+            'questionId' => 1
+        ]);
+
+        jawaban::create([
+            'name'=> '2',
+            'status' => 0,
+            'questionId' => 1
+        ]);
+
+        jawaban::create([
+            'name'=> 'a1',
+            'status' => 1,
+            'questionId' => 1
+        ]);
+
+        jawaban::create([
+            'name'=> '3',
+            'status' => 0,
+            'questionId' => 1
+        ]);
+
+        jawaban::create([
+            'name'=> 'b',
+            'status' => 0,
+            'questionId' => 2
+        ]);
+
+        jawaban::create([
+            'name'=> 'c',
+            'status' => 0,
+            'questionId' => 2
+        ]);
+
+        jawaban::create([
+            'name'=> 'a',
+            'status' => 0,
+            'questionId' => 2
+        ]);
+
+        jawaban::create([
+            'name'=> '1a',
+            'status' => 1,
+            'questionId' => 2
+        ]);
+
     }
 }

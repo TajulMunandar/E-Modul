@@ -17,7 +17,7 @@ class modul extends Model
         'id'
     ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'userId', 'id');
     }
@@ -27,12 +27,12 @@ class modul extends Model
         return $this->belongsTo(Category::class, 'categoryId');
     }
 
-    public function materi()
+    public function materis()
     {
         return $this->hasMany(materi::class, 'modulId', 'id');
     }
 
-    public function quizz()
+    public function quizzes()
     {
         return $this->hasMany(quiz::class, 'modulId', 'id');
     }

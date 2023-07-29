@@ -73,7 +73,7 @@
                                             Lihat
                                         </button>
                                     </td>
-                                    <td>{{ $modul->user->name }}</td>
+                                    <td>{{ $modul->users->name }}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
