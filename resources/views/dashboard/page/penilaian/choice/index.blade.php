@@ -51,7 +51,7 @@
                                     <td>{{ $score->users->name }}</td>
                                     <td>{{ $score->nilai }}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="{{ route('choice.show', ['choice' => $score->id, 'userId' => $score->users->id, 'isChoice' => true]) }}"><i
+                                        <a class="btn btn-warning" href="{{ route('choice.show', ['choice' => $score->id, 'userId' => $score->userId, 'isChoice' => "true", 'quizId' => $score->quizId]) }}"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                 </tr>

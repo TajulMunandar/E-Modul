@@ -52,7 +52,7 @@
                                     <td>{{ $score->nilai }}</td>
                                     <td>
                                         <a class="btn btn-warning"
-                                            href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => false, 'quizId' => $score->quizId]) }}"><i
+                                            href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => "false", 'quizId' => $score->quizId]) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                             data-bs-target="#addModal{{ $loop->iteration }}">

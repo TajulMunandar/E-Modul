@@ -17,11 +17,8 @@ class EssayController extends Controller
         $quizId = DB::table('essay_users AS eu')
                 ->join('questions AS q', 'eu.questionId', '=', 'q.id')
                 ->join('quizzes AS qu', 'q.quizId', '=', 'qu.id')
-                ->where('eu.id', $request->questionId[0]) // Ganti $newId dengan nilai yang sesuai
+                ->where('eu.id', $request->questionId[0])
                 ->value('qu.id');
-
-                dd(intval($quizId));
-
 
         foreach ($request->jawaban as $key => $value) {
             essayUser::create([

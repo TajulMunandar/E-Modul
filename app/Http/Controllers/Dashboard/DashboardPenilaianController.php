@@ -16,16 +16,13 @@ class DashboardPenilaianController extends Controller
                 ->whereHas('quizzes', function ($query) {
                     $query->where('isChoice', filter_var(request('isChoice'), FILTER_VALIDATE_BOOLEAN));
                 })
-                ->get();
-                
+                ->latest()->get();      
 
         if(request('isChoice') == "true"){
-            dd($score);
             return view('dashboard.page.penilaian.choice.index',[
                 'scores' => $score
             ]);
         }else{
-            dd($score);
             return view('dashboard.page.penilaian.essay.index',[
                 'scores' => $score
             ]);
@@ -34,9 +31,21 @@ class DashboardPenilaianController extends Controller
     }
 
     public function show(){
-        if(request('isChoice') == "1"){
+        if(request('isChoice') == "true"){
+            $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari jawabannya
+
+            $choiceUser = ChoiceUser::whereHas('jawabans.questions.quizzes', function ($query) use ($quizId) {
+                $query->where('id', $quizId);
+            })->with(['jawabans' => function ($query) use ($quizId) {
+                $query->whereHas('questions.quizzes', function ($query) use ($quizId) {
+                    $query->where('id', $quizId);
+                });
+            }, 'users'])->where('userId', request('userId'))->latest()->get();
+
+            dd($choiceUser);
+
             return view('dashboard.page.penilaian.choice.detailchoice',[
-                'choiceusers' => choiceUser::with('jawabans', 'users')->where('userId', request('userId'))->latest()->get()
+                'choiceusers' => $choiceUser
             ]);
         }else{
             return view('dashboard.page.penilaian.essay.detailchoice',[
