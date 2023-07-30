@@ -33,10 +33,32 @@ class PramateriController extends Controller
 
     public function showmateri(materi $materi)
     {
-        $materis = $materi->moduls->users;
+        $materis = $materi->moduls->user;
+        $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
+        $footmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
+
+        // Mengurutkan $footmateris berdasarkan id (misalnya dari yang terkecil)
+        $footermateris = $footmateris->sortBy('id')->values();
+
+        // Mengambil indeks dari $materi dalam $footmateris
+        $currentMateriIndex = $footermateris->search(function ($item) use ($materi) {
+            return $item->id === $materi->id;
+        });
+
+        // Mengambil data materi sebelumnya (jika ada)
+        $previousMateri = null;
+        if ($currentMateriIndex > 0) {
+            $previousMateri = $footermateris[$currentMateriIndex - 1];
+        }
+
+        // Mengambil data materi sesudahnya (jika ada)
+        $nextMateri = null;
+        if ($currentMateriIndex < $footermateris->count() - 1) {
+            $nextMateri = $footermateris[$currentMateriIndex + 1];
+        }
         $tanggal = Carbon::parse($materi->created_at)->format('d F Y');
 
-        return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal'));
+        return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri'));
     }
 
     public function showquizez(string $id)

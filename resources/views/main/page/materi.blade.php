@@ -9,7 +9,7 @@
 @endsection
 <div class="wrapper">
     <div class="main-content">
-        <div class="container">
+        <div class="container px-5">
             <div class="row d-flex justify-content-end align-items-center">
                 <div class="col-lg-5 col-md-12">
                     <p class="badge bg-primary border mb-0" data-aos="fade-right" data-aos-duration="1000">
@@ -35,19 +35,23 @@
                             </div>
                             <div class="offcanvas-body">
                                 <ul class="menu-item text-start">
-                                    <form action="" method="post">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item b">
-                                            <div data-i18n="Analytics"><i class="fa-solid fa-diamond me-2"></i> ayam
-                                            </div>
-                                        </button>
-                                    </form>
-                                    <form>
-                                        <button disabled="disabled" class="dropdown-item b">
-                                            <div data-i18n="Analytics"><i class="fa-solid fa-diamond me-2"></i>babi
-                                            </div>
-                                        </button>
-                                    </form>
+                                    @foreach ($navmateris as $navmateri)
+                                        <form action="{{ route('materi-main.show', ['materi' => $navmateri->slug]) }}"
+                                            method="get">
+                                            @if (request()->is('materi-main/' . $navmateri->slug))
+                                                <button type="submit" class="dropdown-item b active"
+                                                    data-i18n="Analytics">
+                                                    <i class="fa-solid fa-diamond me-2"></i>
+                                                    {{ $navmateri->title }}
+                                                </button>
+                                            @else
+                                                <button type="submit" class="dropdown-item b" data-i18n="Analytics">
+                                                    <i class="fa-solid fa-diamond me-2"></i>
+                                                    {{ $navmateri->title }}
+                                                </button>
+                                            @endif
+                                        </form>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -65,9 +69,19 @@
     @if (auth()->user())
         <div class="row">
             <div class="col d-flex justify-content-between">
-                <a href="" class="btn">Lorem, ipsum dolor.</a>
+                @if ($previousMateri)
+                    <a href="{{ route('materi-main.show', ['materi' => $previousMateri->slug]) }}"
+                        class="btn">{{ $previousMateri->title }}</a>
+                @else
+                    <a> </a>
+                @endif
                 <p>{{ $materi->title }}</p>
-                <a href="" class="btn">Lorem, ipsum dolor.</a>
+                @if ($nextMateri)
+                    <a href="{{ route('materi-main.show', ['materi' => $nextMateri->slug]) }}"
+                        class="btn">{{ $nextMateri->title }}</a>
+                @else
+                <a> </a>
+                @endif
             </div>
         </div>
     @else
