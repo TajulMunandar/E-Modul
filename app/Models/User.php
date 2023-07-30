@@ -36,9 +36,14 @@ class User extends Authenticatable
      * @var array<string, string>
      */
 
-    public function modul()
+    public function moduls()
     {
         return $this->hasMany(modul::class);
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(score::class);
     }
 
     protected $casts = [

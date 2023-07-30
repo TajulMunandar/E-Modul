@@ -21,7 +21,7 @@ return new class extends Migration
                 DECLARE QuizId INT;
                 DECLARE nilai DECIMAL(5, 2);
 
-                SELECT q.id INTO QuizId FROM choice_users cu JOIN jawabans j ON cu.jawabanId = j.id JOIN questions que ON j.questionId = que.id JOIN quizzes q ON que.quizId = q.id WHERE cu.id = NEW.id;
+                SELECT q.id INTO QuizId FROM choice_users cu JOIN jawabans j ON cu.jawabanId = j.id JOIN questions que ON j.questionId = que.id JOIN quizzes q ON que.quizId = q.id WHERE cu.id = NEW.id AND q.isChoice = true;
                 SELECT COUNT(*) INTO total_soal FROM questions WHERE quizId = QuizId;
                 SELECT COUNT(*) INTO total_benar FROM jawabans WHERE questionId IN (SELECT id FROM questions WHERE quizId = QuizId) AND status = 1 AND id IN (SELECT jawabanId FROM choice_users WHERE userId = NEW.userId);
                 SET nilai = (total_benar / total_soal) * 100;

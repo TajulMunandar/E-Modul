@@ -13,13 +13,18 @@ class quiz extends Model
         'id'
     ];
 
-    public function modul()
+    public function moduls()
     {
         return $this->belongsTo(modul::class, 'modulId');
     }
 
-    public function question()
+    public function questions()
     {
         return $this->hasMany(quiz::class, 'quizId', 'id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(score::class);
     }
 }

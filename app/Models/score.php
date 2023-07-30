@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class score extends Model
 {
     use HasFactory;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    public function quizzes()
+    {
+        return $this->belongsTo(quiz::class, 'quizId');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'userId', 'id');
+    }
+
 }

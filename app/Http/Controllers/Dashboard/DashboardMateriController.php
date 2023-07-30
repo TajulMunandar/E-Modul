@@ -18,7 +18,7 @@ class DashboardMateriController extends Controller
     public function index()
     {
         return view('dashboard.page.materi.index', [
-            'materis' => materi::with('modul')->latest()->get()
+            'materis' => materi::with('moduls')->latest()->get()
         ]);
     }
 

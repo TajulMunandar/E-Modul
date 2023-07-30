@@ -13,15 +13,16 @@ class PramateriController extends Controller
 {
     public function showPramateri(modul $modul)
     {
-        $moduls = $modul->user;
-        $pramateris = $modul->materi;
+
+        $moduls = $modul->users;
+        $pramateris = $modul->materis;
 
         return view('main.page.pramateri')->with(compact('modul', 'pramateris', 'moduls'));
     }
 
     public function showQuiz(modul $modul)
     {
-        $quizzes = $modul->quizz;
+        $quizzes = $modul->quizzes;
         $firstQuiz = $quizzes->first();
         $firstTime =  Carbon::parse($firstQuiz->firstTime)->format('H:i');
         $lastTime =  Carbon::parse($firstQuiz->lastTime)->format('H:i');
@@ -32,9 +33,9 @@ class PramateriController extends Controller
 
     public function showmateri(materi $materi)
     {
-        $materis = $materi->modul->user;
-        $navmateris = materi::with('modul')->where('modulId', $materi->modulId)->get();
-        $footmateris = materi::with('modul')->where('modulId', $materi->modulId)->get();
+        $materis = $materi->moduls->user;
+        $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
+        $footmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
 
         // Mengurutkan $footmateris berdasarkan id (misalnya dari yang terkecil)
         $footermateris = $footmateris->sortBy('id')->values();

@@ -9,7 +9,7 @@
                     {{ $modul->name }}</h2>
             </div>
             <div class="col text-end">
-                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span class="badge bg-primary p-2">{{ $moduls->name }}</span></p>
+                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span class="badge bg-primary p-2">{{ $modul->name }}</span></p>
             </div>
         </div>
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
@@ -33,7 +33,7 @@
                 <div class="col mb-3">
                     <div class="card" style="width: 22rem;">
                         <div class="card-body">
-                            <img src="{{ asset('storage/' . $pramateri->modul->image) }}" class="card-img-top"
+                            <img src="{{ asset('storage/' . $pramateri->moduls->image) }}" class="card-img-top"
                                 alt="..." style="height: 15rem; object-fit: cover">
                             <div class="row">
                                 <div class="col">

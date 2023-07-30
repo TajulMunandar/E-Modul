@@ -57,7 +57,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $materi->title }}</td>
                                     <td>{{ $materi->slug }}</td>
-                                    <td>{{ $materi->modul->name }}</td>
+                                    <td>{{ $materi->moduls->name }}</td>
                                     <td>
                                         <a class="btn btn-warning" href="{{ route('materi.edit', $materi->id) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>

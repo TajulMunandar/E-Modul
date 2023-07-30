@@ -13,7 +13,7 @@
             <div class="row d-flex justify-content-end align-items-center">
                 <div class="col-lg-5 col-md-12">
                     <p class="badge bg-primary border mb-0" data-aos="fade-right" data-aos-duration="1000">
-                        <span>{{ $materi->modul->user->name }}</span>
+                        <span>{{ $materi->moduls->users->name }}</span>
                     </p>
                     <h2 class="fw-bolder mb-0 lh-base" data-aos="fade-right" data-aos-duration="1200"
                         style="color: #001C30;">

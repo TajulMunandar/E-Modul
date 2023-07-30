@@ -13,7 +13,6 @@ class EssayController extends Controller
     {
         $modul = modul::whereId($request->id)->first();
         foreach ($request->jawaban as $key => $value) {
-            $jawaban = jawaban::whereId($value)->first();
             essayUser::create([
                 'userId' => auth()->user()->id,
                 'jawaban' => $value,

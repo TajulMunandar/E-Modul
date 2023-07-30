@@ -59,7 +59,7 @@
                                     <td>{{ $quizz->title }}</td>
                                     <td>{{ $quizz->firstTime }}</td>
                                     <td>{{ $quizz->lastTime }}</td>
-                                    <td>{{ $quizz->modul->name }}</td>
+                                    <td>{{ $quizz->moduls->name }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('question.index', ['isChoice' => 'false', 'quizzId' => $quizz->id]) }}"><i class="fa-solid fa-book-open-reader"></i></a>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
