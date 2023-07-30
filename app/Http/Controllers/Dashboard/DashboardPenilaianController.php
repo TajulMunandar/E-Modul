@@ -47,12 +47,15 @@ class DashboardPenilaianController extends Controller
             ]);
         }else{
             $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari pertanyaannya
-            $essayUsers = EssayUser::with(['questions' => function ($query) use ($quizId) {
+
+            $essayUsers = EssayUser::whereHas('questions.quizzes', function ($query) use($quizId){
+                $query->where('id', $quizId);
+            })->with(['questions' => function ($query) use ($quizId) {
                 $query->whereHas('quizzes', function ($query) use ($quizId) {
                     $query->where('id', $quizId);
                 });
             }, 'users'])->where('userId', request('userId'))->latest()->get();
-
+            
             return view('dashboard.page.penilaian.essay.detailessay',[
                 'essayusers' => $essayUsers,
                 'scoreId' => $id,
