@@ -180,7 +180,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 {{--  MODAL EDIT  --}}
 
                                 {{--  MODAL DELETE  --}}

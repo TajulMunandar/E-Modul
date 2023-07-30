@@ -35,25 +35,20 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name Modul</th>
-                                <th>Name Quizz</th>
-                                <th>Name User</th>
+                                <th>Name Question</th>
+                                <th>jawaban User</th>
                                 <th>Nilai</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($scores as $score)
+                            @foreach ($essayusers as $essayuser)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $score->quizzes->moduls->name }}</td>
-                                    <td>{{ $score->quizzes->title }}</td>
-                                    <td>{{ $score->users->name }}</td>
-                                    <td>{{ $score->nilai }}</td>
+                                    <td>{{ $essayuser->questions->title }}</td>
+                                    <td>{{ $essayuser->jawaban }}</td>
+                                    <td>{{ $essayuser->nilai }}</td>
                                     <td>
-                                        <a class="btn btn-warning"
-                                            href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => false, 'quizId' => $score->quizId]) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                             data-bs-target="#addModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen"></i></a>
@@ -71,17 +66,20 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('essay.update', $score->id) }}" method="POST"
+                                            <form action="{{ route('essay.updateitem', $essayuser->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="row">
+                                                        <input type="hidden" name="status" value="true">
+                                                        <input type="hidden" name="quizId" value="{{ $quizId }}">
+                                                        <input type="hidden" name="userId" value="{{ $essayuser->userId }}">
                                                         <div class="mb-3">
                                                             <label for="nilai" class="form-label">Nilai</label>
                                                             <input type="number"
                                                                 class="form-control @error('nilai') is-invalid @enderror"
-                                                                name="nilai" id="nilai" placeholder="Anton" value="{{ old('nilai', $score->nilai) }}" autofocus
+                                                                name="nilai" id="nilai" placeholder="Anton" value="{{ old('nilai', $essayuser->nilai) }}" autofocus
                                                                 required>
                                                             @error('nilai')
                                                                 <div class="invalid-feedback">

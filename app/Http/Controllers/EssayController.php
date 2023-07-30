@@ -20,6 +20,9 @@ class EssayController extends Controller
                 ->where('eu.id', $request->questionId[0]) // Ganti $newId dengan nilai yang sesuai
                 ->value('qu.id');
 
+                dd(intval($quizId));
+
+
         foreach ($request->jawaban as $key => $value) {
             essayUser::create([
                 'userId' => auth()->user()->id,
@@ -30,7 +33,7 @@ class EssayController extends Controller
 
         score::create([
             'userId' => auth()->user()->id,
-            'quizId' => $quizId,
+            'quizId' => intval($quizId),
             'status' => false,
             'nilai' => 0
         ]);

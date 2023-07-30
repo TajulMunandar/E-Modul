@@ -71,6 +71,9 @@ Route::prefix('/dashboard')->group( function (){
         Route::get('/choice', [DashboardPenilaianController::class, 'index'])->name('choice.index');
         Route::get('/choice/{choice}', [DashboardPenilaianController::class, 'show'])->name('choice.show');
         Route::get('/essay', [DashboardPenilaianController::class, 'index'])->name('essay.index');
+        Route::get('/essay/{essay}', [DashboardPenilaianController::class, 'show'])->name('essay.show');
+        Route::put('/essay/{essay}', [DashboardPenilaianController::class, 'update'])->name('essay.update');
+        Route::put('/essay/detail/{essay}', [DashboardPenilaianController::class, 'updateitem'])->name('essay.updateitem');
     });
 });
 

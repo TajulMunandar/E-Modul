@@ -13,4 +13,14 @@ class essayUser extends Model
         'id'
     ];
 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function questions()
+    {
+        return $this->belongsTo(question::class, 'questionId');
+    }
+
 }
