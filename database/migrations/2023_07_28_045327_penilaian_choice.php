@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         $trigger = <<<EOT
-            CREATE TRIGGER penilaian
+            CREATE TRIGGER penilaian_choice
             AFTER INSERT ON choice_users FOR EACH ROW
             BEGIN
                 DECLARE total_soal INT;
@@ -42,7 +42,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $trigger = 'DROP TRIGGER IF EXISTS penilaian';
+        $trigger = 'DROP TRIGGER IF EXISTS penilaian_choice';
         DB::unprepared($trigger);
     }
 };

@@ -15,7 +15,7 @@ class score extends Model
 
     public function quizzes()
     {
-        return $this->belongsTo(quiz::class, 'quizId');
+        return $this->belongsTo(quiz::class, 'quizId', 'id');
     }
 
     public function users()
