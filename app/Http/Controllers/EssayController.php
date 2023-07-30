@@ -14,12 +14,6 @@ class EssayController extends Controller
     public function store(Request $request)
     {
         $modul = modul::whereId($request->id)->first();
-        $quizId = DB::table('essay_users AS eu')
-                ->join('questions AS q', 'eu.questionId', '=', 'q.id')
-                ->join('quizzes AS qu', 'q.quizId', '=', 'qu.id')
-                ->where('eu.id', $request->questionId[0])
-                ->value('qu.id');
-
         foreach ($request->jawaban as $key => $value) {
             essayUser::create([
                 'userId' => auth()->user()->id,
@@ -27,14 +21,21 @@ class EssayController extends Controller
                 'questionId' => $request->questionId[$key],
             ]);
         }
-
+        
         score::create([
             'userId' => auth()->user()->id,
-            'quizId' => intval($quizId),
+            'quizId' => $request->quizId,
             'status' => false,
             'nilai' => 0
         ]);
 
         return redirect("/pramateri/{$modul->slug}/quiz")->with('success', 'Quizz Questtion Choice baru berhasil dibuat!');
+    }
+
+    public function score($userId, $quizId){
+        $score = score::where('userId', $userId)->where('quizId', $quizId)->first();
+        if(!$score){
+            
+        }
     }
 }

@@ -20,10 +20,11 @@ class QuizController extends Controller
     public function showquiz(string $id)
     {
         $questions = question::where('quizId', $id)->with('jawabans')->latest()->get();
-        $quiz = quiz::find($id);
+        $quiz = quiz::find($id);;
+        $quizId = $id;
         $tanggal = Carbon::parse($quiz->created_at)->format('d F Y');
 
-        return view('main.page.quiz')->with(compact('questions', 'quiz', 'tanggal'));
+        return view('main.page.quiz')->with(compact('questions', 'quiz', 'tanggal', 'quizId'));
     }
 
     /**

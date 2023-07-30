@@ -17,6 +17,7 @@
             <form action="{{ route('quiz-main.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{ $quiz->modulId }}">
+                <input type="hidden" name="quizId" value="{{ $quizId }}">
                 <div class="row">
                     @foreach ($questions as $question)
                         <div class="col-lg-12 p-3 mt-3">
@@ -51,6 +52,7 @@
             <form action="{{ route('quiz-essay.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{ $quiz->modulId }}">
+                <input type="hidden" name="quizId" value="{{ $quizId }}">
             <div class="row">
                 @foreach ($questions as $question)
                     <div class="row">

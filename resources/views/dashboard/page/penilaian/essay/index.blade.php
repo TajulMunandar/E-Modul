@@ -52,55 +52,10 @@
                                     <td>{{ $score->nilai }}</td>
                                     <td>
                                         <a class="btn btn-warning"
-                                            href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => "false", 'quizId' => $score->quizId]) }}"><i
+                                            href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => "false", 'quizId' => $score->quizId, 'nilai' => $score->nilai]) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
-                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                            data-bs-target="#addModal{{ $loop->iteration }}">
-                                            <i class="fa-solid fa-pen"></i></a>
-                                        </button>
                                     </td>
                                 </tr>
-
-                                {{--  MODAL ADD  --}}
-                                <div class="modal fade" id="addModal{{ $loop->iteration }}" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{ route('essay.update', $score->id) }}" method="POST"
-                                                enctype="multipart/form-data">
-                                                <div class="modal-body">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <div class="row">
-                                                        <div class="mb-3">
-                                                            <label for="nilai" class="form-label">Nilai</label>
-                                                            <input type="number"
-                                                                class="form-control @error('nilai') is-invalid @enderror"
-                                                                name="nilai" id="nilai" placeholder="Anton" value="{{ old('nilai', $score->nilai) }}" autofocus
-                                                                required>
-                                                            @error('nilai')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{--  MODAL ADD  --}}
                             @endforeach
                         </tbody>
                     </table>

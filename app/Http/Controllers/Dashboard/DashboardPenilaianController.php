@@ -30,7 +30,7 @@ class DashboardPenilaianController extends Controller
 
     }
 
-    public function show(){
+    public function show(string $id){
         if(request('isChoice') == "true"){
             $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari jawabannya
 
@@ -42,20 +42,28 @@ class DashboardPenilaianController extends Controller
                 });
             }, 'users'])->where('userId', request('userId'))->latest()->get();
 
-            dd($choiceUser);
-
             return view('dashboard.page.penilaian.choice.detailchoice',[
                 'choiceusers' => $choiceUser
             ]);
         }else{
-            return view('dashboard.page.penilaian.essay.detailchoice',[
-                'essayusers' => essayUser::with('questions', 'users')->where('userId', request('userId'))->latest()->get(),
-                'quizId' => request('quizId') 
+            $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari pertanyaannya
+            $essayUsers = EssayUser::with(['questions' => function ($query) use ($quizId) {
+                $query->whereHas('quizzes', function ($query) use ($quizId) {
+                    $query->where('id', $quizId);
+                });
+            }, 'users'])->where('userId', request('userId'))->latest()->get();
+
+            return view('dashboard.page.penilaian.essay.detailessay',[
+                'essayusers' => $essayUsers,
+                'scoreId' => $id,
+                'total' => intval(request('nilai')) ,
+                'quizId' =>$quizId
             ]);
         }
     }
 
     public function update(string $id, Request $request){
+
         $rules = [
             'nilai' => 'required',
         ];
@@ -67,6 +75,7 @@ class DashboardPenilaianController extends Controller
     }
 
     public function updateitem(string $id, Request $request){
+
         $rules = [
             'nilai' => 'required',
             'status' => 'required'
@@ -77,6 +86,7 @@ class DashboardPenilaianController extends Controller
         $validatedData['status'] = filter_var(request('status'), FILTER_VALIDATE_BOOLEAN);
 
         essayUser::where('id', $id)->update($validatedData);
-        return redirect("/dashboard/penilaian/essay/{$request->quizId}?userId={$request->userId}&isChoice=0&quizId={$request->quizId}")->with('success', 'Nilai berhasil diubah');
+        $total = request('total');
+        return redirect("/dashboard/penilaian/essay/{$request->scoreId}?userId={$request->userId}&isChoice=false&quizId={$request->quizId}&nilai={$total}")->with('success', 'Nilai berhasil diubah');
     }
 }
