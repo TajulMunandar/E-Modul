@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class MateriStatus extends Model
 {
     use HasFactory;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    public function materi()
+    {
+        return $this->belongsTo(materi::class, 'materiId');
+    }
 }

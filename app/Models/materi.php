@@ -21,6 +21,11 @@ class materi extends Model
         return $this->belongsTo(modul::class, 'modulId');
     }
 
+    public function materiStatus()
+    {
+        return $this->hasMany(materiStatus::class, 'materiId', 'id');
+    }
+
     public function sluggable(): array
     {
         return [

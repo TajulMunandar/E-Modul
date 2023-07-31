@@ -76,16 +76,29 @@
                     <a> </a>
                 @endif
                 <p>{{ $materi->title }}</p>
-                @if ($nextMateri)
-                    <a href="{{ route('materi-main.show', ['materi' => $nextMateri->slug]) }}"
-                        class="btn">{{ $nextMateri->title }}</a>
+                @if ($status->status == 1)
+                    @if ($nextMateri)
+                        <a href="{{ route('materi-main.show', ['materi' => $nextMateri->slug]) }}"
+                            class="btn">{{ $nextMateri->title }}</a>
+                    @else
+                        <a> </a>
+                    @endif
                 @else
-                <a> </a>
+                    @if ($nextMateri)
+                        <form action="{{ route('materi-main.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="materi" value="{{ $materi }}">
+                            <button type="submit" class="btn">{{ $nextMateri->title }}</button>
+                        </form>
+                    @else
+                        <a> </a>
+                    @endif
                 @endif
+
             </div>
         </div>
     @else
-        <a class="btn btn-primary" href="/modul">Selesai</a>
+        <a class="btn btn-primary" href="{{ route('pramateri.show', ['modul' => $modul->slug]) }}">Selesai</a>
     @endif
 </footer>
 @endsection

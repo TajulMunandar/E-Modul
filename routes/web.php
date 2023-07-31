@@ -49,6 +49,7 @@ Route::get('/pramateri/{modul:slug}/pramateri', [PramateriController::class, 'sh
 Route::get('/pramateri/{modul:slug}/quiz', [PramateriController::class, 'showQuiz'])->name('pramateri-quiz.show');
 
 Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmateri'])->name('materi-main.show');
+Route::post('/materi-main', [PramateriController::class, 'storeMateri'])->name('materi-main.store');
 
 Route::get('/quiz-main/{id}', [QuizController::class, 'showquiz'])->name('quiz-main.showquiz');
 Route::resource('/quiz-main', QuizController::class)->middleware('auth')->except('showquiz');
