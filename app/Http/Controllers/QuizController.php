@@ -8,6 +8,7 @@ use App\Models\modul;
 use Carbon\Carbon;
 use App\Models\quiz;
 use App\Models\question;
+use App\Models\score;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -41,6 +42,7 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         $modul = modul::whereId($request->id)->first();
+        $benar = 0;
         foreach($request->jawabanId as $value) {
             $jawaban = jawaban::whereId($value)->first();
             choiceUser::create([
@@ -48,8 +50,28 @@ class QuizController extends Controller
                 'nilai' => $jawaban->status,
                 'jawabanId' => $value
             ]);
+
+            $jawaban = jawaban::whereId($value)->first();
+            if($jawaban->status === 1){
+                $benar += 1;
+            }
         }
-            return redirect("/pramateri/{$modul->slug}/quiz")->with('success', 'Quizz Questtion Choice baru berhasil dibuat!');
+        $this->triggernilai($request->quizId, $benar);
+
+        return redirect("/pramateri/{$modul->slug}/quiz")->with('success', 'Quizz Questtion Choice baru berhasil dibuat!');
+    }
+
+    public function triggernilai($quizId, $benar){
+        $totalSoal = Question::where('quizId', $quizId)->count();
+        $totalBenar = $benar;
+
+        $total = ($totalBenar / $totalSoal) * 100;
+        score::create([
+            'userId' => auth()->user()->id,
+            'status' => true,
+            'quizId' => $quizId,
+            'nilai' => $total,
+        ]);
     }
 
     /**
