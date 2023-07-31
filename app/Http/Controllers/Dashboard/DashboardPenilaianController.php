@@ -16,7 +16,7 @@ class DashboardPenilaianController extends Controller
                 ->whereHas('quizzes', function ($query) {
                     $query->where('isChoice', filter_var(request('isChoice'), FILTER_VALIDATE_BOOLEAN));
                 })
-                ->latest()->get();      
+                ->latest()->get();
 
         if(request('isChoice') == "true"){
             return view('dashboard.page.penilaian.choice.index',[
@@ -32,7 +32,7 @@ class DashboardPenilaianController extends Controller
 
     public function show(string $id){
         if(request('isChoice') == "true"){
-            $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari jawabannya
+            $quizId = intval(request('quizId'));
 
             $choiceUser = ChoiceUser::whereHas('jawabans.questions.quizzes', function ($query) use ($quizId) {
                 $query->where('id', $quizId);
@@ -46,7 +46,7 @@ class DashboardPenilaianController extends Controller
                 'choiceusers' => $choiceUser
             ]);
         }else{
-            $quizId = intval(request('quizId')); // Ganti dengan id quiz yang ingin Anda cari pertanyaannya
+            $quizId = intval(request('quizId'));
 
             $essayUsers = EssayUser::whereHas('questions.quizzes', function ($query) use($quizId){
                 $query->where('id', $quizId);
@@ -55,7 +55,7 @@ class DashboardPenilaianController extends Controller
                     $query->where('id', $quizId);
                 });
             }, 'users'])->where('userId', request('userId'))->latest()->get();
-            
+
             return view('dashboard.page.penilaian.essay.detailessay',[
                 'essayusers' => $essayUsers,
                 'scoreId' => $id,

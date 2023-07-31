@@ -19,7 +19,6 @@ class PramateriController extends Controller
 
         $moduls = $modul->users;
         $pramateris = $modul->materis;
-
         return view('main.page.pramateri')->with(compact('modul', 'pramateris', 'moduls'));
     }
 
@@ -36,13 +35,20 @@ class PramateriController extends Controller
 
     public function showmateri(materi $materi)
     {
+        $status = MateriStatus::where('userId', auth()->user()->id)->where('materiId', $materi->id)->first();
+        if(!isset($status)){
+            MateriStatus::create([
+                'userId' => auth()->user()->id,
+                'status' => true,
+                'materiId' => $materi->id
+            ]);
+        }
         $materis = $materi->moduls->user;
         $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
         $footmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
-        $status = MateriStatus::where('materiId', $materi->id)->with('materi')->latest()->get();
+        $status = MateriStatus::where('materiId', $materi->id)->where('userId', auth()->user()->id)->with('materi')->latest()->first();
 
-
-
+        $modul = $materi->moduls;
 
         // Mengurutkan $footmateris berdasarkan id (misalnya dari yang terkecil)
         $footermateris = $footmateris->sortBy('id')->values();
@@ -65,7 +71,7 @@ class PramateriController extends Controller
         }
         $tanggal = Carbon::parse($materi->created_at)->format('d F Y');
 
-        return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'status'));
+        return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'status', 'modul'));
     }
 
     public function showquizez(string $id)

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
 @endsection
+
+
 <div class="wrapper">
     <div class="main-content">
         <div class="container px-5">
