@@ -13,7 +13,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <input type="hidden" name="oldName" value="{{  }}">
+                            <input type="hidden" name="oldName" value="{{ $materi->name }}">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"

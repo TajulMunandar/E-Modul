@@ -15,7 +15,7 @@
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    name="title" id="title" value="{{ old('title') }}" placeholder="Anton" autofocus
+                                    name="title" id="title" value="{{ old('title') }}" placeholder="Materi" autofocus
                                     required oninput="updateSlug()">
                                 @error('title')
                                     <div class="invalid-feedback">

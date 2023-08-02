@@ -39,9 +39,9 @@
                                 </div>
                                 <div class="col text-end">
                                     @if ($quiz->isChoice == 1)
-                                       <span class="badge bg-info"> Choice </span>
+                                        <span class="badge bg-info"> Choice </span>
                                     @else
-                                    <span class="badge bg-success"> Essay </span>
+                                        <span class="badge bg-success"> Essay </span>
                                     @endif
                                 </div>
                             </div>
@@ -51,14 +51,19 @@
                             </div>
                             <div class="row mb-3 fs-5">
                                 <div class="col">
-                                    <p class="badge bg-primary"><span>{{ $firstTime }}</span></p>
+                                    <p class="badge bg-primary"><span>{{ $quiz->firstTime }}</span></p>
                                 </div>
                                 <div class="col">
-                                    <p class="badge bg-danger"><span>{{ $lastTime }}</span></p>
+                                    <p class="badge bg-danger"><span>{{ $quiz->lastTime }}</span></p>
                                 </div>
                             </div>
-                            <a href="{{ route('quiz-main.showquiz', ['id' => $quiz->id]) }}"
-                                class="btn btn-primary stretched-link float-end">Mulai</a>
+                            @php
+                                $now = now();
+                                $currentTime = $now->format('H:i'); // Format waktu saat ini hanya jam dan menit
+                                $isWithinTime = $currentTime >= $quiz->firstTime && $currentTime <= $quiz->lastTime;
+                            @endphp
+                            <a href="{{ $isWithinTime ? route('quiz-main.showquiz', ['id' => $quiz->id]) : '#' }}"
+                                class="btn btn-primary stretched-link float-end {{ $isWithinTime ? '' : 'disabled' }}">Mulai</a>
                         </div>
                     </div>
                 </div>

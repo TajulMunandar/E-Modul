@@ -126,9 +126,6 @@
                                                             <input class="form-control @error('image') is-invalid @enderror"
                                                                 type="file" name="image" id="image"
                                                                 onchange="previewImage()">
-                                                            <div id="imageHelp" class="form-text">Ekstensi file: JPG, PNG
-                                                                maksimal 2MB
-                                                            </div>
                                                             @error('image')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -218,7 +215,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Foto</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Thumbnail Modul</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -246,7 +243,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Foto</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Deskripsi Modul</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -292,7 +289,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="name" placeholder="Anton" autofocus required>
+                                    name="name" id="name" placeholder="Modul" autofocus required>
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -304,8 +301,6 @@
                                 <img class="img-preview img-fluid mb-3 col-sm-5">
                                 <input class="form-control @error('image') is-invalid @enderror" type="file"
                                     name="image" id="image" onchange="previewImage()">
-                                <div id="imageHelp" class="form-text">Ekstensi file: JPG, PNG maksimal 2MB
-                                </div>
                                 @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -314,7 +309,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" placeholder="Leave a comment here" id="deskripsi" name="deskripsi"
+                                <textarea class="form-control" placeholder="Leave a description about you modul here" id="deskripsi" name="deskripsi"
                                     style="height: 100px"></textarea>
                             </div>
                             <div class="mb-3">

@@ -64,7 +64,7 @@
                                     </td>
                                 </tr>
 
-                                {{--  MODAL ADD  --}}
+                                {{--  MODAL NILAI QUESTION  --}}
                                 <div class="modal fade" id="addModal{{ $loop->iteration }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -90,7 +90,7 @@
                                                             <label for="nilai" class="form-label">Nilai</label>
                                                             <input type="number"
                                                                 class="form-control @error('nilai') is-invalid @enderror"
-                                                                name="nilai" id="nilai" placeholder="Anton"
+                                                                name="nilai" id="nilai" placeholder="Nilai Question"
                                                                 value="{{ old('nilai', $essayuser->nilai) }}" autofocus
                                                                 required>
                                                             @error('nilai')
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--  MODAL ADD  --}}
+                                {{--  MODAL NILAI QUESTION  --}}
                             @endforeach
                         </tbody>
                     </table>
@@ -119,7 +119,7 @@
         </div>
     </div>
 
-    {{--  MODAL ADD  --}}
+    {{--  MODAL NILAI QUIZ  --}}
     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,7 +139,7 @@
                             <div class="mb-3">
                                 <label for="nilai" class="form-label">Nilai</label>
                                 <input type="number" class="form-control @error('nilai') is-invalid @enderror"
-                                    name="nilai" id="nilai" placeholder="Anton"
+                                    name="nilai" id="nilai" placeholder="Nilai Total Quiz"
                                     value="{{ old('nilai', $total) }}" autofocus required>
                                 @error('nilai')
                                     <div class="invalid-feedback">
@@ -157,6 +157,6 @@
             </div>
         </div>
     </div>
-    {{--  MODAL ADD  --}}
+    {{--  MODAL NILAI QUIZ   --}}
     {{--  CONTENT  --}}
 @endsection
