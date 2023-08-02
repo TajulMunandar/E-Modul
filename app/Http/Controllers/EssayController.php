@@ -21,7 +21,7 @@ class EssayController extends Controller
                 'questionId' => $request->questionId[$key],
             ]);
         }
-        
+
         score::create([
             'userId' => auth()->user()->id,
             'quizId' => $request->quizId,
@@ -35,7 +35,7 @@ class EssayController extends Controller
     public function score($userId, $quizId){
         $score = score::where('userId', $userId)->where('quizId', $quizId)->first();
         if(!$score){
-            
+
         }
     }
 }
