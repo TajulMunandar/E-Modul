@@ -166,7 +166,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="name" placeholder="Anton" autofocus required>
+                                    name="name" id="name" placeholder="Category" autofocus required>
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}

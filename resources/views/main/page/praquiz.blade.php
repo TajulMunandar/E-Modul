@@ -51,22 +51,19 @@
                             </div>
                             <div class="row mb-3 fs-5">
                                 <div class="col">
-                                    <p class="badge bg-primary"><span>{{ $firstTime }}</span></p>
+                                    <p class="badge bg-primary"><span>{{ $quiz->firstTime }}</span></p>
                                 </div>
                                 <div class="col">
-                                    <p class="badge bg-danger"><span>{{ $lastTime }}</span></p>
+                                    <p class="badge bg-danger"><span>{{ $quiz->lastTime }}</span></p>
                                 </div>
                             </div>
-                            @if ($quiz->isChoice == 1 && isset($isChoiceQuizAttempted[$quiz->id]) && $isChoiceQuizAttempted[$quiz->id])
-                                <button href="#" class="btn btn-primary stretched-link float-end"
-                                    disabled>Mulai</button>
-                            @elseif ($quiz->isChoice == 0 && $isEssayQuizAttempted)
-                                <button href="#" class="btn btn-primary stretched-link float-end"
-                                    disabled>Mulai</button>
-                            @else
-                                <a href="{{ route('quiz-main.showquiz', ['id' => $quiz->id]) }}"
-                                    class="btn btn-primary stretched-link float-end">Mulai</a>
-                            @endif
+                            @php
+                                $now = now();
+                                $currentTime = $now->format('H:i'); // Format waktu saat ini hanya jam dan menit
+                                $isWithinTime = $currentTime >= $quiz->firstTime && $currentTime <= $quiz->lastTime;
+                            @endphp
+                            <a href="{{ $isWithinTime ? route('quiz-main.showquiz', ['id' => $quiz->id]) : '#' }}"
+                                class="btn btn-primary stretched-link float-end {{ $isWithinTime ? '' : 'disabled' }}">Mulai</a>
                         </div>
                     </div>
                 </div>
