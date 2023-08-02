@@ -11,6 +11,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+{{-- sweet alert --}}
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
+
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('fontawesome/css/regular.min.css') }}">
