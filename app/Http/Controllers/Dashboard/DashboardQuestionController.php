@@ -67,6 +67,12 @@ class DashboardQuestionController extends Controller
                     'questionId' => $question->id
                 ]);
             }
+
+            jawaban::create([
+                'name' => 'Tidak Menjawab',
+                'status' => false,
+                'questionId' => $question->id
+            ]);
         }
 
         if($request->isChoice == "true"){
