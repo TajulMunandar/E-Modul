@@ -21,8 +21,10 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if (Auth::user()->role != 0) {
+            if (Auth::user()->role == 2) {
                 return redirect()->intended('/dashboard');
+            } elseif (Auth::user()->role == 1) {
+                return redirect()->intended('/dashboard/materi');
             } else {
                 return redirect()->intended('/');
             }
@@ -39,6 +41,6 @@ class LoginController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

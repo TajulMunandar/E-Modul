@@ -13,7 +13,7 @@
                 <a class="btn btn-primary" href="/modul" data-aos-duration="1600" data-aos="fade-right">MULAI</a>
             </div>
             <div class="col-lg-7 col-md-12 border text-center">
-                <img src="{{ asset('images/asset/landing.gif') }}" alt="" width="79%">
+                <img src="{{ asset('images/asset/landing.gif') }}" alt="" width="78%">
             </div>
         </div>
     </div>

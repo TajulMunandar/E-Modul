@@ -16,7 +16,7 @@
             <div class="col">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('pramateri/' . $modul->slug . '/pramateri') ? 'active' : '' }}"
+                        <a class="nav-link {{ Request::is('pramateri/' . $modul->slug . '/pramateri') || Request::is('pramateri/' . $modul->slug )  ? 'active' : '' }}"
                             href="{{ route('pramateri-main.show', ['modul' => $modul->slug]) }}">Materi</a>
                     </li>
                     @if (auth()->user())

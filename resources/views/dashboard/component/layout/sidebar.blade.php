@@ -4,6 +4,85 @@
         <a class="navbar-brand text-center fw-bold" href="/dashboard" style="color: #DDE6ED">E-<span style="color: #64CCC5">Modul</span></a>
 
         <!-- Navbar nav -->
+        @if (auth()->user()->role == 1)
+        <ul class="navbar-nav flex-column" id="sideNavbar">
+
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/materi') ? 'active' : '' }}" href="{{ route('materi.index') }}">
+                    <i class="fa-solid fa-file me-4 nav-icon"></i>
+                    Materi
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/quizz*') ? 'active' : '' }}" href="#!"
+                    data-bs-toggle="collapse" data-bs-target="#navQuizz" aria-expanded="false" aria-controls="navQuizz">
+                    <i class="fa-solid fa-briefcase me-3 nav-icon"></i>
+                    Quizz
+                </a>
+                <div id="navQuizz" class="collapse {{ Request::is('dashboard/quizz*') ? 'show' : '' }}"
+                    data-bs-parent="#sideNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboard/quizz/choice*') || Request::query('isChoice') == 'true' ? 'active' : '' }}"
+                                href="{{ route('choicee.index', ['isChoice' => 'true']) }}">
+                                Choice
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboard/quizz/essay*') || Request::query('isChoice') == 'false' ? 'active' : '' }}"
+                                href="{{ route('essayy.index', ['isChoice' => 'false']) }}">
+                                Essay
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/penilaian*') ? 'active' : '' }}" href="#!"
+                    data-bs-toggle="collapse" data-bs-target="#navPenilaian" aria-expanded="false"
+                    aria-controls="navPenilaian">
+                    <i class="fa-solid fa-calculator me-4 nav-icon"></i>
+                    Penilaian
+                </a>
+                <div id="navPenilaian" class="collapse {{ Request::is('dashboard/penilaian*') ? 'show' : '' }}"
+                    data-bs-parent="#sideNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboard/penilaian/choice*') ? 'active' : '' }}"
+                                href="{{ route('choice.index', ['isChoice' => 'true']) }}">
+                                Choice
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboard/penilaian/essay*') ? 'active' : '' }}"
+                                href="{{ route('essay.index', ['isChoice' => 'false']) }}">
+                                Essay
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <hr class="mx-3">
+
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/modul') ? 'active' : '' }}" href="{{ route('modul.index') }}">
+                    <i class="fa-brands fa-leanpub me-3 nav-icon"></i>
+                    Modul
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/category') ? 'active' : '' }}" href="{{ route('category.index') }}">
+                    <i class="fa-solid fa-book me-3 nav-icon"></i>
+                    Category
+                </a>
+            </li>
+
+        </ul>
+        @else
         <ul class="navbar-nav flex-column" id="sideNavbar">
             <li class="nav-item">
                 <a class="nav-link has-arrow {{ Request::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
@@ -95,6 +174,8 @@
             </li>
 
         </ul>
+        @endif
+
 
         <div class="nav-item mt-auto mb-5">
             <form action="/logout" method="post" class="d-grid">
