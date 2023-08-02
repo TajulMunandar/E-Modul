@@ -63,7 +63,9 @@
                                 $isWithinTime = $currentTime >= $quiz->firstTime && $currentTime <= $quiz->lastTime;
                             @endphp
                             <a href="{{ $isWithinTime ? route('quiz-main.showquiz', ['id' => $quiz->id]) : '#' }}"
-                                class="btn btn-primary stretched-link float-end {{ $isWithinTime ? '' : 'disabled' }}">Mulai</a>
+                                class="btn btn-primary stretched-link float-end {{ $isWithinTime ? '' : 'disabled' }}">
+                                Mulai
+                            </a>
                         </div>
                     </div>
                 </div>
