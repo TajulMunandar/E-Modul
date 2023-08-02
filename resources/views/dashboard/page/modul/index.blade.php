@@ -60,14 +60,14 @@
                                     <td>{{ $modul->name }}</td>
                                     <td>{{ $modul->slug }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
                                             data-bs-target="#seeImage{{ $loop->iteration }}">
-                                            <i class="fa-regular fa-eye me-1"></i>
+                                            <i class="fa-regular fa-eye me-1 "></i>
                                             Lihat
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
                                             data-bs-target="#seeDescription{{ $loop->iteration }}">
                                             <i class="fa-regular fa-eye me-1"></i>
                                             Lihat

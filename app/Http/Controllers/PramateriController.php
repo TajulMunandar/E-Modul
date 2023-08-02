@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\choiceUser;
+use App\Models\essayUser;
 use Carbon\Carbon;
 use App\Models\quiz;
 use App\Models\modul;
@@ -30,13 +32,49 @@ class PramateriController extends Controller
         $lastTime =  Carbon::parse($firstQuiz->lastTime)->format('H:i');
         $date =  Carbon::parse($firstQuiz->created_at)->format('d F Y');
 
-        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'firstTime', 'lastTime', 'date'));
+        $isChoiceQuiz = [];
+        foreach ($quizzes as $quiz) {
+            // Ambil data Question dari relasi "questions" pada model Quiz
+            $questions = $quiz->questions;
+
+            // Loop melalui setiap Question untuk mengakses data Jawaban
+            foreach ($questions as $question) {
+                // Ambil data Jawaban dari relasi "jawabans" pada model Question
+                $jawabans = $question->jawabans;
+
+                foreach ($jawabans as $jawaban) {
+                    // Periksa apakah pengguna sudah mengerjakan pilihan jawaban ini
+                    $choice = ChoiceUser::where('userId', auth()->user()->id)
+                        ->where('jawabanId', $jawaban->id)
+                        ->first();
+
+                    // Simpan informasi apakah pengguna telah mengerjakan kuis ini ke dalam array asosiatif
+                    $isChoiceQuiz[$quiz->id] = $choice !== null;
+
+                    // Jika pengguna telah mengerjakan kuis ini, lanjutkan ke kuis berikutnya
+                    if ($choice !== null) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Ambil data EssayUser berdasarkan user yang sedang terotentikasi dan memiliki nilai pada atribut "questionId"
+        $essay = EssayUser::where('userId', auth()->user()->id)
+            ->whereNotNull('questionId')
+            ->get();
+
+
+        // Periksa apakah ada data EssayUser yang ditemukan
+        $isEssayQuizAttempted = $essay->isNotEmpty();
+
+        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'firstTime', 'lastTime', 'date', 'isChoiceQuiz', 'isEssayQuizAttempted'));
     }
 
     public function showmateri(materi $materi)
     {
         $status = MateriStatus::where('userId', auth()->user()->id)->where('materiId', $materi->id)->first();
-        if(!isset($status)){
+        if (!isset($status)) {
             MateriStatus::create([
                 'userId' => auth()->user()->id,
                 'status' => true,

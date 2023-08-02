@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Modul')
-@section('page-heading', 'Data Modul')
+@section('title', 'Data Penilaian Choice')
+@section('page-heading', 'Data Penilaian Choice')
 
 @section('content')
 

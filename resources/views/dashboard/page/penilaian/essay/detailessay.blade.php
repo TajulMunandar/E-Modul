@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Modul')
-@section('page-heading', 'Data Modul')
+@section('title', 'Penilaian Essay')
+@section('page-heading', 'Penilaian Essay')
 
 @section('content')
 {{--  @dd($essayusers);  --}}

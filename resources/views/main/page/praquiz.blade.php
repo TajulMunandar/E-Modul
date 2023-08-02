@@ -39,9 +39,9 @@
                                 </div>
                                 <div class="col text-end">
                                     @if ($quiz->isChoice == 1)
-                                       <span class="badge bg-info"> Choice </span>
+                                        <span class="badge bg-info"> Choice </span>
                                     @else
-                                    <span class="badge bg-success"> Essay </span>
+                                        <span class="badge bg-success"> Essay </span>
                                     @endif
                                 </div>
                             </div>
@@ -57,8 +57,16 @@
                                     <p class="badge bg-danger"><span>{{ $lastTime }}</span></p>
                                 </div>
                             </div>
-                            <a href="{{ route('quiz-main.showquiz', ['id' => $quiz->id]) }}"
-                                class="btn btn-primary stretched-link float-end">Mulai</a>
+                            @if ($quiz->isChoice == 1 && isset($isChoiceQuizAttempted[$quiz->id]) && $isChoiceQuizAttempted[$quiz->id])
+                                <button href="#" class="btn btn-primary stretched-link float-end"
+                                    disabled>Mulai</button>
+                            @elseif ($quiz->isChoice == 0 && $isEssayQuizAttempted)
+                                <button href="#" class="btn btn-primary stretched-link float-end"
+                                    disabled>Mulai</button>
+                            @else
+                                <a href="{{ route('quiz-main.showquiz', ['id' => $quiz->id]) }}"
+                                    class="btn btn-primary stretched-link float-end">Mulai</a>
+                            @endif
                         </div>
                     </div>
                 </div>

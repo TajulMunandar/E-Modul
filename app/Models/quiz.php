@@ -20,7 +20,7 @@ class quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(quiz::class, 'quizId', 'id');
+        return $this->hasMany(question::class, 'quizId', 'id');
     }
 
     public function scores()

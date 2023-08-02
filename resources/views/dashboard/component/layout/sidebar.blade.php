@@ -74,7 +74,7 @@
 
             <li class="nav-item">
                 <a class="nav-link has-arrow {{ Request::is('dashboard/modul') ? 'active' : '' }}" href="{{ route('modul.index') }}">
-                    <i class="fa-solid fa-book me-3 nav-icon"></i>
+                    <i class="fa-brands fa-leanpub me-3 nav-icon"></i>
                     Modul
                 </a>
             </li>
