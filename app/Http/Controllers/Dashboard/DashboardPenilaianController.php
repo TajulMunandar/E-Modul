@@ -12,11 +12,23 @@ use Illuminate\Support\Facades\DB;
 class DashboardPenilaianController extends Controller
 {
     public function index(){
-        $score = Score::with('quizzes', 'users')
+        if(auth()->user()->role == 2){
+            $score = Score::with('quizzes', 'users')
                 ->whereHas('quizzes', function ($query) {
                     $query->where('isChoice', filter_var(request('isChoice'), FILTER_VALIDATE_BOOLEAN));
                 })
                 ->latest()->get();
+
+        }elseif(auth()->user()->role == 1){
+            $score = Score::with('quizzes', 'users')
+                    ->whereHas('quizzes', function ($query) {
+                        $query->where('isChoice', filter_var(request('isChoice'), FILTER_VALIDATE_BOOLEAN));
+                        $query->whereHas('moduls', function ($subquery) {
+                            $subquery->where('userId', auth()->user()->id);
+                        });
+                    })
+                    ->latest()->get();
+        }
 
         if(request('isChoice') == "true"){
             return view('dashboard.page.penilaian.choice.index',[
