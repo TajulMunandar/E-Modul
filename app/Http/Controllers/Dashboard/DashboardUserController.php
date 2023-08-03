@@ -90,9 +90,13 @@ class DashboardUserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::whereId($id)->first();
-        User::destroy($id);
-        return redirect('/dashboard/user')->with('success', "User $user->name berhasil dihapus!");
+        try{
+            $user = User::whereId($id)->first();
+            User::destroy($id);
+            return redirect('/dashboard/user')->with('success', "User $user->name berhasil dihapus!");
+        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/user')->with('failed', "User $user->name tidak bisa dihapus karena sedang digunakan!");
+        }
     }
 
     public function resetPasswordAdmin(Request $request)

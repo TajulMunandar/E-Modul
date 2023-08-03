@@ -109,6 +109,14 @@ class DashboardQuizzController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
+        $quiz = quiz::whereId($id)->first();
+        if ($quiz->questions()->exists()) {
+            if($request->isChoice == "true"){
+                return redirect('/dashboard/quizz/choicee?isChoice=true')->with('failed', "Quiz $quiz->title tidak bisa dihapus karena sedang digunakan!");
+            }else{
+                return redirect('/dashboard/quizz/essayy?isChoice=false')->with('failed', "Quiz $quiz->title tidak bisa dihapus karena sedang digunakan!");
+            }
+        }
         $questions = question::where('quizId', $id)->get();
         foreach($questions as $question){
             $jawabans = jawaban::where('questionId', $question->id)->get();
@@ -117,7 +125,6 @@ class DashboardQuizzController extends Controller
             }
             question::destroy($question->id);
         }
-        $quiz = quiz::whereId($id)->first();
         quiz::destroy($id);
 
         if($request->isChoice == "true"){

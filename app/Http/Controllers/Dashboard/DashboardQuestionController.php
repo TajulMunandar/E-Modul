@@ -146,11 +146,18 @@ class DashboardQuestionController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
+        $question = question::whereId($id)->first();
+        if ($question->essayusers()->exists() || $question->jawabans()->exists()) {
+            if($request->isChoice == "true"){
+                return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('failed', "Question $question->title tidak bisa dihapus karena sedang digunakan!");
+            }else{
+                return redirect("/dashboard/quizz/question?isChoice=false&quizzId={$request->quizId}")->with('failed', "Question $question->title tidak bisa dihapus karena sedang digunakan!");
+            }
+        }
         $jawabans = jawaban::where('questionId', $id)->get();
         foreach($jawabans as $jawaban){
             jawaban::destroy($jawaban->id);
         }
-        $question = question::whereId($id)->first();
         question::destroy($id);
         if($request->isChoice == "true"){
             return redirect("/dashboard/quizz/question?isChoice=true&quizzId={$request->quizId}")->with('success', "Question $question->name berhasil dihapus!");

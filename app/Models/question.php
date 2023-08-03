@@ -18,6 +18,11 @@ class question extends Model
         return $this->hasMany(jawaban::class, 'questionId');
     }
 
+    public function essayusers()
+    {
+        return $this->hasMany(essayUser::class, 'questionId');
+    }
+
     public function quizzes()
     {
         return $this->belongsTo(quiz::class, 'quizId', 'id');

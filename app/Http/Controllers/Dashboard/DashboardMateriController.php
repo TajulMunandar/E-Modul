@@ -162,18 +162,22 @@ class DashboardMateriController extends Controller
      */
     public function destroy(string $id)
     {
-        $materi = materi::whereId($id)->first();
+        try{
+            $materi = materi::whereId($id)->first();
 
-        if ($materi) {
+            if ($materi) {
 
-            $this->deleteImage($materi->content);
+                $this->deleteImage($materi->content);
 
-            materi::destroy($id);
+                materi::destroy($id);
 
-            return redirect('/dashboard/materi')->with('success', 'Materi berhasil dihapus.');
+                return redirect('/dashboard/materi')->with('success', 'Materi $materi->title berhasil dihapus.');
+            }
+
+            return redirect('/dashboard/materi')->with('error', 'Materi $materi->title tidak ditemukan.');
+        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/materi')->with('failed', "Materi $materi->title tidak bisa dihapus karena sedang digunakan!");
         }
-
-        return redirect('/dashboard/materi')->with('error', 'Materi tidak ditemukan.');
     }
 
     public function getSlug($title)

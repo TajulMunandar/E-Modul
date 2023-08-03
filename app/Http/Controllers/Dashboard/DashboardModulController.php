@@ -107,12 +107,16 @@ class DashboardModulController extends Controller
      */
     public function destroy(string $id)
     {
-        $modul = modul::whereId($id)->first();
-        if($modul->image){
-            Storage::delete($modul->image);
+        try{
+            $modul = modul::whereId($id)->first();
+            if($modul->image){
+                Storage::delete($modul->image);
+            }
+            modul::destroy($id);
+            return redirect('/dashboard/modul')->with('success', "Modul $modul->name berhasil dihapus!");
+        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/modul')->with('failed', "Modul $modul->name tidak bisa dihapus karena sedang digunakan!");
         }
-        modul::destroy($id);
-        return redirect('/dashboard/modul')->with('success', "Modul $modul->name berhasil dihapus!");
     }
 
     public function getSlug($name)

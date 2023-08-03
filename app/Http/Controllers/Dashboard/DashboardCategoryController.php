@@ -84,9 +84,13 @@ class DashboardCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::whereId($id)->first();
-        Category::destroy($id);
-        return redirect('/dashboard/category')->with('success', "Category $category->name berhasil dihapus!");
+        try{
+            $category = Category::whereId($id)->first();
+            Category::destroy($id);
+            return redirect('/dashboard/category')->with('success', "Category $category->name berhasil dihapus!");
+        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/category')->with('failed', "Category $category->name tidak bisa dihapus karena sedang digunakan!");
+        }
     }
 
     public function getSlug($name)
