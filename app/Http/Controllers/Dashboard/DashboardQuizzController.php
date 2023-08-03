@@ -17,14 +17,42 @@ class DashboardQuizzController extends Controller
     public function index()
     {
         if(request('isChoice') == "true"){
+
+            if(auth()->user()->role == 2){
+               $quizzs =  quiz::where('isChoice', true)->latest()->get();
+            }elseif(auth()->user()->role == 1){
+                $userId = auth()->user()->id;
+                $quizzs = quiz::where('isChoice', true)->whereHas('moduls', function ($query) use ($userId) {
+                    $query->where('userId', $userId);
+                })
+                ->with('moduls')
+                ->latest()
+                ->get();
+
+            }
+
             return view('dashboard.page.quizz.choice.index', [
                 'moduls' => modul::latest()->get(),
-                'quizzs' => quiz::where('isChoice', true)->latest()->get()
+                'quizzs' => $quizzs
             ]);
         }else{
+
+            if(auth()->user()->role == 2){
+                $quizzs =  quiz::where('isChoice', false)->latest()->get();
+             }elseif(auth()->user()->role == 1){
+                 $userId = auth()->user()->id;
+                 $quizzs = quiz::where('isChoice', false)->whereHas('moduls', function ($query) use ($userId) {
+                     $query->where('userId', $userId);
+                 })
+                 ->with('moduls')
+                 ->latest()
+                 ->get();
+
+             }
+
             return view('dashboard.page.quizz.essay.index', [
                 'moduls' => modul::latest()->get(),
-                'quizzs' => quiz::where('isChoice', false)->latest()->get()
+                'quizzs' => $quizzs
             ]);
         }
     }

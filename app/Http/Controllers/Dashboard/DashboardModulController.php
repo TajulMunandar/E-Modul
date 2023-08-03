@@ -17,10 +17,15 @@ class DashboardModulController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->role ==  2){
+            $moduls = modul::latest()->get();
+        }elseif(auth()->user()->role == 1){
+            $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
+        }
         return view('dashboard.page.modul.index', [
             'users' => User::all(),
             'categorys' => Category::all(),
-            'moduls' => modul::latest()->get()
+            'moduls' => $moduls
         ]);
     }
 
