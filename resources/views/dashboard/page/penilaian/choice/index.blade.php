@@ -51,8 +51,8 @@
                                     <td>{{ $score->users->name }}</td>
                                     <td>{{ $score->nilai }}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="{{ route('choice.show', ['choice' => $score->id, 'userId' => $score->userId, 'isChoice' => "true", 'quizId' => $score->quizId]) }}"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-info text-white" href="{{ route('choice.show', ['choice' => $score->id, 'userId' => $score->userId, 'isChoice' => "true", 'quizId' => $score->quizId]) }}"><i
+                                            class="fa-solid fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

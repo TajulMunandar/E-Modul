@@ -51,9 +51,9 @@
                                     <td>{{ $score->users->name }}</td>
                                     <td>{{ $score->nilai }}</td>
                                     <td>
-                                        <a class="btn btn-warning"
+                                        <a class="btn btn-info text-white"
                                             href="{{ route('essay.show', ['essay' => $score->id, 'userId' => $score->users->id, 'isChoice' => "false", 'quizId' => $score->quizId, 'nilai' => $score->nilai]) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
+                                                class="fa-solid fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -36,7 +36,7 @@ class DashboardUserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'username' => ['required', 'max:16', 'unique:users'],
-            'password' => 'required|min:5|max:255',
+            'password' => 'required|max:255',
             'role' => 'required'
         ]);
 
@@ -75,7 +75,7 @@ class DashboardUserController extends Controller
         ];
 
         if ($request->username != $user->username) {
-            $rules['username'] = ['required', 'min:6', 'max:16', 'unique:users'];
+            $rules['username'] = ['required', 'max:16', 'unique:users'];
         }
 
         $validatedData = $request->validate($rules);
@@ -98,7 +98,7 @@ class DashboardUserController extends Controller
     public function resetPasswordAdmin(Request $request)
     {
         $rules = [
-            'password' => 'required|min:5|max:255',
+            'password' => 'required|max:255',
         ];
 
         if ($request->password == $request->password2) {

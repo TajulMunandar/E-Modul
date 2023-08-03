@@ -94,6 +94,7 @@
                                             </div>
                                             <form action="{{ route('user.reset') }}" method="POST"
                                                 enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <input type="hidden" name="id" value="{{ $user->id }}">
@@ -143,7 +144,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Reset</button>
+                                                    <button type="submit" class="btn btn-primary">Reset</button>
                                                 </div>
                                             </form>
                                         </div>

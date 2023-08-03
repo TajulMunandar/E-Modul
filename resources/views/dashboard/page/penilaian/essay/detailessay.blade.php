@@ -57,7 +57,7 @@
                                     <td>{{ $essayuser->jawaban }}</td>
                                     <td>{{ $essayuser->nilai }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
                                             data-bs-target="#addModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen"></i></a>
                                         </button>
