@@ -58,11 +58,10 @@
                             </div>
                         </div>
                     @endif
-
                 </div>
             </div>
             <p>
-                {{ strip_tags($materi->content) }}
+                {!! $materi->content !!}}
             </p>
         </div>
     </div>

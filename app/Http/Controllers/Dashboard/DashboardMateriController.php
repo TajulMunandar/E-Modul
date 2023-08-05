@@ -18,7 +18,7 @@ class DashboardMateriController extends Controller
     public function index()
     {
         if(auth()->user()->role == 2){
-            materi::with('moduls')->latest()->get();
+           $materis = materi::with('moduls')->latest()->get();
         }else{
             $userId = auth()->user()->id;
             $materis = Materi::whereHas('moduls', function ($query) use ($userId) {
@@ -27,7 +27,6 @@ class DashboardMateriController extends Controller
             ->with('moduls')
             ->latest()
             ->get();
-
         }
         return view('dashboard.page.materi.index', [
             'materis' => $materis
