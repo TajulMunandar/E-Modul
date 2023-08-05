@@ -13,7 +13,8 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <input type="hidden" name="oldName" value="{{ $materi->name }}">
+                            <input type="hidden" name="oldTitle" value="{{ $materi->title }}">
+                            <input type="hidden" name="oldSlug" value="{{ $materi->slug }}">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -29,7 +30,7 @@
                                 <label for="modulId" class="form-label">Nama Modul</label>
                                 <select class="form-select" name="modulId" id="modulId">
                                     @foreach ($moduls as $modul)
-                                        @if (old('modulId') == $modul->id)
+                                        @if (old('modulId', $materi->modulId) == $modul->id)
                                             <option value="{{ $modul->id }}" selected>
                                                 {{ $modul->name }}</option>
                                         @else

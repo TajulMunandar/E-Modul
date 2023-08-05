@@ -121,10 +121,10 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="modulId" class="form-label">Category</label>
+                                                            <label for="modulId" class="form-label">Modul</label>
                                                             <select class="form-select" name="modulId" id="modulId">
                                                                 @foreach ($moduls as $modul)
-                                                                    @if (old('modulId') == $modul->id)
+                                                                    @if (old('modulId', $quizz->modulId) == $modul->id)
                                                                         <option value="{{ $modul->id }}" selected>
                                                                             {{ $modul->name }}</option>
                                                                     @else

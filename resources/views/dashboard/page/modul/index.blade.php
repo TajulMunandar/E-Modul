@@ -141,22 +141,28 @@
                                                             <label for="userId" class="form-label">Dosen Penanggung
                                                                 Jawab</label>
                                                             <select class="form-select" name="userId" id="userId">
-                                                                @foreach ($users as $user)
-                                                                    @if (old('userId') == $user->id)
-                                                                        <option value="{{ $user->id }}" selected>
-                                                                            {{ $user->name }}</option>
-                                                                    @else
-                                                                        <option value="{{ $user->id }}">
-                                                                            {{ $user->name }}</option>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (auth()->user()->role == 1)
+                                                                    <option value="{{ auth()->user()->id }}">
+                                                                        {{ auth()->user()->name }}</option>
+                                                                @elseif (auth()->user()->role == 2)
+                                                                    @foreach ($users as $user)
+                                                                        @if (old('userId', auth()->user()->id) == $user->id)
+                                                                            <option value="{{ $user->id }}" selected>
+                                                                                {{ $user->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $user->id }}">
+                                                                                {{ $user->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="categoryId" class="form-label">Category</label>
-                                                            <select class="form-select" name="categoryId" id="categoryId">
+                                                            <select class="form-select" name="categoryId"
+                                                                id="categoryId">
                                                                 @foreach ($categorys as $category)
-                                                                    @if (old('categoryId') == $category->id)
+                                                                    @if (old('categoryId', $modul->categoryId) == $category->id)
                                                                         <option value="{{ $category->id }}" selected>
                                                                             {{ $category->name }}</option>
                                                                     @else
@@ -309,19 +315,26 @@
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" placeholder="Leave a description about you modul here" id="deskripsi" name="deskripsi"
-                                    style="height: 100px"></textarea>
+                                <textarea class="form-control" placeholder="Leave a description about you modul here" id="deskripsi"
+                                    name="deskripsi" style="height: 100px"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="userId" class="form-label">Dosen Penanggung Jawab</label>
                                 <select class="form-select" name="userId" id="userId">
-                                    @foreach ($users as $user)
-                                        @if (old('userId') == $user->id)
-                                            <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
-                                        @else
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endif
-                                    @endforeach
+                                    @if (auth()->user()->role == 1)
+                                        <option value="{{ auth()->user()->id }}">
+                                            {{ auth()->user()->name }}</option>
+                                    @elseif (auth()->user()->role == 2)
+                                        @foreach ($users as $user)
+                                            @if (old('userId', auth()->user()->id) == $user->id)
+                                                <option value="{{ $user->id }}" selected>
+                                                    {{ $user->name }}</option>
+                                            @else
+                                                <option value="{{ $user->id }}">
+                                                    {{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="mb-3">

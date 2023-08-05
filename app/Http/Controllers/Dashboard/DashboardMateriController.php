@@ -38,8 +38,13 @@ class DashboardMateriController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->role == 2){
+            $moduls = modul::latest()->get();
+        }elseif(auth()->user()->role == 1){
+            $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
+        }
         return view('dashboard.page.materi.create', [
-            'moduls' => modul::latest()->get()
+            'moduls' => $moduls
         ]);
     }
 
@@ -105,8 +110,13 @@ class DashboardMateriController extends Controller
      */
     public function edit(string $id)
     {
+        if(auth()->user()->role == 2){
+            $moduls = modul::latest()->get();
+        }elseif(auth()->user()->role == 1){
+            $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
+        }
         return view('dashboard.page.materi.edit', [
-            'moduls' => modul::latest()->get(),
+            'moduls' => $moduls,
             'materi' => materi::whereId($id)->first()
         ]);
     }
@@ -154,8 +164,10 @@ class DashboardMateriController extends Controller
         }
 
 
-        if ($request->name != $request->oldName) {
+        if ($request->title != $request->oldTitle) {
             $slug = $this->getSlug($request->title);
+        }else{
+            $slug = $request->oldSlug;
         }
 
         $materi->update([
