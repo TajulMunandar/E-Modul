@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardPenilaianController;
+use App\Http\Controllers\Dashboard\DashboardProdiController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
 use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
@@ -58,7 +59,7 @@ Route::post('/quiz-main-essay', [EssayController::class, 'store'])->middleware('
 
 Route::prefix('/dashboard')->group( function (){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-    Route::resource('/category', DashboardCategoryController::class)->middleware('auth');
+    Route::resource('/prodi', DashboardProdiController::class)->middleware('auth');
     Route::resource('/modul', DashboardModulController::class)->middleware('auth');
     Route::resource('/materi', DashboardMateriController::class)->middleware('auth');
     Route::resource('/user', DashboardUserController::class)->middleware('auth');

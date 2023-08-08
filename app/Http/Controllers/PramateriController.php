@@ -27,9 +27,10 @@ class PramateriController extends Controller
     {
         $quizzes = $modul->quizzes;
         $firstQuiz = $quizzes->first();
-        $firstTime =  Carbon::parse($firstQuiz->firstTime)->format('H:i');
-        $lastTime =  Carbon::parse($firstQuiz->lastTime)->format('H:i');
-        $date =  Carbon::parse($firstQuiz->created_at)->format('d F Y');
+        $date = "";
+        if(isset($firstQuiz)){
+            $date =  Carbon::parse($firstQuiz->created_at)->format('d F Y');
+        }
 
         $isChoiceQuiz = [];
         foreach ($quizzes as $quiz) {
@@ -67,7 +68,7 @@ class PramateriController extends Controller
         // Periksa apakah ada data EssayUser yang ditemukan
         $isEssayQuizAttempted = $essay->isNotEmpty();
 
-        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'firstTime', 'lastTime', 'date', 'isChoiceQuiz', 'isEssayQuizAttempted'));
+        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'date', 'isChoiceQuiz', 'isEssayQuizAttempted'));
     }
 
     public function showmateri(materi $materi)

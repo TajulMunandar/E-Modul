@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class DashboardUserController extends Controller
     public function index()
     {
         return view('dashboard.page.user.index', [
-            'users' => User::latest()->get()
+            'users' => User::with('prodis')->latest()->get(),
+            'prodis' => Prodi::latest()->get(),
         ]);
     }
 
@@ -37,6 +39,7 @@ class DashboardUserController extends Controller
             'name' => 'required|max:255',
             'username' => ['required', 'max:16', 'unique:users'],
             'password' => 'required|max:255',
+            'prodiId' => 'required',
             'role' => 'required'
         ]);
 
@@ -71,7 +74,8 @@ class DashboardUserController extends Controller
     {
         $rules = [
             'name' => 'required|max:255',
-            'role' => 'required'
+            'role' => 'required',
+            'prodiId' => 'required'
         ];
 
         if ($request->username != $user->username) {

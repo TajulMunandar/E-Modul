@@ -47,6 +47,7 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Username</th>
+                                <th>Prodi</th>
                                 <th>Role</th>
                                 <th>Action</th>
                             </tr>
@@ -57,6 +58,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->username }}</td>
+                                    <td>{{ $user->prodis->name }}</td>
                                     <td>
                                         @if ($user->role == 0)
                                             Mahasiswa
@@ -196,6 +198,18 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label for="prodiId" class="form-label">Prodi</label>
+                                                            <select class="form-select" name="prodiId" id="prodiId">
+                                                                @foreach ($prodis as $prodi)
+                                                                    @if (old('prodiId', $user->prodiId) == $prodi->id)
+                                                                        <option value="{{ $prodi->id }}" selected>{{ $prodi->name }}</option>
+                                                                    @else
+                                                                        <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <label for="role" class="form-label">Role</label>
                                                             <select class="form-select" name="role" id="role">
                                                                 <option value="0" selected>Mahasiswa</option>
@@ -301,6 +315,18 @@
                                         </div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prodiId" class="form-label">Prodi</label>
+                                <select class="form-select" name="prodiId" id="prodiId">
+                                    @foreach ($prodis as $prodi)
+                                        @if (old('prodiId') == $prodi->id)
+                                            <option value="{{ $prodi->id }}" selected>{{ $prodi->name }}</option>
+                                        @else
+                                            <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Role</label>

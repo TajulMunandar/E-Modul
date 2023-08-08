@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('image');
             $table->text('deskripsi');
-            $table->foreignId('categoryId')->constrained('categories')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('prodiId')->constrained('prodis')->onUpdate('cascade')->onDelete('restrict');
             $table->foreignId('userId')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });

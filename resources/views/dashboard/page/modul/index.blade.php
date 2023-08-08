@@ -46,6 +46,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
+                                <th>Prodi</th>
                                 <th>Slug</th>
                                 <th>Image</th>
                                 <th>Deskripsi</th>
@@ -58,6 +59,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $modul->name }}</td>
+                                    <td>{{ $modul->prodis->name }}</td>
                                     <td>{{ $modul->slug }}</td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
@@ -158,16 +160,16 @@
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="categoryId" class="form-label">Category</label>
-                                                            <select class="form-select" name="categoryId"
-                                                                id="categoryId">
-                                                                @foreach ($categorys as $category)
-                                                                    @if (old('categoryId', $modul->categoryId) == $category->id)
-                                                                        <option value="{{ $category->id }}" selected>
-                                                                            {{ $category->name }}</option>
+                                                            <label for="prodiId" class="form-label">Prodi</label>
+                                                            <select class="form-select" name="prodiId"
+                                                                id="prodiId">
+                                                                @foreach ($prodis as $prodi)
+                                                                    @if (old('prodiId', $modul->prodiId) == $prodi->id)
+                                                                        <option value="{{ $prodi->id }}" selected>
+                                                                            {{ $prodi->name }}</option>
                                                                     @else
-                                                                        <option value="{{ $category->id }}">
-                                                                            {{ $category->name }}</option>
+                                                                        <option value="{{ $prodi->id }}">
+                                                                            {{ $prodi->name }}</option>
                                                                     @endif
                                                                 @endforeach
                                                             </select>
@@ -338,13 +340,13 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="categoryId" class="form-label">Category</label>
-                                <select class="form-select" name="categoryId" id="categoryId">
-                                    @foreach ($categorys as $category)
-                                        @if (old('categoryId') == $category->id)
-                                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                <label for="prodiId" class="form-label">Prodi</label>
+                                <select class="form-select" name="prodiId" id="prodiId">
+                                    @foreach ($prodis as $prodi)
+                                        @if (old('prodiId') == $prodi->id)
+                                            <option value="{{ $prodi->id }}" selected>{{ $prodi->name }}</option>
                                         @else
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>

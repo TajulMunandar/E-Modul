@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Category')
-@section('page-heading', 'Data Category')
+@section('title', 'Data Prodi')
+@section('page-heading', 'Data Prodi')
 
 @section('content')
 
@@ -51,11 +51,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categorys as $category)
+                            @foreach ($prodis as $prodi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $category->name }}</td>
-                                    <td>{{ $category->slug   }}</td>
+                                    <td>{{ $prodi->name }}</td>
+                                    <td>{{ $prodi->slug   }}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
@@ -74,11 +74,11 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Category</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Prodi</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('category.update', $category->id) }}" method="POST"
+                                            <form action="{{ route('prodi.update', $prodi->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
@@ -86,13 +86,13 @@
                                                     <div class="row">
                                                         <div class="mb-3">
                                                             <input type="hidden" name="id"
-                                                                value="{{ $category->id }}">
-                                                            <input type="hidden" name="oldName" value="{{ $category->name }}">
+                                                                value="{{ $prodi->id }}">
+                                                            <input type="hidden" name="oldName" value="{{ $prodi->name }}">
                                                             <label for="name" class="form-label">Nama</label>
                                                             <input type="text"
                                                                 class="form-control @error('name') is-invalid @enderror"
-                                                                name="name" value="{{ old('name', $category->name) }}"
-                                                                id="name" placeholder="Anton" autofocus required>
+                                                                name="name" value="{{ old('name', $prodi->name) }}"
+                                                                id="name" placeholder="Prodi" autofocus required>
                                                             @error('name')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -118,19 +118,19 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Category</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Prodi</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('category.destroy', $category->id) }}" method="POST"
+                                            <form action="{{ route('prodi.destroy', $prodi->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-body">
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="id" value="{{ $category->id }}">
+                                                    <input type="hidden" name="id" value="{{ $prodi->id }}">
                                                     <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b>{{ $category->name }} ?</b>
+                                                    <b>{{ $prodi->name }} ?</b>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -159,7 +159,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('prodi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">

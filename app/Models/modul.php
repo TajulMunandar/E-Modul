@@ -22,9 +22,9 @@ class modul extends Model
         return $this->belongsTo(User::class, 'userId', 'id');
     }
 
-    public function categories()
+    public function prodis()
     {
-        return $this->belongsTo(Category::class, 'categoryId');
+        return $this->belongsTo(Prodi::class, 'prodiId');
     }
 
     public function materis()

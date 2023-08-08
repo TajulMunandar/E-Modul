@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\modul;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class ModulController extends Controller
@@ -13,19 +14,19 @@ class ModulController extends Controller
      */
     public function index(Request $request)
     {
-        $kategoris = Category::all()->take(7);
-        $kategoris2 = Category::all();
-        $moduls = modul::with('users', 'categories');
+        $prodis = Prodi::all()->take(7);
+        $prodis2 = Prodi::all();
+        $moduls = modul::with('users', 'prodis');
 
         if ($request->has('kategori')) {
-            $moduls->whereHas('categories', function ($query) use ($request) {
-                $query->where('categories.id', $request->kategori);
+            $moduls->whereHas('prodis', function ($query) use ($request) {
+                $query->where('prodis.id', $request->kategori);
             });
         }
 
         $moduls = $moduls->get();
 
-        return view('main.page.modul')->with(compact('moduls', 'kategoris', 'kategoris2'));
+        return view('main.page.modul')->with(compact('moduls', 'prodis', 'prodis2'));
     }
 
     /**

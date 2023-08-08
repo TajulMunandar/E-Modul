@@ -61,16 +61,21 @@
                                 $now = now();
                                 $currentTime = $now->format('H:i'); // Format waktu saat ini hanya jam dan menit
                                 $isWithinTime = $currentTime >= $quiz->firstTime && $currentTime <= $quiz->lastTime;
-                                $isFinish = \App\Models\score::where('userId', auth()->user()->id)->where('quizId', $quiz->id)->first()
-                            @endphp
-                            @php
+                                $isFinish = \App\Models\score::where('userId', auth()->user()->id)->where('quizId', $quiz->id)->first();
+
                                 $url = '#';
                                 if ($isWithinTime && !$isFinish) {
                                     $url = route('quiz-main.showquiz', ['id' => $quiz->id]);
                                 }
+
+                                $modulAkses = $quiz->moduls->prodiId == auth()->user()->prodiId;
+                                $buttonClasses = "btn btn-primary stretched-link float-end";
+                                if (!$isWithinTime || $isFinish || !$modulAkses) {
+                                    $buttonClasses .= " disabled";
+                                }
                             @endphp
                             <a href="{{ $url }}"
-                                class="btn btn-primary stretched-link float-end {{ (!$isWithinTime || $isFinish) ? 'disabled' : '' }}">
+                                class="{{ $buttonClasses }}">
                                 Mulai
                             </a>
                         </div>

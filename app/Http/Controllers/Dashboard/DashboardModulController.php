@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\modul;
+use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -18,13 +19,13 @@ class DashboardModulController extends Controller
     public function index()
     {
         if(auth()->user()->role ==  2){
-            $moduls = modul::latest()->get();
+            $moduls = modul::with('prodis')->latest()->get();
         }elseif(auth()->user()->role == 1){
-            $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
+            $moduls = modul::with('prodis')->where('userId', auth()->user()->id)->latest()->get();
         }
         return view('dashboard.page.modul.index', [
             'users' => User::all(),
-            'categorys' => Category::all(),
+            'prodis' => Prodi::all(),
             'moduls' => $moduls
         ]);
     }
@@ -46,7 +47,7 @@ class DashboardModulController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'image' => 'required|image|file',
-            'categoryId' => 'required',
+            'prodiId' => 'required',
             'deskripsi' => 'required',
             'userId' => 'required'
         ]);
@@ -86,7 +87,7 @@ class DashboardModulController extends Controller
         $rules = [
             'name' => 'required|max:255',
             'deskripsi' => 'required',
-            'categoryId' => 'required',
+            'prodiId' => 'required',
             'userId' => 'required'
         ];
 

@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany(score::class);
     }
 
+    public function prodis()
+    {
+        return $this->belongsTo(Prodi::class, 'prodiId');
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

@@ -15,9 +15,9 @@
                     <div class="navbar-collapse fs-5 fw-bold">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 slider w-100 justify-content-between">
                             <li class="nav-item"><a class="nav-link" href="/modul">Semua<a></li>
-                            @foreach ($kategoris as $kategori)
+                            @foreach ($prodis as $prodi)
                                 <li class="nav-item me-5">
-                                    <a class="nav-link" aria-current="page" href="{{ route('modul-main.index', ['kategori' => $kategori->id]) }}">{{ $kategori->name }}</a>
+                                    <a class="nav-link" aria-current="page" href="{{ route('modul-main.index', ['prodi' => $prodi->id]) }}">{{ $prodi->name }}</a>
                                 </li>
                             @endforeach
 
@@ -28,8 +28,8 @@
                                 </button>
                                 <ul class="dropdown-menu">
 
-                                    @foreach ($kategoris2 as $kategori2)
-                                        <li><a class="dropdown-item" href="{{ route('modul-main.index', ['kategori' => $kategori2->id]) }}">{{ $kategori2->name }}</a></li>
+                                    @foreach ($prodis2 as $prodi2)
+                                        <li><a class="dropdown-item" href="{{ route('modul-main.index', ['prodi' => $prodi2->id]) }}">{{ $prodi2->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

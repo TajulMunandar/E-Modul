@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
-class DashboardCategoryController extends Controller
+class DashboardProdiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard.page.category.index', [
-            'categorys' => Category::latest()->get()
+        return view('dashboard.page.prodi.index', [
+            'prodis' => Prodi::latest()->get()
         ]);
     }
 
@@ -38,9 +38,9 @@ class DashboardCategoryController extends Controller
 
         $validatedData['slug'] = $this->getSlug($request->name);
 
-        Category::create($validatedData);
+        Prodi::create($validatedData);
 
-        return redirect('/dashboard/category')->with('success', 'Category berhasil dibuat');
+        return redirect('/dashboard/prodi')->with('success', 'Prodi berhasil dibuat');
     }
 
     /**
@@ -75,8 +75,8 @@ class DashboardCategoryController extends Controller
         }
 
 
-        Category::where('id', $id)->update($validatedData);
-        return redirect('/dashboard/category')->with('success', 'Category berhasil diubah');
+        Prodi::where('id', $id)->update($validatedData);
+        return redirect('/dashboard/prodi')->with('success', 'Prodi berhasil diubah');
     }
 
     /**
@@ -85,17 +85,17 @@ class DashboardCategoryController extends Controller
     public function destroy(string $id)
     {
         try{
-            $category = Category::whereId($id)->first();
-            Category::destroy($id);
-            return redirect('/dashboard/category')->with('success', "Category $category->name berhasil dihapus!");
+            $prodi = Prodi::whereId($id)->first();
+            Prodi::destroy($id);
+            return redirect('/dashboard/prodi')->with('success', "Prodi $prodi->name berhasil dihapus!");
         }catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/dashboard/category')->with('failed', "Category $category->name tidak bisa dihapus karena sedang digunakan!");
+            return redirect('/dashboard/prodi')->with('failed', "Prodi $prodi->name tidak bisa dihapus karena sedang digunakan!");
         }
     }
 
     public function getSlug($name)
     {
-        $slug = SlugService::createSlug(Category::class, 'slug', $name);
+        $slug = SlugService::createSlug(Prodi::class, 'slug', $name);
         return $slug;
     }
 }

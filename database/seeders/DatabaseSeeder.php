@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Category;
 use App\Models\jawaban;
 use App\Models\materi;
 use App\Models\modul;
+use App\Models\Prodi;
 use App\Models\question;
 use App\Models\quiz;
 use App\Models\User;
@@ -27,22 +27,24 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        Prodi::create([
+            'name' => 'Teknik Informatika',
+        ]);
+
         User::create([
             'name' => 'Alvin Syahri',
             'username' => 'alvin_21',
             'password' => 'alvin111',
+            'prodiId' => 1,
             'role' => 2
         ]);
 
-        Category::create([
-            'name' => 'Teknik Informatika',
-        ]);
 
         modul::create([
             'name' => 'GIS',
             'image' => 'image-modul/alvinsyahri.jpg',
             'deskripsi' => 'aspasodnasodnisandkanskdnaksdknaksndkasda',
-            'categoryId' => 1,
+            'prodiId' => 1,
             'userId' => 1
         ]);
 
