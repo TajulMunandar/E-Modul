@@ -61,7 +61,6 @@ class DashboardMateriController extends Controller
 
         $validatedData = $request->validate($rules);
 
-
         // Artikel
         $storage = "storage/content-materi";
         $dom = new \DOMDocument();
