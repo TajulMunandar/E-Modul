@@ -11,7 +11,6 @@ use App\Models\materi;
 use App\Models\MateriStatus;
 use App\Models\question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 
 class PramateriController extends Controller

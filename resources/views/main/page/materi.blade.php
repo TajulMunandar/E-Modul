@@ -37,7 +37,18 @@
                             </div>
                             <div class="offcanvas-body">
                                 <ul class="menu-item text-start">
-                                    @foreach ($navmateris as $navmateri)
+                                    @foreach ($navmateris as $index => $navmateri)
+                                    @php
+                                        $isFinished = \App\Models\MateriStatus::where('userId', auth()->user()->id)
+                                            ->where('materiId', $navmateri->id)
+                                            ->exists();
+                                        $isFirstMateri = $index === 0;
+                                        $isPrevFinished =
+                                            $index === 0 ||
+                                            \App\Models\MateriStatus::where('userId', auth()->user()->id)
+                                                ->where('materiId', $navmateris[$index - 1]->id)
+                                                ->exists();
+                                    @endphp
                                         <form action="{{ route('materi-main.show', ['materi' => $navmateri->slug]) }}"
                                             method="get">
                                             @if (request()->is('materi-main/' . $navmateri->slug))
@@ -47,7 +58,8 @@
                                                     {{ $navmateri->title }}
                                                 </button>
                                             @else
-                                                <button type="submit" class="dropdown-item b" data-i18n="Analytics">
+                                                <button type="submit" class="dropdown-item b" data-i18n="Analytics"
+                                                    {{ (!$isFirstMateri && !$isPrevFinished) ? 'disabled' : '' }}>
                                                     <i class="fa-solid fa-diamond me-2"></i>
                                                     {{ $navmateri->title }}
                                                 </button>
@@ -61,8 +73,18 @@
                 </div>
             </div>
             <p>
-                {!! $materi->content !!}}
+                {!! $materi->content !!}
             </p>
+            <hr class="mt-5 text-dark">
+            <h2 class="fw-bold">Ruang Diskusi</h2>
+            {{-- disini data komentar --}}
+            <form action="">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Comments</label>
+                </div>
+                <button class="btn btn-primary float-end">Komen</button>
+            </form>
         </div>
     </div>
 </div>
