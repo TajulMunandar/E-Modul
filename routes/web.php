@@ -11,12 +11,9 @@ use App\Http\Controllers\Dashboard\DashboardUserController;
 use App\Http\Controllers\Dashboard\DashboardModulController;
 use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
-use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardPenilaianController;
 use App\Http\Controllers\Dashboard\DashboardProdiController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
-use App\Http\Controllers\Dashboard\DashboardQuizzEssayController;
-use App\Http\Controllers\Dashboard\DashboardQuizzChoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,15 +48,16 @@ Route::get('/pramateri/{modul:slug}/quiz', [PramateriController::class, 'showQui
 
 Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmateri'])->name('materi-main.show');
 Route::post('/materi-main', [PramateriController::class, 'storeMateri'])->name('materi-main.store');
+Route::post('/materi-main/coment', [PramateriController::class, 'storeComent'])->name('materi-main.coment');
 
 Route::get('/quiz-main/{id}', [QuizController::class, 'showquiz'])->name('quiz-main.showquiz')->middleware('mahasiswa');
-Route::resource('/quiz-main', QuizController::class)->middleware('auth')->except('showquiz')->middleware('mahasiswa');
+Route::resource('/quiz-main', QuizController::class)->except('showquiz')->middleware('mahasiswa');
 
 Route::post('/quiz-main-essay', [EssayController::class, 'store'])->middleware('auth')->name('quiz-essay.store')->middleware('mahasiswa');
 
 Route::prefix('/dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-    Route::resource('/category', DashboardCategoryController::class)->middleware('auth');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+    Route::resource('/prodi', DashboardProdiController::class)->middleware('auth');
     Route::resource('/modul', DashboardModulController::class)->middleware('auth');
     Route::resource('/materi', DashboardMateriController::class)->middleware('auth');
     Route::resource('/user', DashboardUserController::class)->middleware('admin');

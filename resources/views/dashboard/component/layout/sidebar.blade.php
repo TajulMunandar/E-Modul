@@ -8,6 +8,13 @@
         <ul class="navbar-nav flex-column" id="sideNavbar">
 
             <li class="nav-item">
+                <a class="nav-link has-arrow {{ Request::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    <i class="fa-solid fa-chart-pie me-3 nav-icon"></i>
+                    Dashboard
+                </a>
+            </li>
+            
+            <li class="nav-item">
                 <a class="nav-link has-arrow {{ Request::is('dashboard/materi') ? 'active' : '' }}" href="{{ route('materi.index') }}">
                     <i class="fa-solid fa-file me-4 nav-icon"></i>
                     Materi
@@ -75,9 +82,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link has-arrow {{ Request::is('dashboard/category') ? 'active' : '' }}" href="{{ route('category.index') }}">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/prodi') ? 'active' : '' }}" href="{{ route('prodi.index') }}">
                     <i class="fa-solid fa-book me-3 nav-icon"></i>
-                    Category
+                    Prodi
                 </a>
             </li>
 

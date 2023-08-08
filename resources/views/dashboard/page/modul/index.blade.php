@@ -161,8 +161,7 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="prodiId" class="form-label">Prodi</label>
-                                                            <select class="form-select" name="prodiId"
-                                                                id="prodiId">
+                                                            <select class="form-select" name="prodiId" id="prodiId">
                                                                 @foreach ($prodis as $prodi)
                                                                     @if (old('prodiId', $modul->prodiId) == $prodi->id)
                                                                         <option value="{{ $prodi->id }}" selected>
@@ -230,9 +229,10 @@
                                             <div class="modal-body d">
                                                 <div class="row">
                                                     <div class="col text-center">
-                                                        <img class="rounded-3" style="object-fit: cover"
-                                                            src="{{ asset('storage/' . $modul->image) }}" alt=""
-                                                            height="250" width="350">
+                                                        <picture>
+                                                            <source srcset="{{ asset('storage/' . $modul->image) }}" type="image/webp">
+                                                            <img class="rounded-3" style="object-fit: cover" src="{{ asset('storage/' . $modul->image) }}" alt="" height="250" width="350">
+                                                        </picture>
                                                     </div>
                                                 </div>
                                             </div>

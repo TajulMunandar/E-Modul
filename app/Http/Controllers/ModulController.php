@@ -18,9 +18,9 @@ class ModulController extends Controller
         $prodis2 = Prodi::all();
         $moduls = modul::with('users', 'prodis');
 
-        if ($request->has('kategori')) {
+        if ($request->has('prodi')) {
             $moduls->whereHas('prodis', function ($query) use ($request) {
-                $query->where('prodis.id', $request->kategori);
+                $query->where('prodis.id', $request->prodi);
             });
         }
 

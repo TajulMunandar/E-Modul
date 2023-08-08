@@ -38,17 +38,17 @@
                             <div class="offcanvas-body">
                                 <ul class="menu-item text-start">
                                     @foreach ($navmateris as $index => $navmateri)
-                                    @php
-                                        $isFinished = \App\Models\MateriStatus::where('userId', auth()->user()->id)
-                                            ->where('materiId', $navmateri->id)
-                                            ->exists();
-                                        $isFirstMateri = $index === 0;
-                                        $isPrevFinished =
-                                            $index === 0 ||
-                                            \App\Models\MateriStatus::where('userId', auth()->user()->id)
-                                                ->where('materiId', $navmateris[$index - 1]->id)
+                                        @php
+                                            $isFinished = \App\Models\MateriStatus::where('userId', auth()->user()->id)
+                                                ->where('materiId', $navmateri->id)
                                                 ->exists();
-                                    @endphp
+                                            $isFirstMateri = $index === 0;
+                                            $isPrevFinished =
+                                                $index === 0 ||
+                                                \App\Models\MateriStatus::where('userId', auth()->user()->id)
+                                                    ->where('materiId', $navmateris[$index - 1]->id)
+                                                    ->exists();
+                                        @endphp
                                         <form action="{{ route('materi-main.show', ['materi' => $navmateri->slug]) }}"
                                             method="get">
                                             @if (request()->is('materi-main/' . $navmateri->slug))
@@ -59,7 +59,7 @@
                                                 </button>
                                             @else
                                                 <button type="submit" class="dropdown-item b" data-i18n="Analytics"
-                                                    {{ (!$isFirstMateri && !$isPrevFinished) ? 'disabled' : '' }}>
+                                                    {{ !$isFirstMateri && !$isPrevFinished ? 'disabled' : '' }}>
                                                     <i class="fa-solid fa-diamond me-2"></i>
                                                     {{ $navmateri->title }}
                                                 </button>
@@ -78,13 +78,33 @@
             <hr class="mt-5 text-dark">
             <h2 class="fw-bold">Ruang Diskusi</h2>
             {{-- disini data komentar --}}
-            <form action="">
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea">Comments</label>
-                </div>
-                <button class="btn btn-primary float-end">Komen</button>
-            </form>
+            <div class="row">
+                <form action="{{ route('materi-main.coment') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="userId" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="materiId" value="{{ $materi->id }}">
+                    <input type="hidden" name="slug" value="{{ $materi->slug }}">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="name"></textarea>
+                        <label for="floatingTextarea">Comments</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Komen</button>
+                </form>
+            </div>
+            <hr class="mt-5 text-dark">
+            <div class="row">
+                <ol class="list-group list-group-numbered">
+                    @foreach ($komentars as $komentar)
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ $komentar->users->name }}</div>
+                                {{ $komentar->name }}
+                            </div>
+                            <span class="badge bg-primary rounded-pill">{{ $komentar->created_at->format('d-m-y') }}</span>
+                        </li>
+                    @endforeach
+                </ol>
+            </div>
         </div>
     </div>
 </div>

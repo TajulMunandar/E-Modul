@@ -15,3 +15,6 @@
 <!-- Theme JS -->
 <script src="{{ asset('js/theme.min.js') }}"></script>
 
+{{--  HighChart JS  --}}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+

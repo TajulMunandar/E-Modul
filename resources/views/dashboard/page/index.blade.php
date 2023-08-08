@@ -56,5 +56,8 @@
                 </div>
             </div>
         </div>
+        <!-- Contoh elemen div untuk menampilkan grafik -->
+        <div id="grafikContainer" style="height: 400px;"></div>
+
     </div>
 @endsection

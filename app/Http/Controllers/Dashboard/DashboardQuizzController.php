@@ -20,8 +20,10 @@ class DashboardQuizzController extends Controller
 
             if(auth()->user()->role == 2){
                $quizzs =  quiz::where('isChoice', true)->latest()->get();
+               $moduls = modul::latest()->get();
             }elseif(auth()->user()->role == 1){
                 $userId = auth()->user()->id;
+                $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
                 $quizzs = quiz::where('isChoice', true)->whereHas('moduls', function ($query) use ($userId) {
                     $query->where('userId', $userId);
                 })
@@ -32,7 +34,7 @@ class DashboardQuizzController extends Controller
             }
 
             return view('dashboard.page.quizz.choice.index', [
-                'moduls' => modul::latest()->get(),
+                'moduls' => $moduls,
                 'quizzs' => $quizzs
             ]);
         }else{

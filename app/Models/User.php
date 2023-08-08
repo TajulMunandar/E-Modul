@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(modul::class);
     }
 
+    public function komentars()
+    {
+        return $this->hasMany(Komentar::class);
+    }
+
     public function scores()
     {
         return $this->hasMany(score::class);

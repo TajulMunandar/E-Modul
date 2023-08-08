@@ -67,7 +67,7 @@ class DashboardModulController extends Controller
             $imageName = time() . '-' . Str::random(10) . '.' . 'webp';
             $image->save(storage_path('app/public/image-modul/' . $imageName));
 
-            $validatedData['image'] = 'image-module/' . $imageName;
+            $validatedData['image'] = 'image-modul/' . $imageName;
         }
 
         $validatedData['slug'] = $this->getSlug($request->name);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\choiceUser;
 use App\Models\essayUser;
+use App\Models\Komentar;
 use Carbon\Carbon;
 use App\Models\quiz;
 use App\Models\modul;
@@ -87,6 +88,7 @@ class PramateriController extends Controller
             $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
             $footmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
             $status = MateriStatus::where('materiId', $materi->id)->where('userId', auth()->user()->id)->with('materi')->latest()->first();
+            $komentars = Komentar::with('users')->where('materiId', $materi->id)->get();
 
             $modul = $materi->moduls;
 
@@ -111,7 +113,7 @@ class PramateriController extends Controller
             }
             $tanggal = Carbon::parse($materi->created_at)->format('d F Y');
 
-            return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'status', 'modul'));
+            return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'status', 'modul', 'komentars'));
         } else {
             $materis = $materi->moduls->user;
             $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
@@ -174,5 +176,17 @@ class PramateriController extends Controller
             $nextMateri = $footermateris[$currentMateriIndex + 1];
         }
         return Redirect::route('materi-main.show', ['materi' => $nextMateri->slug])->with('success', 'User baru berhasil dibuat!');
+    }
+
+    public function storeComent(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'userId' => 'required',
+            'materiId' => 'required'
+        ]);
+
+        Komentar::create($validatedData);
+
+        return Redirect::route('materi-main.show', ['materi' => $request->slug]);
     }
 }

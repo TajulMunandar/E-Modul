@@ -101,7 +101,10 @@ class DashboardMateriController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        return view('dashboard.page.materi.show', [
+            'materi' => materi::whereId($id)->first()
+        ]);
     }
 
     /**
