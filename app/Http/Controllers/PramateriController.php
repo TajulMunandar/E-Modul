@@ -118,6 +118,7 @@ class PramateriController extends Controller
             $materis = $materi->moduls->user;
             $navmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
             $footmateris = materi::with('moduls')->where('modulId', $materi->modulId)->get();
+            $komentars = Komentar::with('users')->where('materiId', $materi->id)->get();
 
             $modul = $materi->moduls;
 
@@ -142,7 +143,7 @@ class PramateriController extends Controller
             }
             $tanggal = Carbon::parse($materi->created_at)->format('d F Y');
 
-            return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'modul'));
+            return view('main.page.materi')->with(compact('materi', 'materis', 'tanggal', 'navmateris', 'previousMateri', 'nextMateri', 'modul', 'komentars'));
         }
     }
 

@@ -20,8 +20,9 @@
 
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
           <div class="px-4 pb-0 pt-2">
-            <div class="lh-1 ">
-              <h5 class="mb-1">{{ auth()->user()->name }}</h5>
+            <div class="lh-1 mb-2">
+              <h5 class="mb-4">{{ auth()->user()->name }}</h5>
+              <a href="/profile" >Profile</a>
             </div>
           </div>
         </div>

@@ -5,15 +5,16 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\EssayController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PramateriController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardUserController;
 use App\Http\Controllers\Dashboard\DashboardModulController;
+use App\Http\Controllers\Dashboard\DashboardProdiController;
 use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
-use App\Http\Controllers\Dashboard\DashboardPenilaianController;
-use App\Http\Controllers\Dashboard\DashboardProdiController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
+use App\Http\Controllers\Dashboard\DashboardPenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'authenticate');
     Route::post('/logout', 'logout');
 });
+
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('modul-main.index');
 
 Route::get('/modul', [ModulController::class, 'index'])->name('modul-main.index');
 

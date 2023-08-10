@@ -75,36 +75,51 @@
             <p>
                 {!! $materi->content !!}
             </p>
-            <hr class="mt-5 text-dark">
+            <hr class="mt-5 text-dark opacity-25">
             <h2 class="fw-bold">Ruang Diskusi</h2>
-            {{-- disini data komentar --}}
-            <div class="row">
-                <form action="{{ route('materi-main.coment') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="userId" value="{{ auth()->user()->id }}">
-                    <input type="hidden" name="materiId" value="{{ $materi->id }}">
-                    <input type="hidden" name="slug" value="{{ $materi->slug }}">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="name"></textarea>
-                        <label for="floatingTextarea">Comments</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary float-end">Komen</button>
-                </form>
-            </div>
-            <hr class="mt-5 text-dark">
-            <div class="row">
-                <ol class="list-group list-group-numbered">
-                    @foreach ($komentars as $komentar)
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">{{ $komentar->users->name }}</div>
-                                {{ $komentar->name }}
+            <div class="row w-100 p-3 d-flex">
+                @foreach ($komentars as $komentar)
+                    <div class="col-lg-10 mb-4 d-flex w-100">
+                        <div class="col-lg-2 text-center me-2" style="width: 80px">
+                            <img src="{{ asset('images/avatar.png') }}" class="rounded-pill" style="max-width: 100%">
+                        </div>
+                        <div class="col-lg-10 me-2">
+                            <h4 class="fw-bolder mb-2">{{ $komentar->users->name }}</h4>
+                            <p>{{ $komentar->name }}</p>
+                        </div>
+                        <div class="me-2 d-flex">
+                            <p style="font-size: 11px" class="me-2 mt-1">{{ $komentar->created_at->format('D-M-Y') }}</p>
+                            <div class="dropdown">
+                                <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                :
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
                             </div>
-                            <span class="badge bg-primary rounded-pill">{{ $komentar->created_at->format('d-m-y') }}</span>
-                        </li>
-                    @endforeach
-                </ol>
+                        </div>
+
+                    </div>
+                @endforeach
             </div>
+            @if (auth()->user())
+                <div class="row mt-5">
+                    <form action="{{ route('materi-main.coment') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="userId" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="materiId" value="{{ $materi->id }}">
+                        <input type="hidden" name="slug" value="{{ $materi->slug }}">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="name"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-end">Komen</button>
+                    </form>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

@@ -8,6 +8,7 @@
                         {{ auth()->user()->name }}
                     </button>
                     <ul class="dropdown-menu">
+                        <li ><a  class="dropdown-item"href="/profile">Profile</a></li>
                         <form action="/logout" method="post">
                             @csrf
                             <li><button type="submit" class="dropdown-item">Logout</button></li>
