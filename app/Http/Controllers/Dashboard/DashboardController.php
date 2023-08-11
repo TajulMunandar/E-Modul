@@ -15,8 +15,8 @@ class DashboardController extends Controller
         $dosen = User::where('role', 1)->count();
         $mahasiswa = User::where('role', 0)->count();
         $modul = modul::all()->count();
-        $highlight = materi::latest()->take(3)->get();
+        $highlights = materi::with('moduls')->latest()->take(3)->get();
 
-        return view('dashboard.page.index')->with(compact('dosen', 'mahasiswa', 'modul', 'highlight'));
+        return view('dashboard.page.index')->with(compact('dosen', 'mahasiswa', 'modul', 'highlights'));
     }
 }

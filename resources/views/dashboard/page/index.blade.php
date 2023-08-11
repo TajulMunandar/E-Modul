@@ -3,9 +3,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row mb-3">
+            <h2>Data Global</h2>
             <div class="col-lg-4">
-                <div class="card mb-14">
+                <div class="card mb-3">
                     <div class="card-body p-5">
                         <div class="row d-flex align-items-center">
                             <div class="col">
@@ -22,7 +23,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card mb-14">
+                <div class="card mb-3">
                     <div class="card-body p-5">
                         <div class="row d-flex align-items-center">
                             <div class="col">
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card mb-14">
+                <div class="card mb-3">
                     <div class="card-body p-5">
                         <div class="row d-flex align-items-center">
                             <div class="col">
@@ -56,8 +57,67 @@
                 </div>
             </div>
         </div>
+
         <!-- Contoh elemen div untuk menampilkan grafik -->
-        <div id="grafikContainer" style="height: 400px;"></div>
+        <div class="row mb-2">
+            <div class="col-lg-8">
+                <h3>Traffic Pengunjung</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Highlight Modul Terupdate</h3>
+                <div class="row">
+                    @foreach ($highlights as $materi )
+                    <div class="col-lg-12">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-lg-2 text-center " style="width: 80px">
+                                        <img src="{{ asset('images/avatar.png') }}" class="rounded-pill" style="max-width: 100%">
+                                    </div>
+                                    <div class="col-lg-9 ">
+                                        <p style="font-size: 10px" class="mb-0 fw-thin">{{ $materi->created_at->format('d-M-Y') }}</p>
+                                        <p class="fw-bold mb-0 fs-4">{{ $materi->moduls->users->name }}</p>
+                                        <p class="fw-light" style="font-size: 14px">{{ $materi->title }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
 
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Bulan Lalu', 'Minggu Lalu', 'Kemarin', 'Hari Ini'],
+                datasets: [{
+                    label: 'Traffic',
+                    data: [12, 19, 4, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 @endsection
