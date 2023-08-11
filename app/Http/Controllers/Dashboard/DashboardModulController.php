@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\modul;
 use App\Models\Prodi;
 use App\Models\User;
@@ -115,7 +114,21 @@ class DashboardModulController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['image'] = $request->file('image')->store('image-modul');
+            $image = $request->file('image');
+
+            // Load the image using Intervention Image
+            $image = Image::make($image);
+
+            // Compress and resize the image
+            $image->fit(800, 800, function ($constraint) {
+                $constraint->upsize();
+            })->encode('webp', 80); // Menggunakan format WebP untuk kompresi yang lebih efisien
+
+            // Simpan gambar yang telah dikompres ke direktori image-modul
+            $imageName = time() . '-' . Str::random(10) . '.' . 'webp';
+            $image->save(storage_path('app/public/image-modul/' . $imageName));
+
+            $validatedData['image'] = 'image-modul/' . $imageName;
         }
 
         modul::where('id', $id)->update($validatedData);
@@ -143,5 +156,6 @@ class DashboardModulController extends Controller
     {
         $slug = SlugService::createSlug(modul::class, 'slug', $name);
         return $slug;
+        
     }
 }

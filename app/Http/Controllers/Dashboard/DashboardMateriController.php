@@ -8,6 +8,7 @@ use App\Models\modul;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
 
 
 class DashboardMateriController extends Controller
@@ -78,7 +79,7 @@ class DashboardMateriController extends Controller
                 $fileNameContent = uniqid();
                 $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
                 $filePath = ("$storage/$fileNameContentRand.$mimetype");
-                $image = Image::make($src)->encode($mimetype, 100)->save(public_path($filePath));
+                $image = Image::make($src)->encode($mimetype, 80)->save(public_path($filePath));
                 $new_src = asset($filePath);
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $new_src);
@@ -99,12 +100,9 @@ class DashboardMateriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(materi $materi)
     {
 
-        return view('dashboard.page.materi.show', [
-            'materi' => materi::whereId($id)->first()
-        ]);
     }
 
     /**
@@ -157,7 +155,7 @@ class DashboardMateriController extends Controller
                 $fileNameContent = uniqid();
                 $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
                 $filePath = ("$storage/$fileNameContentRand.$mimetype");
-                $image = Image::make($src)->encode($mimetype, 100)->save(public_path($filePath));
+                $image = Image::make($src)->encode($mimetype, 80)->save(public_path($filePath));
                 $new_src = asset($filePath);
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $new_src);

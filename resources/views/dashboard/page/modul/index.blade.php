@@ -229,10 +229,7 @@
                                             <div class="modal-body d">
                                                 <div class="row">
                                                     <div class="col text-center">
-                                                        <picture>
-                                                            <source srcset="{{ asset('storage/' . $modul->image) }}" type="image/webp">
-                                                            <img class="rounded-3" style="object-fit: cover" src="{{ asset('storage/' . $modul->image) }}" alt="" height="250" width="350">
-                                                        </picture>
+                                                        <img class="rounded-3" style="object-fit: cover" src="{{ asset('storage/' . $modul->image) }}" alt="" height="250" width="350">
                                                     </div>
                                                 </div>
                                             </div>

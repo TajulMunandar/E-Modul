@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('no_induk')->nullable();
+            $table->string('email')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('image')->nullable();
             $table->integer('role');
             $table->foreignId('prodiId')->constrained('prodis')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
