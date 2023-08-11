@@ -107,16 +107,39 @@
                 labels: ['Bulan Lalu', 'Minggu Lalu', 'Kemarin', 'Hari Ini'],
                 datasets: [{
                     label: 'Traffic',
+                    borderColor: "#8f44fd",
+                    backgroundColor: "#8f44fd",
                     data: [12, 19, 4, 3],
+                    fill:true,
                     borderWidth: 1
                 }]
             },
             options: {
                 scales: {
                     y: {
+                        suggestedMin: 0,
+                        grid: {
+                            display:true,
+                            drawBorder:true,
+                            drawOnChartArea:true,
+                            drawTicks:true,
+                            color: "rgba(255, 255, 255, 0.08)",
+                            borderColor: "transparent",
+                            borderDash: [5,5],
+                            borderDashOffset: 2,
+                            tickColor: "transparent"
+                        },
+                        tension: 0.3,
                         beginAtZero: true
                     }
-                }
+                },
+                elements: {
+                    point: {
+                        radius: 8,
+                        hoverRadius: 8,
+                        borderWidth: 0,
+                    },
+                },
             }
         });
     </script>
