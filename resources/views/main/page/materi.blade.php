@@ -87,18 +87,19 @@
                             <h4 class="fw-bolder mb-2">{{ $komentar->users->name }}</h4>
                             <p>{{ $komentar->name }}</p>
                         </div>
-                        <div class="me-2 d-flex">
-                            <p style="font-size: 11px" class="me-2 mt-1">{{ $komentar->created_at->format('D-M-Y') }}</p>
-                            <div class="dropdown">
-                                <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                :
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                </ul>
-                            </div>
+                        <div class="me-3 d-flex align-items-start">
+                            <p style="font-size: 11px" class="me-3 mb-0">{{ $komentar->created_at->format('D-M-Y') }}</p>
+
+                        </div>
+                        <div class="dropdown d-flex align-items-center">
+                            <a class="dropdown" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical "></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Edit</a></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                            </ul>
                         </div>
 
                     </div>

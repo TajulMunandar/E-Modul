@@ -129,14 +129,16 @@
                             borderDashOffset: 2,
                             tickColor: "transparent"
                         },
-                        tension: 0.3,
+
                         beginAtZero: true
                     }
                 },
+                tension: 0.3,
                 elements: {
                     point: {
                         radius: 8,
-                        hoverRadius: 8,
+                        hoverRadius: 12,
+                        backgroundColor: "#9BD0F5",
                         borderWidth: 0,
                     },
                 },
