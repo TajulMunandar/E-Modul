@@ -62,20 +62,20 @@ Route::resource('/quiz-main', QuizController::class)->except('showquiz')->middle
 Route::post('/quiz-main-essay', [EssayController::class, 'store'])->middleware('auth')->name('quiz-essay.store')->middleware('mahasiswa');
 
 Route::prefix('/dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-    Route::resource('/prodi', DashboardProdiController::class)->middleware('auth');
-    Route::resource('/modul', DashboardModulController::class)->middleware('auth');
-    Route::resource('/materi', DashboardMateriController::class)->middleware('auth');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('dosmin');
+    Route::resource('/prodi', DashboardProdiController::class)->middleware('dosmin');
+    Route::resource('/modul', DashboardModulController::class)->middleware('dosmin');
+    Route::resource('/materi', DashboardMateriController::class)->middleware('dosmin');
     Route::resource('/user', DashboardUserController::class)->middleware('admin');
     Route::post('/user/reset-password', [DashboardUserController::class, 'resetPasswordAdmin'])->name('user.reset')->middleware('admin');
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['dosmin'])->group(function () {
         Route::prefix('/quizz')->group(function () {
             Route::resource('/choicee', DashboardQuizzController::class);
             Route::resource('/essayy', DashboardQuizzController::class);
             Route::resource('/question', DashboardQuestionController::class);
         });
     });
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['dosmin'])->group(function () {
         Route::prefix('/penilaian')->group(function () {
             Route::get('/choice', [DashboardPenilaianController::class, 'index'])->name('choice.index');
             Route::get('/choice/{choice}', [DashboardPenilaianController::class, 'show'])->name('choice.show');

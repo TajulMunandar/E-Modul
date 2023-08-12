@@ -59,8 +59,8 @@
                                     <td>{{ $materi->slug }}</td>
                                     <td>{{ $materi->moduls->name }}</td>
                                     <td>
-                                        <a target="_blank" class="btn btn-info" href="{{ route('materi-main.show', ['materi' => $materi->slug]) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
+                                        <a target="_blank" class="btn btn-info text-white" href="{{ route('materi-main.show', ['materi' => $materi->slug]) }}"><i
+                                                class="fa-solid fa-eye"></i></a>
                                         <a class="btn btn-warning" href="{{ route('materi.edit', $materi->id) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
                                         <button id="delete-button" class="btn btn-danger" id="delete-button"

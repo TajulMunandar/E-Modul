@@ -9,6 +9,9 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li ><a  class="dropdown-item"href="/profile">Profile</a></li>
+                        @if (auth()->user()->role == 1 || auth()->user()->role == 2)
+                        <li ><a  class="dropdown-item"href="/dashboard">Dashboard</a></li>
+                        @endif
                         <form action="/logout" method="post">
                             @csrf
                             <li><button type="submit" class="dropdown-item">Logout</button></li>
