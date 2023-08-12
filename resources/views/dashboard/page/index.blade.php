@@ -104,12 +104,12 @@
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Bulan Lalu', 'Minggu Lalu', 'Kemarin', 'Hari Ini'],
+                labels: {!! json_encode($chartLabels) !!},
                 datasets: [{
                     label: 'Traffic',
                     borderColor: "#8f44fd",
                     backgroundColor: "#8f44fd",
-                    data: [12, 19, 4, 3],
+                    data: {!! json_encode($chartData) !!},
                     fill:true,
                     borderWidth: 1
                 }]

@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardPenilaianController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,7 @@ use App\Http\Controllers\Dashboard\DashboardPenilaianController;
 
 
 
-Route::get('/', function () {
-    return view('main.page.index');
-});
+Route::get('/', [MainController::class, 'index'])->name('main.index');
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('login')->middleware('guest');
@@ -41,6 +40,9 @@ Route::controller(LoginController::class)->group(function () {
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('modul-main.index');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::put('/profile-image', [ProfileController::class, 'updateImage'])->name('profile.updateimage');
+Route::post('/profile', [ProfileController::class, 'resetPassword'])->name('profile.reset');
 
 Route::get('/modul', [ModulController::class, 'index'])->name('modul-main.index');
 
