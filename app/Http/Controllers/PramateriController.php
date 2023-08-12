@@ -179,15 +179,8 @@ class PramateriController extends Controller
         return Redirect::route('materi-main.show', ['materi' => $nextMateri->slug])->with('success', 'User baru berhasil dibuat!');
     }
 
-    public function storeComent(Request $request){
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'userId' => 'required',
-            'materiId' => 'required'
-        ]);
 
-        Komentar::create($validatedData);
 
-        return Redirect::route('materi-main.show', ['materi' => $request->slug]);
-    }
+
+
 }

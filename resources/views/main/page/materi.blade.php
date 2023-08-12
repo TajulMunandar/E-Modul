@@ -88,25 +88,101 @@
                             <p>{{ $komentar->name }}</p>
                         </div>
                         <div class="me-2 d-flex">
-                            <p style="font-size: 11px" class="me-2 mt-1">{{ $komentar->created_at->format('D-M-Y') }}</p>
-                            <div class="dropdown">
-                                <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                :
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                </ul>
+                            <p style="font-size: 11px" class="me-2 mt-1">{{ $komentar->created_at->format('D-M-Y') }}
+                            </p>
+                            @if ($komentar->userId == auth()->user()->id)
+                                <div class="dropdown">
+                                    <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        :
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $loop->iteration }}">
+                                                EDIT
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                data-bs-target="#hapusModal{{ $loop->iteration }}">
+                                                DELETE
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{--  EDIT MODAL KOMENTAR  --}}
+                    <div class="modal fade" id="editModal{{ $loop->iteration }}" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Komentar</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('coment.update', $komentar->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="userId" value="{{ auth()->user()->id }}">
+                                        <input type="hidden" name="materiId" value="{{ $materi->id }}">
+                                        <input type="hidden" name="id" value="{{ $komentar->id }}">
+                                        <input type="hidden" name="slug" value="{{ $materi->slug }}">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="name">{{ $komentar->name }}</textarea>
+                                            <label for="floatingTextarea">Comments</label>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info text-white">Edit Coment</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
-
                     </div>
+                    {{--  EDIT MODAL KOMENTAR  --}}
+
+                    {{--  DELETE MODAL KOMENTAR  --}}
+                    <div class="modal fade" id="hapusModal{{ $loop->iteration }}" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Komentar</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('coment.destroy', $komentar->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value="{{ $komentar->id }}">
+                                        <input type="hidden" name="slug" value="{{ $materi->slug }}">
+                                        <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                        <b>{{ $komentar->name }} ?</b>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info text-white">Delete Coment</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  DELETE MODAL KOMENTAR  --}}
                 @endforeach
             </div>
             @if (auth()->user())
                 <div class="row mt-5">
-                    <form action="{{ route('materi-main.coment') }}" method="POST">
+                    <form action="{{ route('coment.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="userId" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="materiId" value="{{ $materi->id }}">

@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\DashboardQuizzController;
 use App\Http\Controllers\Dashboard\DashboardMateriController;
 use App\Http\Controllers\Dashboard\DashboardQuestionController;
 use App\Http\Controllers\Dashboard\DashboardPenilaianController;
+use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\MainController;
 
 /*
@@ -54,7 +55,10 @@ Route::get('/pramateri/{modul:slug}/quiz', [PramateriController::class, 'showQui
 
 Route::get('/materi-main/{materi:slug}', [PramateriController::class, 'showmateri'])->name('materi-main.show');
 Route::post('/materi-main', [PramateriController::class, 'storeMateri'])->name('materi-main.store');
-Route::post('/materi-main/coment', [PramateriController::class, 'storeComent'])->name('materi-main.coment');
+
+Route::post('/materi-main/coment/', [KomentarController::class, 'store'])->name('coment.store');
+Route::put('/materi-main/coment/{id}', [KomentarController::class, 'update'])->name('coment.update');
+Route::delete('/materi-main/coment/{id}', [KomentarController::class, 'destroy'])->name('coment.destroy');
 
 Route::get('/quiz-main/{id}', [QuizController::class, 'showquiz'])->name('quiz-main.showquiz')->middleware('mahasiswa');
 Route::resource('/quiz-main', QuizController::class)->except('showquiz')->middleware('mahasiswa');
