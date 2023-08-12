@@ -87,14 +87,14 @@
                             <h4 class="fw-bolder mb-2">{{ $komentar->users->name }}</h4>
                             <p>{{ $komentar->name }}</p>
                         </div>
-                        <div class="me-2 d-flex">
-                            <p style="font-size: 11px" class="me-2 mt-1">{{ $komentar->created_at->format('D-M-Y') }}
+                        <div class="me-3 d-flex align-items-start">
+                            <p style="font-size: 11px" class="me-3 mb-0">{{ $komentar->created_at->format('D-M-Y') }}
                             </p>
                             @if ($komentar->userId == auth()->user()->id)
-                                <div class="dropdown">
+                                <div class="dropdown d-flex align-items-center">
                                     <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                        :
+                                        <i class="fa-solid fa-ellipsis-vertical "></i>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>

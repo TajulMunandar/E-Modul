@@ -2,6 +2,25 @@
 
 @section('content')
     <div class="container">
+        {{--  ALERT  --}}
+        <div class="row mt-3">
+            <div class="col">
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session()->has('failed'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('failed') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div>
+        </div>
+        {{--  ALERT  --}}
         <div class="row justify-content-center mb-5">
             <div class="col col-md-5">
                 <div class="card border-0 bg-transparent" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
@@ -12,14 +31,13 @@
                                     <a type="button" class="position-relative" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">
                                         <div>
-                                            @if (auth()->user()->id)
+                                            @if (auth()->user()->image)
                                                 <img src="{{ asset('storage/' . auth()->user()->image) }}" alt=""
                                                     width="25%" class="rounded-circle mb-3 ">
                                             @else
-                                                <img src="{{ asset('storage/' . auth()->user()->image) }}" alt=""
-                                                    width="25%" class="rounded-circle mb-3 ">
+                                                <img src="{{ asset('images/avatar.png') }}" alt="" width="25%"
+                                                    class="rounded-circle mb-3 ">
                                             @endif
-
                                             <span
                                                 class="position-absolute start-60 translate-middle badge rounded-pill bg-secondary"
                                                 style="top: 75%;">
@@ -131,9 +149,9 @@
                             </div>
                         </form>
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                                            data-bs-target="#resetPassword">
-                                            Reset Password
-                                        </button>
+                            data-bs-target="#resetPassword">
+                            Reset Password
+                        </button>
                     </div>
                 </div>
             </div>
@@ -141,8 +159,7 @@
     </div>
 
     {{--  MODAL RESET PASSWORD  --}}
-    <div class="modal fade" id="resetPassword" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="resetPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -158,10 +175,9 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password
                                     Baru</label>
-                                <div id="pwd1" class="input-group">
-                                    <input type="password"
-                                        class="form-control border-end-0 @error('password') is-invalid @enderror"
-                                        name="password" id="password" value="{{ old('password') }}" required>
+                                <div id="pwd" class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" autofocus required>
                                     <span class="input-group-text cursor-pointer">
                                         <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
                                     </span>
@@ -182,7 +198,7 @@
                                         class="form-control border-end-0 @error('password2') is-invalid @enderror"
                                         name="password2" id="password2" value="{{ old('password2') }}" required>
                                     <span class="input-group-text cursor-pointer">
-                                        <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
+                                        <i class="fa-regular fa-eye-slash" id="togglePassword2"></i>
                                     </span>
                                     @error('password2')
                                         <div class="invalid-feedback">
@@ -204,25 +220,39 @@
     {{--  MODAL RESET PASSWORD  --}}
 
     @include('main.component.footer')
-@endsection
-
-
 @section('script')
-    AOS.init();
-        const input = document.querySelector("#pwd input");
-        const eye = document.querySelector("#pwd .fa-eye-slash");
+    const input = document.querySelector("#pwd input");
+    const eye = document.querySelector("#pwd .fa-eye-slash");
 
-        eye.addEventListener("click", () => {
-            if (input.type === "password") {
-                input.type = "text";
+    const input2 = document.querySelector("#pwd2 input");
+    const eye2 = document.querySelector("#pwd2 .fa-eye-slash");
 
-                eye.classList.remove("fa-eye-slash");
-                eye.classList.add("fa-eye");
-            } else {
-                input.type = "password";
+    eye.addEventListener("click", () => {
+    if (input.type === "password") {
+    input.type = "text";
 
-                eye.classList.remove("fa-eye");
-                eye.classList.add("fa-eye-slash");
-            }
-        });
+    eye.classList.remove("fa-eye-slash");
+    eye.classList.add("fa-eye");
+    } else {
+    input.type = "password";
+
+    eye.classList.remove("fa-eye");
+    eye.classList.add("fa-eye-slash");
+    }
+    });
+
+    eye2.addEventListener("click", () => {
+    if (input2.type === "password") {
+    input2.type = "text";
+
+    eye2.classList.remove("fa-eye-slash");
+    eye2.classList.add("fa-eye");
+    } else {
+    input2.type = "password";
+
+    eye2.classList.remove("fa-eye");
+    eye2.classList.add("fa-eye-slash");
+    }
+    });
+@endsection
 @endsection

@@ -71,23 +71,30 @@
             <div class="col">
                 <h3>Highlight Modul Terupdate</h3>
                 <div class="row">
-                    @foreach ($highlights as $materi )
-                    <div class="col-lg-12">
-                        <div class="card mb-5">
-                            <div class="card-body">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col-lg-2 text-center " style="width: 80px">
-                                        <img src="{{ asset('images/avatar.png') }}" class="rounded-pill" style="max-width: 100%">
-                                    </div>
-                                    <div class="col-lg-9 ">
-                                        <p style="font-size: 10px" class="mb-0 fw-thin">{{ $materi->created_at->format('d-M-Y') }}</p>
-                                        <p class="fw-bold mb-0 fs-4">{{ $materi->moduls->users->name }}</p>
-                                        <p class="fw-light" style="font-size: 14px">{{ $materi->title }}</p>
+                    @foreach ($highlights as $materi)
+                        <div class="col-lg-12">
+                            <div class="card mb-5">
+                                <div class="card-body">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-lg-2 text-center " style="width: 80px">
+                                            @if ($materi->moduls->users->image)
+                                                <img src="{{ asset('storage/' . $materi->moduls->users->image) }}"
+                                                    class="rounded-pill" style="max-width: 100%">
+                                            @else
+                                                <img src="{{ asset('images/avatar.png') }}" class="rounded-pill"
+                                                    style="max-width: 100%">
+                                            @endif
+                                        </div>
+                                        <div class="col-lg-9 ">
+                                            <p style="font-size: 10px" class="mb-0 fw-thin">
+                                                {{ $materi->created_at->format('d-M-Y') }}</p>
+                                            <p class="fw-bold mb-0 fs-4">{{ $materi->moduls->users->name }}</p>
+                                            <p class="fw-light" style="font-size: 14px">{{ $materi->title }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -110,7 +117,7 @@
                     borderColor: "#8f44fd",
                     backgroundColor: "#8f44fd",
                     data: {!! json_encode($chartData) !!},
-                    fill:true,
+                    fill: true,
                     borderWidth: 1
                 }]
             },
@@ -118,25 +125,27 @@
                 scales: {
                     y: {
                         suggestedMin: 0,
+                        suggestedMax: 50,
                         grid: {
-                            display:true,
-                            drawBorder:true,
-                            drawOnChartArea:true,
-                            drawTicks:true,
+                            display: true,
+                            drawBorder: true,
+                            drawOnChartArea: true,
+                            drawTicks: true,
                             color: "rgba(255, 255, 255, 0.08)",
                             borderColor: "transparent",
-                            borderDash: [5,5],
+                            borderDash: [5, 5],
                             borderDashOffset: 2,
                             tickColor: "transparent"
                         },
-                        tension: 0.3,
                         beginAtZero: true
                     }
                 },
+                tension: 0.3,
                 elements: {
                     point: {
                         radius: 8,
-                        hoverRadius: 8,
+                        hoverRadius: 12,
+                        backgroundColor: "#9BD0F5",
                         borderWidth: 0,
                     },
                 },

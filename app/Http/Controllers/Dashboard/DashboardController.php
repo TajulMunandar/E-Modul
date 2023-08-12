@@ -23,8 +23,18 @@ class DashboardController extends Controller
         $chartData = [];
         $chartLabels = [];
         $data = $this->grafis();
+
+        $today = date('Y-m-d');
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
         foreach ($data as $record) {
-            $chartLabels[] = $record->visit_date;
+            $formattedDate = date('d M Y', strtotime($record->visit_date));
+            if ($record->visit_date == $today) {
+                $chartLabels[] = "Hari Ini";
+            } else if($record->visit_date == $yesterday){
+                $chartLabels[] = "Kemarin";
+            } else {
+                $chartLabels[] = $formattedDate;
+            }
             $chartData[] = $record->record_count;
         }
 
@@ -36,9 +46,7 @@ class DashboardController extends Controller
         return view('dashboard.page.index')->with(compact('dosen', 'mahasiswa', 'modul', 'highlights', 'chartLabels', 'chartData'));
     }
 
-
     public function grafis(){
-
         $startDate = Carbon::now()->subWeek(); // Tanggal mulai satu minggu yang lalu
         $endDate = Carbon::now(); // Tanggal sekarang
         $grafis = DB::table('logs')
