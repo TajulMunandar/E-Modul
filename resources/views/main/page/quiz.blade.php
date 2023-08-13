@@ -14,7 +14,7 @@
         </div>
         <hr>
         @if ($quiz->isChoice == 1)
-            <form action="{{ route('quiz-main.store') }}" method="post">
+            <form action="{{ route('quiz-main.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $quiz->modulId }}">
                 <input type="hidden" name="quizId" value="{{ $quizId }}">
@@ -54,7 +54,7 @@
             </form>
         @else
             {{-- essay --}}
-            <form action="{{ route('quiz-essay.store') }}" method="post">
+            <form action="{{ route('quiz-essay.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $quiz->modulId }}">
                 <input type="hidden" name="quizId" value="{{ $quizId }}">
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-lg-4 ">
                                     <div class="mb-3">
-                                        <input class="form-control" type="file" id="formFile">
+                                        <input class="form-control" type="file" id="formFile" name="file[]">
                                       </div>
                                 </div>
                             </div>

@@ -4,20 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\essayUser;
 use App\Models\modul;
-use App\Models\jawaban;
 use App\Models\score;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 class EssayController extends Controller
 {
     public function store(Request $request)
     {
+
         $modul = modul::whereId($request->id)->first();
+        $file = $request->file('file');
         foreach ($request->jawaban as $key => $value) {
+            $pdf = null;
+            if (isset($file[$key])) {
+                // Simpan file PDF ke direktori yang ditentukan
+                $pdfName = time() . '-' . Str::random(10) . '.' . $file[$key]->getClientOriginalExtension();
+                $file[$key]->storeAs('file-quiz', $pdfName);
+            
+                $pdf = 'file-quiz/' . $pdfName;
+            }
+            
             essayUser::create([
                 'userId' => auth()->user()->id,
                 'jawaban' => $value,
+                'file' => $pdf,
                 'questionId' => $request->questionId[$key],
             ]);
         }

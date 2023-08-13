@@ -44,7 +44,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name Question</th>
-                                <th>jawaban User</th>
+                                <th>Jawaban User</th>
+                                <th>File</th>
                                 <th>Nilai</th>
                                 <th>Action</th>
                             </tr>
@@ -55,6 +56,13 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $essayuser->questions->title }}</td>
                                     <td>{{ $essayuser->jawaban }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
+                                            data-bs-target="#downloadfile{{ $loop->iteration }}">
+                                            <i class="fa-regular fa-eye me-1 "></i>
+                                            Download
+                                        </button>
+                                    </td>
                                     <td>{{ $essayuser->nilai }}</td>
                                     <td>
                                         <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
