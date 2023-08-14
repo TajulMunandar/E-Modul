@@ -57,11 +57,14 @@
                                     <td>{{ $essayuser->questions->title }}</td>
                                     <td>{{ $essayuser->jawaban }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
-                                            data-bs-target="#downloadfile{{ $loop->iteration }}">
-                                            <i class="fa-regular fa-eye me-1 "></i>
+                                        @if ($essayuser->file)
+                                        <a href="{{ asset('storage/' . $essayuser->file) }}" class="btn btn-sm btn-info text-white" download>
+                                            <i class="fa-solid fa-download me-1 "></i>
                                             Download
-                                        </button>
+                                        </a>
+                                        @else
+                                        <p>Kosong</p>
+                                        @endif
                                     </td>
                                     <td>{{ $essayuser->nilai }}</td>
                                     <td>

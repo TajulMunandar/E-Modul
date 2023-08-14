@@ -16,7 +16,7 @@ class Dosen
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->guest() || auth()->user()->role != 1) {
-            abort(403);
+            return redirect('/');
         }
         return $next($request);
     }

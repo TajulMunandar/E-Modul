@@ -31,7 +31,7 @@
   <!-- Helpers -->
   <script src="{{ asset('vendor/js/helpers.js') }}"></script>
 
-  <title>Gampong Geutanyoe | Login</title>
+  <title>E-Modul | Login</title>
 </head>
 
 <body style="background-image: linear-gradient(to right, #5080da, #012258);">

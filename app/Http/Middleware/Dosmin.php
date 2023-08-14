@@ -16,7 +16,7 @@ class Dosmin
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->guest() || auth()->user()->role != 1 && auth()->user()->role != 2) {
-            abort(403);
+            return redirect('/');
         }
         return $next($request);
     }

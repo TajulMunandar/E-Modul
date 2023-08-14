@@ -16,7 +16,7 @@ class Mahasiswa
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->guest() || auth()->user()->role != 0) {
-            abort(403);
+            return redirect('/');
         }
         return $next($request);
     }
