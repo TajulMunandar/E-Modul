@@ -7,7 +7,7 @@
     <div class="row mt-6">
         <div class="col-sm-6 col-md-12 col-lg-8">
             <a href="{{ route('materi.index')  }}" class="btn btn-dark mb-3"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
-            <div class="card">
+            <div class="card" style="width: 68rem;">
                 <h5 class="card-header">Buat Materi Baru</h5>
                 <form action="{{ route('materi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -61,7 +61,7 @@
     <script>
         $(document).ready(function() {
             $('#summernote').summernote({
-                height: 300,
+                height: 700,
             });
         });
     </script>

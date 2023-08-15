@@ -35,8 +35,10 @@ class ProfileController extends Controller
     }
 
     public function updateImage(Request $request, User $user){
-
         if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
             $rules = [
                 'image' => 'required',
             ];

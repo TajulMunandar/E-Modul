@@ -11,6 +11,14 @@
 {{-- aos --}}
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+<!-- Select2 JS -->
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('libs/select2js/select2-bootstrap-5-theme.css') }}">
+
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="{{ asset('libs/jquery/dist/jquery-3.6.3.min.js') }}"></script>
+
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('fontawesome/css/regular.min.css') }}">

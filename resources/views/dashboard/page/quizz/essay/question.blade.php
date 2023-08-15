@@ -56,7 +56,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $question->title }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>

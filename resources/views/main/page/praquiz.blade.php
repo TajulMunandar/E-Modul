@@ -33,6 +33,7 @@
                             <img src="{{ asset('storage/' . $quiz->moduls->image) }}" class="card-img-top" alt="..."
                                 style="height: 15rem; object-fit: cover">
                             <div class="row mb-3 d-flex  align-items-center">
+
                                 <div class="col">
                                     <h5 class="card-title fw-bold">{{ $quiz->title }}</h5>
                                     <p class="card-text">{{ $date }}</p>
@@ -42,6 +43,16 @@
                                         <span class="badge bg-info"> Choice </span>
                                     @else
                                         <span class="badge bg-success"> Essay </span>
+                                    @endif
+
+                                    @php
+                                    $score = $quiz->scores->where('userId', auth()->user()->id)->first(); // Ambil skor pertama (jika ada) dari relasi scores
+                                    @endphp
+
+                                    @if ($score)
+                                        <p class="mb-0 text-end"><span class="badge bg-black">{{ $score->nilai }} / 100</span></p>
+                                    @else
+                                        <p class="mb-0 text-end"><span class="badge bg-black">No Score</span></p>
                                     @endif
                                 </div>
                             </div>

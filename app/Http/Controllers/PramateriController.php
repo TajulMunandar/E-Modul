@@ -11,6 +11,7 @@ use App\Models\modul;
 use App\Models\materi;
 use App\Models\MateriStatus;
 use App\Models\question;
+use App\Models\score;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -65,11 +66,13 @@ class PramateriController extends Controller
             ->whereNotNull('questionId')
             ->get();
 
+        $score = score::where('userId',auth()->user()->id)->get();
+
 
         // Periksa apakah ada data EssayUser yang ditemukan
         $isEssayQuizAttempted = $essay->isNotEmpty();
 
-        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'date', 'isChoiceQuiz', 'isEssayQuizAttempted'));
+        return view('main.page.praquiz')->with(compact('modul', 'quizzes', 'date', 'isChoiceQuiz', 'isEssayQuizAttempted', 'score'));
     }
 
     public function showmateri(materi $materi)

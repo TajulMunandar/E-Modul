@@ -63,6 +63,7 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
+                                            <input type="hidden" name="oldImage" value="{{ auth()->user()->image }}">
                                             <input type="hidden" name="id" value="{{ auth()->user()->id }}">
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Pilih Foto Anda</label>
@@ -101,7 +102,7 @@
                                 @if (auth()->user()->role == 1)
                                     <label for="no_induk" class="form-label">NIP</label>
                                 @else
-                                    <label for="no_induk" class="form-label">NIM</label>
+                                    <label for="no_induk" class="form-label">NPM</label>
                                 @endif
                                 <input type="text" class="form-control @error('no_induk') is-invalid @enderror"
                                     name="no_induk" id="no_induk" value="{{ auth()->user()->no_induk }}" required>
@@ -211,7 +212,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info text-white">Reset</button>
+                        <button type="submit" class="btn btn-dark text-white">Reset</button>
                     </div>
                 </form>
             </div>

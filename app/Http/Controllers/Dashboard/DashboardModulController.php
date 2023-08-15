@@ -19,15 +19,18 @@ class DashboardModulController extends Controller
      */
     public function index()
     {
+        $dosen = User::whereIn('role', [1, 2])->get();
         if(auth()->user()->role ==  2){
             $moduls = modul::with('prodis')->latest()->get();
+
         }elseif(auth()->user()->role == 1){
             $moduls = modul::with('prodis')->where('userId', auth()->user()->id)->latest()->get();
         }
         return view('dashboard.page.modul.index', [
             'users' => User::all(),
             'prodis' => Prodi::all(),
-            'moduls' => $moduls
+            'moduls' => $moduls,
+            'dosens' => $dosen
         ]);
     }
 
@@ -156,6 +159,6 @@ class DashboardModulController extends Controller
     {
         $slug = SlugService::createSlug(modul::class, 'slug', $name);
         return $slug;
-        
+
     }
 }

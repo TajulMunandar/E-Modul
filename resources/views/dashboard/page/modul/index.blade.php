@@ -77,7 +77,7 @@
                                     </td>
                                     <td>{{ $modul->users->name }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
@@ -147,14 +147,11 @@
                                                                     <option value="{{ auth()->user()->id }}">
                                                                         {{ auth()->user()->name }}</option>
                                                                 @elseif (auth()->user()->role == 2)
-                                                                    @foreach ($users as $user)
-                                                                        @if (old('userId', auth()->user()->id) == $user->id)
-                                                                            <option value="{{ $user->id }}" selected>
-                                                                                {{ $user->name }}</option>
-                                                                        @else
-                                                                            <option value="{{ $user->id }}">
-                                                                                {{ $user->name }}</option>
-                                                                        @endif
+                                                                    @foreach ($dosens as $dosen)
+                                                                        <option value="{{ $dosen->id }}"
+                                                                            {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
+                                                                            {{ $dosen->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -178,7 +175,8 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    <button type="submit"
+                                                        class="btn btn-warning text-white">Perbarui</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -202,8 +200,9 @@
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="id" value="{{ $modul->id }}">
-                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b>{{ $modul->name }} ?</b>
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus data
+                                                        <b>{{ $modul->name }} ?</b></p>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -229,7 +228,9 @@
                                             <div class="modal-body d">
                                                 <div class="row">
                                                     <div class="col text-center">
-                                                        <img class="rounded-3" style="object-fit: cover" src="{{ asset('storage/' . $modul->image) }}" alt="" height="250" width="350">
+                                                        <img class="rounded-3" style="object-fit: cover"
+                                                            src="{{ asset('storage/' . $modul->image) }}" alt=""
+                                                            height="250" width="350">
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,14 +325,11 @@
                                         <option value="{{ auth()->user()->id }}">
                                             {{ auth()->user()->name }}</option>
                                     @elseif (auth()->user()->role == 2)
-                                        @foreach ($users as $user)
-                                            @if (old('userId', auth()->user()->id) == $user->id)
-                                                <option value="{{ $user->id }}" selected>
-                                                    {{ $user->name }}</option>
-                                            @else
-                                                <option value="{{ $user->id }}">
-                                                    {{ $user->name }}</option>
-                                            @endif
+                                        @foreach ($dosens as $dosen)
+                                            <option value="{{ $dosen->id }}"
+                                                {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
+                                                {{ $dosen->name }}
+                                            </option>
                                         @endforeach
                                     @endif
                                 </select>

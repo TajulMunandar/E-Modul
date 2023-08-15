@@ -59,7 +59,7 @@
                                     <td>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <i class="fa-solid fa-pen-to-square text-white"></i>
                                         </button>
                                         <button id="delete-button" class="btn btn-danger" id="delete-button"
                                             data-bs-toggle="modal" data-bs-target="#hapusModal{{ $loop->iteration }}">
@@ -88,7 +88,7 @@
                                                             <input type="hidden" name="id"
                                                                 value="{{ $prodi->id }}">
                                                             <input type="hidden" name="oldName" value="{{ $prodi->name }}">
-                                                            <label for="name" class="form-label">Nama</label>
+                                                            <label for="name" class="form-label">Nama Prodi</label>
                                                             <input type="text"
                                                                 class="form-control @error('name') is-invalid @enderror"
                                                                 name="name" value="{{ old('name', $prodi->name) }}"
@@ -104,7 +104,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    <button type="submit" class="btn btn-warning text-white">Perbarui</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -129,8 +129,8 @@
                                                 <div class="modal-body">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="id" value="{{ $prodi->id }}">
-                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b>{{ $prodi->name }} ?</b>
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus prodi <b>{{ $prodi->name }} ?</b></p>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -164,9 +164,9 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
+                                <label for="name" class="form-label">Nama Prodi</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="name" placeholder="Category" autofocus required>
+                                    name="name" id="name" placeholder="Prodi" autofocus required>
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}

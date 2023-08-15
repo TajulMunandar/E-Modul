@@ -13,9 +13,9 @@
                     Dashboard
                 </a>
             </li>
-            
+
             <li class="nav-item">
-                <a class="nav-link has-arrow {{ Request::is('dashboard/materi') ? 'active' : '' }}" href="{{ route('materi.index') }}">
+                <a class="nav-link has-arrow {{ Request::is('dashboard/materi') || Route::is('materi.create') || Route::is('materi.edit')  ? 'active' : '' }}" href="{{ route('materi.index') }}">
                     <i class="fa-solid fa-file me-4 nav-icon"></i>
                     Materi
                 </a>

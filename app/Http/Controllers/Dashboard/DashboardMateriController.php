@@ -18,16 +18,16 @@ class DashboardMateriController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->role == 2){
-           $materis = materi::with('moduls')->latest()->get();
-        }else{
+        if (auth()->user()->role == 2) {
+            $materis = materi::with('moduls')->latest()->get();
+        } else {
             $userId = auth()->user()->id;
             $materis = Materi::whereHas('moduls', function ($query) use ($userId) {
                 $query->where('userId', $userId);
             })
-            ->with('moduls')
-            ->latest()
-            ->get();
+                ->with('moduls')
+                ->latest()
+                ->get();
         }
         return view('dashboard.page.materi.index', [
             'materis' => $materis
@@ -39,9 +39,9 @@ class DashboardMateriController extends Controller
      */
     public function create()
     {
-        if(auth()->user()->role == 2){
+        if (auth()->user()->role == 2) {
             $moduls = modul::latest()->get();
-        }elseif(auth()->user()->role == 1){
+        } elseif (auth()->user()->role == 1) {
             $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
         }
         return view('dashboard.page.materi.create', [
@@ -55,9 +55,9 @@ class DashboardMateriController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'title' =>'required',
-            'modulId' =>'required',
-            'content' =>'required|min:20',
+            'title' => 'required',
+            'modulId' => 'required',
+            'content' => 'required|min:20',
         ];
 
         $validatedData = $request->validate($rules);
@@ -77,7 +77,7 @@ class DashboardMateriController extends Controller
                 preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
                 $mimetype = $groups['mime'];
                 $fileNameContent = uniqid();
-                $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
+                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
                 $filePath = ("$storage/$fileNameContentRand.$mimetype");
                 $image = Image::make($src)->encode($mimetype, 80)->save(public_path($filePath));
                 $new_src = asset($filePath);
@@ -91,7 +91,7 @@ class DashboardMateriController extends Controller
             'title' => $request->title,
             'slug' => $this->getSlug($request->title),
             'content' => $dom->saveHTML(),
-            'modulId' =>$request->modulId
+            'modulId' => $request->modulId
         ]);
 
         return redirect('/dashboard/materi')->with('success', 'materi berhasil di dibuat');
@@ -102,7 +102,6 @@ class DashboardMateriController extends Controller
      */
     public function show(materi $materi)
     {
-
     }
 
     /**
@@ -110,9 +109,9 @@ class DashboardMateriController extends Controller
      */
     public function edit(string $id)
     {
-        if(auth()->user()->role == 2){
+        if (auth()->user()->role == 2) {
             $moduls = modul::latest()->get();
-        }elseif(auth()->user()->role == 1){
+        } elseif (auth()->user()->role == 1) {
             $moduls = modul::where('userId', auth()->user()->id)->latest()->get();
         }
         return view('dashboard.page.materi.edit', [
@@ -127,16 +126,14 @@ class DashboardMateriController extends Controller
     public function update(Request $request, string $id)
     {
         $rules = [
-            'title' =>'required',
-            'modulId' =>'required',
-            'content' =>'required|min:20',
+            'title' => 'required',
+            'modulId' => 'required',
+            'content' => 'required|min:20',
         ];
 
         $validatedData = $request->validate($rules);
 
         $materi = materi::find($id);
-
-        $this->deleteImage($materi->content);
 
         // Artikel
         $storage = "storage/content-materi";
@@ -153,7 +150,7 @@ class DashboardMateriController extends Controller
                 preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
                 $mimetype = $groups['mime'];
                 $fileNameContent = uniqid();
-                $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
+                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
                 $filePath = ("$storage/$fileNameContentRand.$mimetype");
                 $image = Image::make($src)->encode($mimetype, 80)->save(public_path($filePath));
                 $new_src = asset($filePath);
@@ -166,7 +163,7 @@ class DashboardMateriController extends Controller
 
         if ($request->title != $request->oldTitle) {
             $slug = $this->getSlug($request->title);
-        }else{
+        } else {
             $slug = $request->oldSlug;
         }
 
@@ -174,7 +171,7 @@ class DashboardMateriController extends Controller
             'title' => $request->title,
             'slug' => $slug,
             'content' => $dom->saveHTML(),
-            'modulId' =>$request->modulId
+            'modulId' => $request->modulId
         ]);
 
         return redirect('/dashboard/materi')->with('success', 'materi berhasil di diperbarui');
@@ -185,7 +182,7 @@ class DashboardMateriController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             $materi = materi::whereId($id)->first();
 
             if ($materi) {
@@ -194,11 +191,11 @@ class DashboardMateriController extends Controller
 
                 materi::destroy($id);
 
-                return redirect('/dashboard/materi')->with('success', 'Materi $materi->title berhasil dihapus.');
+                return redirect('/dashboard/materi')->with('success', "Materi $materi->title berhasil dihapus.");
             }
 
-            return redirect('/dashboard/materi')->with('error', 'Materi $materi->title tidak ditemukan.');
-        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/materi')->with('error', "Materi $materi->title tidak ditemukan.");
+        } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/dashboard/materi')->with('failed', "Materi $materi->title tidak bisa dihapus karena sedang digunakan!");
         }
     }
@@ -212,21 +209,20 @@ class DashboardMateriController extends Controller
     private function deleteImage($content)
     {
         $dom = new \DOMDocument();
-            libxml_use_internal_errors(true);
-            $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
-            libxml_clear_errors();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        libxml_clear_errors();
 
-            $images = $dom->getElementsByTagName('img');
+        $images = $dom->getElementsByTagName('img');
 
-            foreach ($images as $img) {
-                $src = $img->getAttribute('src');
-                if (strpos($src, 'storage/content-materi') !== false) {
-                    $filePath = public_path(parse_url($src, PHP_URL_PATH));
-                    if (file_exists($filePath)) {
-                        unlink($filePath);
-                    }
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (strpos($src, 'storage/content-materi') !== false) {
+                $filePath = public_path(parse_url($src, PHP_URL_PATH));
+                if (file_exists($filePath)) {
+                    unlink($filePath);
                 }
             }
+        }
     }
-
 }

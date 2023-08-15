@@ -73,7 +73,7 @@
                                             data-bs-target="#resetPassword{{ $loop->iteration }}">
                                             <i class="fa-solid fa-unlock-keyhole"></i>
                                         </button>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
@@ -146,7 +146,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Reset</button>
+                                                    <button type="submit" class="btn btn-dark">Reset</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -212,9 +212,9 @@
                                                         <div class="mb-3">
                                                             <label for="role" class="form-label">Role</label>
                                                             <select class="form-select" name="role" id="role">
-                                                                <option value="0" selected>Mahasiswa</option>
-                                                                <option value="1" selected>Dosen</option>
-                                                                <option value="2" selected>Admin</option>
+                                                                <option value="0" {{ old('role', $user->role) == 0 ? 'selected' : '' }}>Mahasiswa</option>
+                                                                <option value="1" {{ old('role', $user->role) == 1 ? 'selected' : '' }}>Dosen</option>
+                                                                <option value="2" {{ old('role', $user->role) == 2 ? 'selected' : '' }}>Admin</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -222,7 +222,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    <button type="submit" class="btn btn-warning text-white">Perbarui</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -247,8 +247,7 @@
                                                 <div class="modal-body">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="id" value="{{ $user->id }}">
-                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b>{{ $user->username }} ?</b>
+                                                    <p class="fs-5">Apakah anda yakin akan menghapus data <b>{{ $user->username }} ?</b></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
