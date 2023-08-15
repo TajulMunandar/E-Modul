@@ -8,7 +8,7 @@
         <div class="col-sm-6 col-md-12 col-lg-8">
             <a href="{{ route('materi.index')  }}" class="btn btn-dark mb-3"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
             <div class="card">
-                <h5 class="card-header">Buat Materi Baru</h5>
+                <h5 class="card-header">Edit Materi</h5>
                 <form action="{{ route('materi.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
@@ -53,7 +53,7 @@
                                 @enderror
                             </div>
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Perbarui</button>
                               </div>
                         </div>
                     </div>

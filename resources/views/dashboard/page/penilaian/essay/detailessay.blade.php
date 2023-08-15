@@ -82,7 +82,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Nilai Jawaban</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -136,7 +136,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Modul</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Nilai Quizz</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('essay.update', $scoreId) }}" method="POST" enctype="multipart/form-data">
@@ -163,7 +163,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="Submit" class="btn btn-primary">Save changes</button>
+                        <button type="Submit" class="btn btn-primary">Perbarui</button>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Jawaban Quizz Choice')
-@section('page-heading', 'Data Jawaban Quizz Choice')
+@section('title', 'Data Question Quizz Choice')
+@section('page-heading', 'Data Question Quizz Choice')
 
 @section('content')
 
@@ -92,7 +92,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Quizz Choice
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Question Choice
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>

@@ -1,6 +1,6 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Jawaban question Choice')
-@section('page-heading', 'Data Jawaban question Choice')
+@section('title', 'Data Question Quizz Essay')
+@section('page-heading', 'Data Question Quizz Essay')
 
 @section('content')
 
@@ -73,7 +73,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data question Choice
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Question Quizz Essay
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -117,7 +117,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data question Choice
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Question Quizz Essay
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -157,7 +157,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data question Choice</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Question Quizz Essay</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
@@ -180,7 +180,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>

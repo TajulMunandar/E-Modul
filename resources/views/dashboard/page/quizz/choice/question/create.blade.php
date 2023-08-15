@@ -1,13 +1,16 @@
 @extends('dashboard.component.main')
-@section('title', 'Data Materi')
-@section('page-heading', 'Data Materi')
+@section('title', 'Data Question Quizz Choice')
+@section('page-heading', 'Data Question Quizz Choice')
 
 @section('content')
 
     <div class="row mt-6">
         <div class="col-sm-6 col-md-12 col-lg-8">
-            <div class="card">
-                <h5 class="card-header">Buat Materi Baru</h5>
+            <div class="col">
+                <a href="{{ route('question.index', ['isChoice' => 'true', 'quizzId' => $quizzId]) }}" class="btn btn-dark "><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+            </div>
+            <div class="card mt-3">
+                <h5 class="card-header">Buat Question Baru</h5>
                 <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
@@ -89,7 +92,7 @@
                                 @enderror
                             </div>
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Tambah</button>
                               </div>
                         </div>
                     </div>
