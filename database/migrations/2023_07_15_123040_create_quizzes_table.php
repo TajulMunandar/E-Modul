@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->time('firstTime');
-            $table->time('lastTime');
+            $table->datetime('firstTime');
+            $table->datetime('lastTime');
             $table->boolean('isChoice');
             $table->foreignId('modulId')->constrained('moduls')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();

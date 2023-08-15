@@ -70,8 +70,7 @@
                             </div>
                             @php
                                 $now = now();
-                                $currentTime = $now->format('H:i'); // Format waktu saat ini hanya jam dan menit
-                                $isWithinTime = $currentTime >= $quiz->firstTime && $currentTime <= $quiz->lastTime;
+                                $isWithinTime = $now >= $quiz->firstTime && $now <= $quiz->lastTime;
                                 $isFinish = \App\Models\score::where('userId', auth()->user()->id)->where('quizId', $quiz->id)->first();
 
                                 $url = '#';

@@ -11,6 +11,7 @@ use App\Models\Prodi;
 use App\Models\question;
 use App\Models\quiz;
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -58,16 +59,16 @@ class DatabaseSeeder extends Seeder
 
         quiz::create([
             'title' => 'Apa',
-            'firstTime' => date('H:i:s', time()),
-            'lastTime' => date('H:i:s', time()),
+            'firstTime' => new DateTime(),
+            'lastTime' => new DateTime(),
             'isChoice' => true,
             'modulId' => 1
         ]);
 
         quiz::create([
             'title' => 'Siapa',
-            'firstTime' => date('H:i:s', time()),
-            'lastTime' => date('H:i:s', time()),
+            'firstTime' => new DateTime(),
+            'lastTime' => new DateTime(),
             'isChoice' => false,
             'modulId' => 1
         ]);

@@ -102,7 +102,7 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="firstTime" class="form-label">First Time</label>
-                                                            <input type="time" class="form-control @error('firstTime') is-invalid @enderror"
+                                                            <input type="datetime-local" class="form-control @error('firstTime') is-invalid @enderror"
                                                                 name="firstTime" id="firstTime" value="{{ old('firstTime', $quizz->firstTime) }}" required>
                                                             @error('firstTime')
                                                                 <div class="invalid-feedback">
@@ -112,7 +112,7 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="lastTime" class="form-label">Last Time</label>
-                                                            <input type="time" class="form-control @error('lastTime') is-invalid @enderror"
+                                                            <input type="datetime-local" class="form-control @error('lastTime') is-invalid @enderror"
                                                                 name="lastTime" id="lastTime" value="{{ old('lastTime', $quizz->lastTime) }}" required>
                                                             @error('lastTime')
                                                                 <div class="invalid-feedback">
@@ -212,7 +212,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="firstTime" class="form-label">First Time</label>
-                                <input type="time" class="form-control @error('firstTime') is-invalid @enderror"
+                                <input type="datetime-local" class="form-control @error('firstTime') is-invalid @enderror"
                                     name="firstTime" id="firstTime" required>
                                 @error('firstTime')
                                     <div class="invalid-feedback">
@@ -222,7 +222,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="lastTime" class="form-label">Last Time</label>
-                                <input type="time" class="form-control @error('lastTime') is-invalid @enderror"
+                                <input type="datetime-local" class="form-control @error('lastTime') is-invalid @enderror"
                                     name="lastTime" id="lastTime" required>
                                 @error('lastTime')
                                     <div class="invalid-feedback">

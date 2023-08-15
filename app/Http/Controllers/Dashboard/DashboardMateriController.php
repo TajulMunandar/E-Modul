@@ -7,8 +7,8 @@ use App\Models\materi;
 use App\Models\modul;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Str;
 
 
 class DashboardMateriController extends Controller
@@ -54,6 +54,8 @@ class DashboardMateriController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->content);
+
         $rules = [
             'title' => 'required',
             'modulId' => 'required',
@@ -148,16 +150,26 @@ class DashboardMateriController extends Controller
             $src = $img->getAttribute('src');
             if (preg_match('/data:image/', $src)) {
                 preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $base64Image = substr($src, strpos($src, ',') + 1);
                 $mimetype = $groups['mime'];
-                $fileNameContent = uniqid();
-                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
-                $filePath = ("$storage/$fileNameContentRand.$mimetype");
-                $image = Image::make($src)->encode($mimetype, 80)->save(public_path($filePath));
-                $new_src = asset($filePath);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $new_src);
-                $img->setAttribute('class', 'img-responsive');
+            } else {
+                $imagePath = parse_url($src, PHP_URL_PATH);
+                $imagePath = preg_replace('/^\/storage\//', '', $imagePath);
+                $imageData = Storage::get($imagePath);
+                // Mendapatkan ekstensi file dari path
+                $mimetype = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $base64Image = base64_encode($imageData);
             }
+            
+            $fileNameContent = uniqid();
+            $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+            $filePath = "$storage/$fileNameContentRand.$mimetype";
+            Image::make($base64Image)->save(public_path($filePath));
+            $new_src = asset($filePath);
+            
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $new_src);
+            $img->setAttribute('class', 'img-responsive');
         }
 
 
@@ -166,6 +178,8 @@ class DashboardMateriController extends Controller
         } else {
             $slug = $request->oldSlug;
         }
+
+        $this->deleteImage($materi->content);
 
         $materi->update([
             'title' => $request->title,
