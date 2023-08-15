@@ -32,9 +32,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Alvin Syahri',
-            'username' => 'alvin_21',
-            'password' => 'alvin111',
+            'name' => 'Admin',
+            'username' => 'admin',
+            'password' => 'admin',
             'prodiId' => 1,
             'role' => 2
         ]);

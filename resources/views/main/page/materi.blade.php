@@ -90,31 +90,34 @@
                         <div class="me-3 d-flex align-items-start">
                             <p style="font-size: 11px" class="me-3 mb-0">{{ $komentar->created_at->format('D-M-Y') }}
                             </p>
-                            @if ($komentar->userId == auth()->user()->id)
-                                <div class="dropdown d-flex align-items-center">
-                                    <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class="fa-solid fa-ellipsis-vertical "></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $loop->iteration }}">
-                                                EDIT
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#hapusModal{{ $loop->iteration }}">
-                                                DELETE
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
+                            @if (auth()->user())
+                                @if ($komentar->userId == auth()->user()->id)
+                                    <div class="dropdown d-flex align-items-center">
+                                        <a class=" dropdown" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fa-solid fa-ellipsis-vertical "></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $loop->iteration }}">
+                                                    EDIT
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusModal{{ $loop->iteration }}">
+                                                    DELETE
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>
 
+                    @if (auth()->user())
                     {{--  EDIT MODAL KOMENTAR  --}}
                     <div class="modal fade" id="editModal{{ $loop->iteration }}" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,7 +144,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-info text-white">Edit Coment</button>
+                                    <button type="submit" class="btn btn-warning text-white">Edit</button>
                                 </div>
                                 </form>
                             </div>
@@ -165,19 +168,21 @@
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{ $komentar->id }}">
                                         <input type="hidden" name="slug" value="{{ $materi->slug }}">
-                                        <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                        <b>{{ $komentar->name }} ?</b>
+                                        <p class="fs-5">Apakah anda yakin akan menghapus Komentar
+                                            <b>{{ $komentar->name }}</b>?</p>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-info text-white">Delete Coment</button>
+                                    <button type="submit" class="btn btn-danger text-white">Delete</button>
                                 </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     {{--  DELETE MODAL KOMENTAR  --}}
+                    @endif
                 @endforeach
             </div>
             @if (auth()->user())

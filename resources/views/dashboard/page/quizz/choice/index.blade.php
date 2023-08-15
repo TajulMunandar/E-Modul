@@ -62,7 +62,7 @@
                                     <td>{{ $quizz->moduls->name }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('question.index', ['isChoice' => 'true', 'quizzId' => $quizz->id]) }}"><i class="fa-solid fa-book-open-reader"></i></a>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $loop->iteration }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>

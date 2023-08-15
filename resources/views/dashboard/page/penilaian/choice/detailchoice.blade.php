@@ -27,6 +27,7 @@
     {{--  CONTENT  --}}
     <div class="row mt-3 mb-5">
         <div class="col">
+            <a href="{{ route('choice.index', ['isChoice' => 'true']) }}" class="btn btn-dark "><i class="fa-solid fa-arrow-left"></i> Kembali</a>
             <div class="card mt-3 col-sm-6 col-md-12">
                 <div class="card-body">
                     {{-- tables --}}

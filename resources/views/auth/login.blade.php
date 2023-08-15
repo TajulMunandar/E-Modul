@@ -88,12 +88,7 @@
                   </span>
                 </div>
               </div>
-              <div class="text-end mb-3">
-                <a href="auth-forgot-password-basic.html">
-                  <small>Lupa Password?</small>
-                </a>
-              </div>
-              <div class="mb-3">
+              <div class="mb-3 mt-4">
                 <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
               </div>
             </form>

@@ -49,8 +49,28 @@
                 </div>
                 <hr>
                 <footer class="footer px-5 py-3 text-end">
-                    <button class="btn btn-primary " type="submit">Selesai</button>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#selesai">Selesai</a>
                 </footer>
+                <!-- Modal -->
+                <div class="modal fade" id="selesai" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Quiz</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Apakah Anda Yakin Sudah Mengisi Soal dengan Benar?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         @else
             {{-- essay --}}
@@ -73,17 +93,36 @@
                                 <div class="col-lg-4 ">
                                     <div class="mb-3">
                                         <input class="form-control" type="file" id="formFile" name="file[]">
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     @endforeach
                 </div>
                 <hr>
                 <footer class="footer px-5 py-3 text-end">
-                    <button class="btn btn-primary ">Selesai</button>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#selesai">Selesai</a>
                 </footer>
+                <!-- Modal -->
+                <div class="modal fade" id="selesai" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Quiz</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Apakah Anda Yakin Sudah Mengisi Soal dengan Benar?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         @endif
     </div>

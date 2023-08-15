@@ -9,7 +9,7 @@
                     {{ $modul->name }}</h2>
             </div>
             <div class="col text-end">
-                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span class="badge bg-primary p-2">{{ $modul->name }}</span></p>
+                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span class="badge bg-primary p-2">{{ $modul->users->name }}</span></p>
             </div>
         </div>
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
