@@ -148,10 +148,16 @@
                                                                         {{ auth()->user()->name }}</option>
                                                                 @elseif (auth()->user()->role == 2)
                                                                     @foreach ($dosens as $dosen)
-                                                                        <option value="{{ $dosen->id }}"
-                                                                            {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
-                                                                            {{ $dosen->name }}
-                                                                        </option>
+                                                                        @if (isset($modul))
+                                                                            <option value="{{ $dosen->id }}"
+                                                                                {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
+                                                                                {{ $dosen->name }}
+                                                                            </option>
+                                                                        @else
+                                                                            <option value="{{ $dosen->id }}">
+                                                                                {{ $dosen->name }}
+                                                                            </option>
+                                                                        @endif
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -201,7 +207,8 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="id" value="{{ $modul->id }}">
                                                     <p class="fs-5">Apakah anda yakin akan menghapus data
-                                                        <b>{{ $modul->name }} ?</b></p>
+                                                        <b>{{ $modul->name }} ?</b>
+                                                    </p>
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -326,10 +333,16 @@
                                             {{ auth()->user()->name }}</option>
                                     @elseif (auth()->user()->role == 2)
                                         @foreach ($dosens as $dosen)
-                                            <option value="{{ $dosen->id }}"
-                                                {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
-                                                {{ $dosen->name }}
-                                            </option>
+                                            @if (isset($modul))
+                                                <option value="{{ $dosen->id }}"
+                                                    {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
+                                                    {{ $dosen->name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $dosen->id }}">
+                                                    {{ $dosen->name }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     @endif
                                 </select>

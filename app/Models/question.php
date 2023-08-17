@@ -15,12 +15,12 @@ class question extends Model
 
     public function jawabans()
     {
-        return $this->hasMany(jawaban::class, 'questionId');
+        return $this->hasMany(jawaban::class, 'questionId', 'id');
     }
 
     public function essayusers()
     {
-        return $this->hasMany(essayUser::class, 'questionId');
+        return $this->hasMany(essayUser::class, 'questionId', 'id');
     }
 
     public function quizzes()
