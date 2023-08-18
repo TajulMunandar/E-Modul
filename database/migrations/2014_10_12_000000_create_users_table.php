@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->string('image')->nullable();
             $table->integer('role');
-            $table->foreignId('prodiId')->constrained('prodis')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('prodiId')->constrained('prodis')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

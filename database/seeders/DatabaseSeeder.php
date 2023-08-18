@@ -40,6 +40,14 @@ class DatabaseSeeder extends Seeder
             'role' => 2
         ]);
 
+        User::create([
+            'name' => 'Alvin',
+            'username' => 'alvin',
+            'password' => 'alvin',
+            'prodiId' => 1,
+            'role' => 2
+        ]);
+
 
 
 

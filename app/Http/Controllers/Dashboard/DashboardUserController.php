@@ -3,7 +3,16 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\choiceUser;
+use App\Models\essayUser;
+use App\Models\jawaban;
+use App\Models\materi;
+use App\Models\MateriStatus;
+use App\Models\modul;
 use App\Models\Prodi;
+use App\Models\question;
+use App\Models\quiz;
+use App\Models\score;
 use App\Models\User;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -94,13 +103,47 @@ class DashboardUserController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
             $user = User::whereId($id)->first();
+            if($user->role == 1 || $user->role == 2){
+
+                $user->moduls->each(function ($modul) {
+                    $modul->materis->each(function ($materi) {
+                        $materi->materiStatus->each->delete();
+                        $materi->komentars->each->delete();
+                        $materi->delete();
+                    });
+    
+                    $modul->quizzes->each(function ($quiz) {
+                        $quiz->questions->each(function ($question) {
+                            $question->jawabans->each->choiceUser->each->delete(); 
+                            $question->jawabans->each->delete(); 
+                            $question->essayusers->each->delete(); 
+                            $question->delete();
+                        });
+                        $quiz->scores->each->delete();
+                        $quiz->delete();
+                    });
+                    $modul->delete();
+                });
+            }
+            $user->scores->each(function ($score){
+                $score->delete();
+            });
+            $user->materiStatus->each(function ($materistatus){
+                $materistatus->delete();
+            });
+            $user->komentars->each(function ($komentar){
+                $komentar->delete();
+            });
+            $user->essayusers->each(function ($essay){
+                $essay->delete();
+            });
+            $user->choiceusers->each(function ($choice){
+                $choice->delete();
+            });
+            
             User::destroy($id);
             return redirect('/dashboard/user')->with('success', "User $user->name berhasil dihapus!");
-        }catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/dashboard/user')->with('failed', "User $user->name tidak bisa dihapus karena sedang digunakan!");
-        }
     }
 
     public function resetPasswordAdmin(Request $request)

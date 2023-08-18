@@ -38,17 +38,32 @@ class User extends Authenticatable
 
     public function moduls()
     {
-        return $this->hasMany(modul::class);
+        return $this->hasMany(modul::class, 'userId', 'id');
     }
 
     public function komentars()
     {
-        return $this->hasMany(Komentar::class);
+        return $this->hasMany(Komentar::class, 'userId', 'id');
     }
 
     public function scores()
     {
-        return $this->hasMany(score::class);
+        return $this->hasMany(score::class, 'userId', 'id');
+    }
+
+    public function essayusers()
+    {
+        return $this->hasMany(essayUser::class, 'userId', 'id');
+    }
+
+    public function choiceusers()
+    {
+        return $this->hasMany(choiceUser::class, 'userId', 'id');
+    }
+
+    public function materiStatus()
+    {
+        return $this->hasMany(MateriStatus::class, 'userId', 'id');
     }
 
     public function prodis()
