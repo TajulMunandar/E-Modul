@@ -45,11 +45,6 @@
                                             class="form-control @error('answer.' . $index) is-invalid @enderror"
                                             name="answer[]" id="answer{{ $index }}"
                                             value="{{ old('answer.' . $index, $value->name) }}" required>
-                                    @else
-                                        {{-- Gunakan input hidden untuk jawaban ke-5 --}}
-                                        <input type="hidden" name="jawaban">
-                                        <input type="hidden" class="form-control" name="answer[]"
-                                            value="{{ old('answer.' . $index, $value->name) }}" required>
                                     @endif
 
                                     @error('jawaban')
