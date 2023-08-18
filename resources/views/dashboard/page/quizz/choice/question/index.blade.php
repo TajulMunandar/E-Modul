@@ -27,7 +27,8 @@
     {{--  CONTENT  --}}
     <div class="row mt-3 mb-5">
         <div class="col">
-            <a href="{{ route('choicee.index', ['isChoice' => 'true']) }}" class="btn btn-dark "><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+            <a href="{{ route('choicee.index', ['isChoice' => 'true']) }}" class="btn btn-dark "><i
+                    class="fa-solid fa-arrow-left"></i> Kembali</a>
             <a class="btn btn-dark" href="{{ route('question.create', ['isChoice' => $isChoice, 'quizzId' => $quizzId]) }}">
                 <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -58,73 +59,78 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $question->title }}</td>
                                     <td>
-                                        @foreach ($question->jawabans as $key => $jawaban)
+                                    @foreach ($question->jawabans as $key => $jawaban)
                                             @php
                                                 $abjad = chr(97 + $key);
                                             @endphp
 
                                             {{ $abjad }}. {{ $jawaban->name }} <br>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @php
-                                            $correct = $question->jawabans->where('status', true)->first();
-                                        @endphp
-                                        @if ($correct)
-                                            {{ $correct->name }}
-                                        @else
-                                            Tidak ada jawaban yang benar
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-warning text-white" href="{{ route('question.edit', ['question' => $question->id, 'isChoice' => $isChoice, 'quizzId' => $quizzId]) }}"><i
+                                            @if ($key === 3)
+                                                @break
+                                            @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @php
+                                        $correct = $question->jawabans->where('status', true)->first();
+                                    @endphp
+                                    @if ($correct)
+                                        {{ $correct->name }}
+                                    @else
+                                        Tidak ada jawaban yang benar
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning text-white"
+                                        href="{{ route('question.edit', ['question' => $question->id, 'isChoice' => $isChoice, 'quizzId' => $quizzId]) }}"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
-                                        <button id="delete-button" class="btn btn-danger" id="delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#hapusModal">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <button id="delete-button" class="btn btn-danger" id="delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#hapusModal">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
 
-                                {{--  MODAL DELETE  --}}
-                                <div class="modal fade" id="hapusModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Data Question Choice
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{ route('question.destroy', $question->id) }}" method="POST"
-                                                enctype="multipart/form-data">
-                                                @method('PUT')
-                                                @csrf
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="isChoice" id="" value="true">
-                                                    <input type="hidden" name="quizId" id="" value="{{ $quizzId }}">
-                                                    <p class="fs-5">Apakah anda yakin akan menghapus data </p>
-                                                    <b>{{ $question->title }} ?</b>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </div>
-                                            </form>
+                            {{--  MODAL DELETE  --}}
+                            <div class="modal fade" id="hapusModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete Data Question Choice
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
+                                        <form action="{{ route('question.destroy', $question->id) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @method('PUT')
+                                            @csrf
+                                            <div class="modal-body">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="isChoice" id="" value="true">
+                                                <input type="hidden" name="quizId" id=""
+                                                    value="{{ $quizzId }}">
+                                                <p class="fs-5">Apakah anda yakin akan menghapus data </p>
+                                                <b>{{ $question->title }} ?</b>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                {{--  MODAL DELETE  --}}
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </div>
+                            {{--  MODAL DELETE  --}}
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    {{--  CONTENT  --}}
+</div>
+{{--  CONTENT  --}}
 
 @endsection

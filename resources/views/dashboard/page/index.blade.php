@@ -27,7 +27,7 @@
                     <div class="card-body p-5">
                         <div class="row d-flex align-items-center">
                             <div class="col">
-                                <h3 class="fw-light">Guru</h3>
+                                <h3 class="fw-light">Dosen</h3>
                                 <h3 class="fw-bold">{{ $dosen }}</h3>
                             </div>
                             <div class="col">

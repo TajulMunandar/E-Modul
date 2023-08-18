@@ -4,8 +4,13 @@
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-lg-5 col-md-12">
-                <p class="hastag" data-aos="fade-right" data-aos-duration="1000">#PejuangIlmu</p>
-                <h1 class="fw-bolder mb-3 lh-base" data-aos="fade-right" data-aos-duration="1200" style="color: #001C30;">Bangun
+                <p class="hastag" data-aos="fade-right" data-aos-duration="1000">
+                    <a href="https://iain-takengon.ac.id/" target="_blank">
+                        <img src="{{ asset('images/logo2.png') }}" alt="" width="75%">
+                    </a>
+                </p>
+                <h1 class="fw-bolder mb-3 lh-base" data-aos="fade-right" data-aos-duration="1200" style="color: #001C30;">
+                    Bangun
                     Masa Depanmu Dengan Ilmu</h1>
                 <p class="caption lh-md" data-aos-duration="1400" data-aos="fade-right"> Jelajahi dunia pengetahuan dengan
                     e-learning, platform interaktif yang memungkinkan Anda belajar secara

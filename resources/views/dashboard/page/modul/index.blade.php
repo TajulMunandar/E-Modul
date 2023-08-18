@@ -326,8 +326,7 @@
                                             {{ auth()->user()->name }}</option>
                                     @elseif (auth()->user()->role == 2)
                                         @foreach ($dosens as $dosen)
-                                            <option value="{{ $dosen->id }}"
-                                                {{ old('role', $modul->userId) == $dosen->id ? 'selected' : '' }}>
+                                            <option value="{{ $dosen->id }}">
                                                 {{ $dosen->name }}
                                             </option>
                                         @endforeach

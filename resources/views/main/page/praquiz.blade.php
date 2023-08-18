@@ -46,32 +46,49 @@
                                     @endif
 
                                     @php
-                                    $score = $quiz->scores->where('userId', auth()->user()->id)->first(); // Ambil skor pertama (jika ada) dari relasi scores
+                                        $score = $quiz->scores->where('userId', auth()->user()->id)->first(); // Ambil skor pertama (jika ada) dari relasi scores
                                     @endphp
 
                                     @if ($score)
-                                        <p class="mb-0 text-end"><span class="badge bg-black">{{ $score->nilai }} / 100</span></p>
+                                        <p class="mb-0 text-end"><span class="badge bg-black">{{ $score->nilai }} /
+                                                100</span></p>
                                     @else
                                         <p class="mb-0 text-end"><span class="badge bg-black">No Score</span></p>
                                     @endif
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">Dari Jam:</div>
-                                <div class="col">Sampai Jam:</div>
-                            </div>
-                            <div class="row mb-3 fs-5">
                                 <div class="col">
-                                    <p class="badge bg-primary"><span>{{ $quiz->firstTime }}</span></p>
+                                    <?php
+                                    $first = $quiz->firstTime;
+
+                                    $last = $quiz->lastTime;
+
+                                    // Convert the datetime to Y-m-d format (Year-Month-Day)
+                                    $firstTime = date('D M Y', strtotime($first));
+                                    $lastTime = date('D M Y', strtotime($last));
+
+                                    // Extract the time from the datetime and format it as HH:MM
+                                    $firstTime2 = date('H:i', strtotime($first));
+                                    $lastTime2 = date('H:i', strtotime($last));
+                                    ?>
+                                    <p class="mb-1">Dari:</p>
+                                    <p class="badge bg-info mb-1"><span>{{ $firstTime }}</span></p>
+                                    <p class="ms-1">{{ $firstTime2 }} WIB</p>
                                 </div>
                                 <div class="col">
-                                    <p class="badge bg-danger"><span>{{ $quiz->lastTime }}</span></p>
+                                    <p class="mb-1">Sampai:</p>
+                                    <p class="badge bg-danger mb-1"><span>{{ $lastTime }}</span></p>
+                                    <p class="ms-1">{{ $lastTime2 }} WIB</p>
                                 </div>
                             </div>
+
                             @php
                                 $now = now();
                                 $isWithinTime = $now >= $quiz->firstTime && $now <= $quiz->lastTime;
-                                $isFinish = \App\Models\score::where('userId', auth()->user()->id)->where('quizId', $quiz->id)->first();
+                                $isFinish = \App\Models\score::where('userId', auth()->user()->id)
+                                    ->where('quizId', $quiz->id)
+                                    ->first();
 
                                 $url = '#';
                                 if ($isWithinTime && !$isFinish) {
@@ -79,13 +96,12 @@
                                 }
 
                                 $modulAkses = $quiz->moduls->prodiId == auth()->user()->prodiId;
-                                $buttonClasses = "btn btn-primary stretched-link float-end";
+                                $buttonClasses = 'btn btn-primary stretched-link float-end';
                                 if (!$isWithinTime || $isFinish || !$modulAkses) {
-                                    $buttonClasses .= " disabled";
+                                    $buttonClasses .= ' disabled';
                                 }
                             @endphp
-                            <a href="{{ $url }}"
-                                class="{{ $buttonClasses }}">
+                            <a href="{{ $url }}" class="{{ $buttonClasses }}">
                                 Mulai
                             </a>
                         </div>

@@ -9,14 +9,15 @@
                     {{ $modul->name }}</h2>
             </div>
             <div class="col text-end">
-                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span class="badge bg-primary p-2">{{ $modul->users->name }}</span></p>
+                <p class="fs-5" data-aos="fade-left" data-aos-duration="1200"><span
+                        class="badge bg-primary p-2">{{ $modul->users->name }}</span></p>
             </div>
         </div>
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('pramateri/' . $modul->slug . '/pramateri') || Request::is('pramateri/' . $modul->slug )  ? 'active' : '' }}"
+                        <a class="nav-link {{ Request::is('pramateri/' . $modul->slug . '/pramateri') || Request::is('pramateri/' . $modul->slug) ? 'active' : '' }}"
                             href="{{ route('pramateri-main.show', ['modul' => $modul->slug]) }}">Materi</a>
                     </li>
                     @if (auth()->user())
@@ -38,7 +39,13 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title fw-bold">{{ $pramateri->title }}</h5>
-                                    <p class="card-text">{{ strip_tags($pramateri->content) }}</p>
+                                    <p class="card-text">
+                                        @php
+                                            $content = strip_tags($pramateri->content);
+                                            $trimmedContent = strlen($content) > 50 ? substr($content, 0, 50) . '...' : $content;
+                                        @endphp
+                                        {{ $trimmedContent }}
+                                    </p>
                                 </div>
                             </div>
 
