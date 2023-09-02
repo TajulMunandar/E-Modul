@@ -114,7 +114,10 @@ class DashboardUserController extends Controller
 
                     $modul->quizzes->each(function ($quiz) {
                         $quiz->questions->each(function ($question) {
-                            $question->jawabans->each->choiceUser->each->delete();
+                            $question->jawabans->each(function ($jawaban){
+                                $jawaban->choiceUser->each->delete();
+                                $jawaban->delete();
+                            });
                             $question->jawabans->each->delete();
                             $question->essayusers->each->delete();
                             $question->delete();

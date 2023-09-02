@@ -145,13 +145,32 @@ class DashboardModulController extends Controller
     {
         try {
             $modul = modul::whereId($id)->first();
+            $modul->materis->each(function ($materi) {
+                $materi->materiStatus->each->delete();
+                $materi->komentars->each->delete();
+                $materi->delete();
+            });
+            $modul->quizzes->each(function ($quiz) {
+                $quiz->questions->each(function ($question) {
+                    $question->jawabans->each(function ($jawaban){
+                        $jawaban->choiceUser->each->delete();
+                        $jawaban->delete();
+                    });
+                    $question->jawabans->each->delete();
+                    $question->essayusers->each->delete();
+                    $question->delete();
+                });
+                $quiz->scores->each->delete();
+                $quiz->delete();
+            });
+                    
             if ($modul->image) {
                 Storage::delete($modul->image);
             }
             modul::destroy($id);
             return redirect('/dashboard/modul')->with('success', "Modul $modul->name berhasil dihapus!");
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/dashboard/modul')->with('failed', "Modul $modul->name tidak bisa dihapus karena sedang digunakan!");
+            return redirect('/dashboard/modul')->with('failed', "Modul $modul->name tidak bisa dihapus karena sedang digunakan! $e");
         }
     }
 
