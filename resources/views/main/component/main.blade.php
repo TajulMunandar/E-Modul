@@ -11,6 +11,7 @@
     <div class="body-content">
         @yield('content')
     </div>
+
     @include('main.component.script')
 
     <script>

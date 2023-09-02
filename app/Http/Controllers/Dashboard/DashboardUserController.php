@@ -105,19 +105,18 @@ class DashboardUserController extends Controller
     {
             $user = User::whereId($id)->first();
             if($user->role == 1 || $user->role == 2){
-
                 $user->moduls->each(function ($modul) {
                     $modul->materis->each(function ($materi) {
                         $materi->materiStatus->each->delete();
                         $materi->komentars->each->delete();
                         $materi->delete();
                     });
-    
+
                     $modul->quizzes->each(function ($quiz) {
                         $quiz->questions->each(function ($question) {
-                            $question->jawabans->each->choiceUser->each->delete(); 
-                            $question->jawabans->each->delete(); 
-                            $question->essayusers->each->delete(); 
+                            $question->jawabans->each->choiceUser->each->delete();
+                            $question->jawabans->each->delete();
+                            $question->essayusers->each->delete();
                             $question->delete();
                         });
                         $quiz->scores->each->delete();
@@ -141,7 +140,7 @@ class DashboardUserController extends Controller
             $user->choiceusers->each(function ($choice){
                 $choice->delete();
             });
-            
+
             User::destroy($id);
             return redirect('/dashboard/user')->with('success', "User $user->name berhasil dihapus!");
     }
